@@ -22,8 +22,11 @@
     <link rel="stylesheet" href="https://js.arcgis.com/4.22/esri/themes/light/main.css">
     <script src="https://js.arcgis.com/4.22/"></script>
     <script>
-        require(["esri/config", "esri/Map", "esri/views/MapView", "esri/layers/support/LabelClass", "esri/layers/GeoJSONLayer", "esri/symbols/SimpleFillSymbol", "esri/renderers/SimpleRenderer"],
-            function (esriConfig, Map, MapView, LabelClass, GeoJSONLayer, SimpleFillSymbol, SimpleRenderer) {
+        require(["esri/config", "esri/Map", "esri/views/MapView",
+            "esri/layers/support/LabelClass", "esri/layers/GeoJSONLayer",
+            "esri/symbols/SimpleFillSymbol", "esri/renderers/SimpleRenderer",
+            "esri/Graphic", "esri/layers/GraphicsLayer"],
+            function (esriConfig, Map, MapView, LabelClass, GeoJSONLayer, SimpleFillSymbol, SimpleRenderer, Graphic, GraphicsLayer) {
 
                 esriConfig.apiKey = "AAPK34aa95241bd14d65a190aad6a5423795BeuJfE_PQFJLJTLbZZLn2lQA4TgiQqodhptr-I_oh8Lp23QZpDY4ziQdVtt5XyVa";
 
@@ -52,15 +55,41 @@
                         haloColor: "white"
                     }
                 });
-                
+
                 axios({
                     method: "GET",
                     url: "https://api.baserow.io/api/database/rows/table/50209/?user_field_names=true",
                     headers: {
                         Authorization: "Token loPSf2BpL784tYF2sv0j8KvevdK0Jtmt"
                     }
-                }).then((resp)=>{
-                    console.log(resp.data.results)
+                }).then((resp) => {
+                    const lnglats = resp.data.results.map((l) => l.test.split(','));
+                    const graphicsLayer = new GraphicsLayer();
+                    map.add(graphicsLayer);
+                    lnglats.forEach(lnglat => {
+
+                        const point = { //Create a point
+                            type: "point",
+                            longitude: lnglat[0],
+                            latitude: lnglat[1]
+                        };
+
+                        const simpleMarkerSymbol = {
+                            type: "simple-marker",
+                            color: [226, 119, 40],  // Orange
+                            outline: {
+                                color: [255, 255, 255], // White
+                                width: 1
+                            }
+                        };
+
+                        const pointGraphic = new Graphic({
+                            geometry: point,
+                            symbol: simpleMarkerSymbol
+                        });
+                        graphicsLayer.add(pointGraphic);
+                    });
+
                 })
                 axios.get(nativeLandAPI).then((resp) => {
 
@@ -87,8 +116,6 @@
 
                     map.add(layer)
                 })
-                //    console.log(nativeLandReq)
-
             });
     </script>
 
