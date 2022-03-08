@@ -26,7 +26,7 @@ export default {
     return {};
   },
   mounted: function () {
-    mapboxgl.accessToken = this.$mainConfig.api.keys.CUNYMapBoxKey;
+    mapboxgl.accessToken = this.$mainConfig.api.keys["mb-key"];
     this.map = new mapboxgl.Map(this.$mainConfig.mapConfig);
     let map = (Vue.prototype.$map = this.map);
     Vue.prototype.$eventManager = new EventManager();
@@ -34,10 +34,31 @@ export default {
     let self = this;
 
     this.map.addControl(new mapboxgl.NavigationControl(), "bottom-left");
-
+    map.addControl(
+      new mapboxgl.GeolocateControl({
+        positionOptions: {
+          enableHighAccuracy: true,
+        },
+        trackUserLocation: true,
+        showUserHeading: true,
+      })
+    );
     map.once("idle", () => {
-      self.$layerManager.addLayersToMap(self.map);
-      self.$layerManager.initToggledLayersFromUrl(self.map);
+      // self.$layerManager.addLayersToMap({
+      //   map: self.map,
+      //   url: self.$mainConfig.[NATIVE LAND URL],
+      //   style: self.$styleConfig.[NATIVE LAND STYLE],
+      // });
+      self.$layerManager.addLayerToMap({
+        type: "baserow",
+        map: self.map,
+        filter: "filter__field_177149__not_empty",
+        sizeLimit: 200,
+        tableid: self.$mainConfig.api.baserow.tables.main,
+        style: self.$styleConfig["baserow-markers"],
+      });
+
+      //self.$layerManager.initToggledLayersFromUrl(self.map);
     });
 
     map.on("mousemove", () => {
@@ -90,12 +111,12 @@ export default {
         [e.lngLat.lng.toFixed(3), e.lngLat.lat.toFixed(3)].join(",")
       );
 
-      self.marker = new mapboxgl.Marker({
-        color: self.$styleConfig.styles["marker-color"],
-        draggable: false,
-      }).setLngLat(e.lngLat);
+      // self.marker = new mapboxgl.Marker({
+      //   color: self.$styleConfig.styles["marker-color"],
+      //   draggable: false,
+      // }).setLngLat(e.lngLat);
 
-      self.marker.addTo(self.$map);
+      // self.marker.addTo(self.$map);
     },
   },
   computed: {},
@@ -103,7 +124,6 @@ export default {
 };
 </script>
 <style scoped>
-
 #main-map {
   width: 100%;
   height: 100vh;
@@ -113,6 +133,10 @@ export default {
 }
 </style>
 <style>
+.mapboxgl-popup-content {
+  overflow-y: scroll;
+  max-height: 35vh;
+}
 .mapboxgl-ctrl-attrib-inner {
   display: inline-block;
 }

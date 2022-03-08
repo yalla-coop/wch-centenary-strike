@@ -2,7 +2,7 @@
   <v-app id="app">
     <v-container fluid class="pa-0 blue lighten-5">
       <v-row class="ma-0">
-        <v-col cols="12" sm="6" class="pa-0">
+        <v-col cols="1" sm="12" class="pa-0">
           <Map />
         </v-col>
       </v-row>

@@ -1,28 +1,31 @@
 {
 	"name": "mainConfig",
 	"api": {
-		"hosts": {
-			"api": ""
+		"baserow": {
+			"tables":{
+				"main": "33215"
+			}
 		},
 		"keys": {
-			"mb-key": ""
+			"mb-key": "pk.eyJ1Ijoid29ya2luZ2NsYXNzaGlzdG9yeSIsImEiOiJjbDBpbTVuYTYwM2NwM2pxZjZ5aHh0dWE5In0.90jdrAehYtpBlP1u0cxnaw",
+			"baserow": "vphpXZBVBaL3BhMlBho7B3NI9jRhcSHL"
 		}
 	},
 	"mapConfig": {
 		"container": "main-map",
-		"style": "mapbox://styles/cunycur/ckux6b6x13zu218tero5yr7ce",
+		"style": "mapbox://styles/workingclasshistory/cl0im7k3c000y14lrxp7s82oi",
 		"center": [
-			-83.3,
-			32.9
+			0,
+			0
 		],
-		"zoom": 6.4,
+		"zoom": 2,
 		"hash": "&map",
 		"logoPosition": "bottom-right",
 		"attributionControl": true,
 		"preserveDrawingBuffer": true,
 		"antialias": true
 	},
-	"map-logos":[],
+	"map-logos": [],
 	"toggleable-layers": [
 		{
 			"layer-ids": [

@@ -1,4 +1,6 @@
 {
     "name": "styleConfig",
-    "styles": {}
+    "styles": {
+        "baserow-markers":{}
+    }
 }
