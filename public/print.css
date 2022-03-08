@@ -1,0 +1,466 @@
+.title button,
+.tab-btn,
+.v-input--selection-controls__input,
+.select-plan,
+.v-tooltip,
+.fa-info-circle.v-icon,
+.side-legend-container{
+  display: none !important;
+}
+
+ #print-container .side-content-container{
+   display: block !important;
+ }
+
+.v-input.theme--light.v-input--selection-controls.v-input--switch {
+  display: none !important;
+}
+
+.v-input.v-input--is-label-active.v-input--is-dirty.theme--light.v-input--selection-controls.v-input--switch.blue--text {
+  display: inline !important;
+}
+
+.container {
+  width: 100% !important;
+  padding: 12px !important;
+  margin-right: auto !important;
+  margin-left: auto !important;
+}
+
+.title.district-state {
+  padding-left: 0px;
+}
+
+.v-tabs.legend-items,
+.v-window-item {
+  display: block !important;
+  /* display: none; */
+}
+
+.map-img {
+  max-width: 100%;
+  margin-top: 100px;
+}
+
+.pie-chart-container {
+  width: 100%;
+}
+
+.pie-chart-div {
+  width: 50%;
+  padding: 5px;
+  display: inline-block;
+}
+
+div .legend span {
+  display: block;
+
+  margin-right: 5px;
+  margin-bottom: -4px;
+  /* border: 1px solid darkgrey; */
+  /* border: 1px solid rgb(253, 253, 253); */
+  opacity: 0.9;
+}
+
+.chart-holder {
+  padding: 0 5px;
+  margin: 5px 0px;
+  background-color: #fff7 !important;
+}
+
+.legend {
+  font-size: 0.9em;
+  display: inline-block;
+  width: 100%;
+  padding: 1%;
+  border-top: 1px solid #80808030;
+}
+
+.column-1,
+.column-2 {
+  width: 48%;
+  display: inline-block;
+  /* font-size: .9em; */
+  position: initial;
+}
+
+.column-1 span,
+.column-2 span {
+  cursor: default !important;
+}
+
+.column-2 {
+  position: absolute;
+}
+
+.swatch {
+  width: 15px;
+  height: 15px;
+  display: inline-block !important;
+}
+
+#cvap-chart-container {
+  border-left: 1px solid #d3d3d352;
+}
+
+#tot-chart-container {
+  border-right: 1px solid #d3d3d352;
+}
+
+.tooltip {
+  padding: 10px;
+  border-radius: 4px;
+  font-family: "Roboto", Tahoma, sans-serif;
+}
+
+.chart-title {
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
+  display: inline-block;
+}
+
+.hover-hint {
+  color: gray;
+}
+
+.chart-pct {
+  color: gray;
+  /* max-height: 10px; */
+  font-size: .9em;
+  height: 38px;
+  display: block;
+  line-height: 1.4;
+}
+
+.outline-show {
+  stroke: #000000;
+  stroke-width: 3px;
+  stroke-linejoin: round;
+}
+
+.legend-item:hover {
+  background-color: lightgray;
+  border-radius: 0;
+}
+
+.print-only,
+.hover-hint,
+.chart-pct {
+  display: none;
+}
+
+.print-only {
+  display: block;
+  border-bottom: 1px solid lightgrey;
+  padding: 10px 0px;
+  margin-bottom: 10px;
+}
+
+.centertextblock {
+  text-align: center;
+  display: block;
+}
+
+.list-unstyled {
+  padding-left: 0;
+  list-style: none;
+}
+
+.selected-district-data-item {
+  padding: 10px;
+}
+
+.districtpanel-subhead {
+  margin-top: 10px;
+  margin-bottom: 0px !important;
+  font-size: 1.1rem !important;
+  font-weight: 400;
+  letter-spacing: 0.0125em !important;
+  font-style: italic;
+}
+
+.v-divider {
+  margin-top: 10px;
+}
+
+.table-wrap-scoped,
+td {
+  word-wrap: initial;
+}
+
+/*LOCATION REPORT REPRESENTATIVE INFO*/
+.representative {
+  margin-top: 5px;
+  margin-bottom: 25px;
+}
+
+.representative-name {
+  font-size: 18px;
+  color: #404040;
+  margin-bottom: 5px;
+}
+
+.representative-photo {
+  max-width: 100px;
+  vertical-align: text-top;
+}
+
+ul.representative-info {
+  color: #333333;
+  margin-bottom: 6px;
+}
+
+ul.representative-info li {
+  margin-bottom: 3px;
+}
+
+ul.representative-info li a {
+  display: inline-block;
+  /*margin-left:4px;*/
+  /* These are technically the same, but use both */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -ms-word-break: break-all;
+  /* This is the dangerous one in WebKit, as it breaks things wherever */
+  word-break: break-all;
+  /* Instead use this non-standard one: */
+  word-break: break-word;
+}
+
+.representative-info-source {
+  padding-left: 5px;
+  display: inline-block;
+}
+
+.info-label {
+  float: left;
+  clear: both;
+  margin-right: 8px;
+}
+
+.info-value {
+  overflow: hidden;
+}
+
+* {
+  text-decoration: none !important;
+  color-adjust: exact !important;
+}
+
+.swatch,
+.legend .legend-content span {
+  border-width: 8px !important;
+}
+
+.title.district-state {
+  min-height: 70px;
+  margin-bottom: 0;
+  max-width: 95%;
+}
+
+.representative-name-title-bar {
+  font-size: .7em;
+  font-style: italic;
+  color: #404040;
+  position: relative;
+  top: 0;
+  right: 0;
+  left: 0;
+  text-align: center;
+  /* margin-bottom: 5px; */
+}
+
+.title.district-state {
+  font-size: 1.25rem !important;
+  font-weight: 500;
+  line-height: 2rem;
+  letter-spacing: 0.0125em !important;
+  font-family: "Roboto", sans-serif !important;
+  overflow: inherit;
+  font-weight: 500;
+  position: relative;
+  top: 0;
+  right: 0;
+  left: 0;
+  font-size: 100px;
+  line-height: 1.5rem;
+  padding: 5px 0;
+  padding-left: 45px;
+  text-align: center;
+}
+
+.data-legend.legend {
+  background-color: #fff;
+  border-radius: 3px;
+  bottom: 0px;
+  box-shadow: none;
+  border: none;
+  font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  padding: 10px 22px;
+  position: relative;
+  right: 0px;
+  z-index: 1;
+}
+
+.data-legend.legend h4 {
+  margin: 0 0 10px;
+}
+
+.data-legend.legend div span {
+  border-radius: 15%;
+  display: inline-block;
+  height: 15px;
+  margin-right: 5px;
+  width: 15px;
+  margin-bottom: -4px;
+  /* border: 1px solid darkgrey; */
+  border: 1px solid rgb(253, 253, 253);
+  opacity: .9;
+}
+
+.data-legend.legend div span.county-outline {
+  border-radius: 15%;
+  display: inline-block;
+  height: 15px;
+  margin-right: 5px;
+  width: 15px;
+  margin-bottom: -4px;
+  border: 1px solid darkgrey;
+  opacity: .9;
+}
+
+.slider-container,
+.slider-container *,
+#print-container>.legend>button {
+  display: none !important;
+}
+
+.text-h6 {
+  font-size: 1.25rem !important;
+  font-weight: 500;
+  line-height: 2rem;
+  letter-spacing: 0.0125em !important;
+  font-family: "Roboto", sans-serif !important;
+}
+
+.data-legend.legend button,
+.v-btn,
+.v-btn * {
+  display: none !important;
+  visibility: hidden;
+  opacity: 0;
+  border: none;
+  box-shadow: none;
+}
+
+.main-header {
+  margin-left: 25px;
+  margin-top: 7px;
+  line-height: 1.125em;
+}
+
+.title-link {
+  text-decoration: none;
+}
+
+.title-link .title {
+  cursor: pointer !important;
+}
+
+.title {
+  cursor: pointer;
+  overflow: inherit;
+  background: transparent;
+  /* background: var(--tan); */
+  height: 64px;
+  padding: 23px 64px;
+  padding-left: 36px !important;
+  color: var(--prussian-blue);
+  font-weight: 900;
+  text-transform: uppercase;
+  cursor: default;
+  border: none;
+  display: block;
+  clear: both;
+
+}
+
+.title.print-title {
+  font-size: 2em;
+  border-bottom: 1px lightgray;
+  margin-bottom: 20px;
+}
+
+.title .year {
+  color: #ec0021;
+}
+
+.subtitle {
+  font-size: 70%;
+  text-transform: initial;
+  font-weight: initial;
+  margin-left: 35px;
+}
+
+.v-tab--active {
+  color: inherit;
+}
+
+header.top-toolbar-content {
+  background: var(--honeydew) !important;
+  /* background: var(--light-peach-puff) !important; */
+}
+
+.share-dist {
+  display: none;
+}
+
+div>.title {
+  position: relative;
+}
+
+.title.district-state span {
+  margin-bottom: 100px;
+  display: block;
+}
+
+.selected-district-container {
+  margin-top: 100px;
+}
+
+.subtitle.sub-url {
+  position: absolute;
+  display: inline-block;
+  right: 0;
+  top: -8px;
+}
+
+.print-cuny-link {
+  font-size: .5em;
+  position: absolute;
+  left: 0;
+  text-align: left;
+  top: 0px;
+  text-decoration: none;
+  font-weight: initial;
+  color: black;
+}
+
+.print-cuny-logo {
+  position: absolute;
+  left: 0px;
+}
+
+#apportionment-graph svg {
+  margin: 0 auto;
+  display: block;
+}
+
+.data-note-btn-container {
+  display: none;
+}
+
+.hidden {
+  display: none !important;
+}

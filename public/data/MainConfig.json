@@ -1,0 +1,39 @@
+{
+	"name": "mainConfig",
+	"api": {
+		"hosts": {
+			"api": ""
+		},
+		"keys": {
+			"mb-key": ""
+		}
+	},
+	"mapConfig": {
+		"container": "main-map",
+		"style": "mapbox://styles/cunycur/ckux6b6x13zu218tero5yr7ce",
+		"center": [
+			-83.3,
+			32.9
+		],
+		"zoom": 6.4,
+		"hash": "&map",
+		"logoPosition": "bottom-right",
+		"attributionControl": true,
+		"preserveDrawingBuffer": true,
+		"antialias": true
+	},
+	"map-logos":[],
+	"toggleable-layers": [
+		{
+			"layer-ids": [
+				"ga-county20",
+				"ga-county20-label"
+			],
+			"layer-display": "Counties",
+			"imgSrc": "legend_counties_75.png",
+			"on-load-event": null,
+			"tag": "counties",
+			"active": true
+		}
+	]
+}
