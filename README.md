@@ -1,4 +1,4 @@
-# ga-redistricting
+# WCH Map
 
 ## Project setup
 ```
