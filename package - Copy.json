@@ -9,14 +9,12 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "build-for-dev": "set VUE_APP_ENV=DEV&&npm run build -- --mode dev",
-    "build-for-prod": "set VUE_APP_ENV=PROD&&npm run build -- --mode prod",
-    "deploy": "node deploy/gh-pages-deploy.js"
+    "build-for-prod": "set VUE_APP_ENV=PROD&&npm run build -- --mode prod"
   },
   "dependencies": {
     "vue": "^2.6.11"
   },
   "devDependencies": {
-    "execa": "latest",
     "@fortawesome/fontawesome-free": "^5.15.2",
     "@vue/cli-plugin-babel": "^4.5.15",
     "@vue/cli-plugin-eslint": "^4.5.15",
