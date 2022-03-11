@@ -13,10 +13,10 @@
     "deploy": "node deploy/gh-pages-deploy.js"
   },
   "dependencies": {
+    "@mapbox/mapbox-gl-geocoder": "^5.0.0",
     "vue": "^2.6.11"
   },
   "devDependencies": {
-    "execa": "latest",
     "@fortawesome/fontawesome-free": "^5.15.2",
     "@vue/cli-plugin-babel": "^4.5.15",
     "@vue/cli-plugin-eslint": "^4.5.15",
@@ -28,6 +28,7 @@
     "d3": "^6.7.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
+    "execa": "latest",
     "google-maps": "^4.3.3",
     "jquery": "^3.6.0",
     "lodash": "^4.17.21",
