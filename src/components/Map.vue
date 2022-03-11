@@ -74,7 +74,7 @@ export default {
         style: self.$styleConfig["baserow-markers"],
       });
 
-      //self.$layerManager.initToggledLayersFromUrl(self.map);
+      self.$layerManager.initToggledLayersFromUrl(self.map);
     });
 
     map.on("mousemove", () => {

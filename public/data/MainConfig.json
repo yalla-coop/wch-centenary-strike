@@ -28,14 +28,12 @@
 	"map-logos": [],
 	"toggleable-layers": [
 		{
-			"layer-ids": [
-				"ga-county20",
-				"ga-county20-label"
-			],
-			"layer-display": "Counties",
-			"imgSrc": "legend_counties_75.png",
+			"type":"geojson-remote",
+			"url":"https://native-land.ca/wp-json/nativeland/v1/api/index.php?maps=territories",
+			"layer-id": "native-lands",
+			"visible-by-default":true,
 			"on-load-event": null,
-			"tag": "counties",
+			"tag": "native-lands",
 			"active": true
 		}
 	]

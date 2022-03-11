@@ -11,10 +11,16 @@ export default class LayerManager {
         this.layers = [];
         this.sources = [];
     }
+    initToggledLayersFromUrl(_map) {
+        const toggledLayers = this._vue.$mainConfig["toggleable-layers"];
+        toggledLayers.forEach(layer => {
+            this.addLayerToMap(layer);
+        })
+    }
     addLayerToMap(_options) {
         switch (_options.type) {
-            case 'geojson':
-                this.addGeoJSONToMap(_options);
+            case 'geojson-remote':
+                this.addGeoJSONRemoteToMap(_options);
                 break;
             case 'baserow':
                 this.addBaserowToMap(_options);
@@ -22,8 +28,31 @@ export default class LayerManager {
             default: break;
         }
     }
-
-    addGeoJSONToMap(_options) { }
+    addGeoJSONRemoteToMap(_options) {
+        let self = this;
+        axios.get(_options.url).then(resp => {
+            const _geojson = {
+                type: "FeatureCollection",
+                features: resp.data
+            };
+            const srcID = _options["layer-id"] + '-source';
+            console.log(srcID)
+            this._vue.$map.addSource(srcID, {
+                'type': 'geojson',
+                'data': _geojson
+            });
+            this._vue.$map.addLayer({
+                'id': _options["layer-id"],
+                'type': 'fill',
+                'source': srcID, // reference the data source
+                'layout': {},
+                'paint': {
+                    'fill-color': ['get', 'color'], // blue color fill
+                    'fill-opacity': 0.25
+                }
+            });
+        })
+    }
     addBaserowToMap(_options) {
         axios({
             method: "GET",
@@ -33,7 +62,7 @@ export default class LayerManager {
             }
         }).then((resp) => {
             const entries = resp.data.results;
-            
+
             entries.forEach(entry => {
                 const el = document.createElement('div');
                 const _style = this._vue.$styleConfig.styles.marker;
