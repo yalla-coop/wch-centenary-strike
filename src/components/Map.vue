@@ -35,7 +35,7 @@ export default {
 
     let self = this;
 
-    this.map.addControl(new mapboxgl.NavigationControl(), "bottom-left");
+    
     map.addControl(
       new mapboxgl.GeolocateControl({
         positionOptions: {
@@ -51,14 +51,11 @@ export default {
       accessToken: mapboxgl.accessToken, // Set the access token
       mapboxgl: mapboxgl, // Set the mapbox-gl instance
       marker: false, // Do not use the default marker style
-      placeholder: "Search for places in Berkeley", // Placeholder text for the search bar
-      bbox: [-122.30937, 37.84214, -122.23715, 37.89838], // Boundary for Berkeley
-      proximity: {
-        longitude: -122.25948,
-        latitude: 37.87221,
-      }, // Coordinates of UC Berkeley
+      placeholder: "Search for address", // Placeholder text for the search bar
     });
 
+    map.addControl(geocoder)
+    map.addControl(new mapboxgl.NavigationControl(), "bottom-left");
     map.once("idle", () => {
       // self.$layerManager.addLayersToMap({
       //   map: self.map,

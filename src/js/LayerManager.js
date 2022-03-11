@@ -4,6 +4,8 @@ import {
 } from './DataManagement/EventBus';
 import axios from 'axios';
 import mapboxgl from "mapbox-gl";
+import turfCentroid from '@turf/centroid'
+//var turfCentroid = require('turf-centroid');
 
 export default class LayerManager {
     constructor() {
@@ -51,6 +53,51 @@ export default class LayerManager {
                     'fill-opacity': 0.25
                 }
             });
+
+            if (_options.labels) {
+                var result = {
+                    "type": "FeatureCollection",
+                    "features": []
+                };
+                
+                for (var i = 0; i < _geojson.features.length; i++) {
+                    result.features.push(
+                        {
+                            "type": "Feature",
+                            "properties": {"name": _geojson.features[i].properties.Name},
+                            "geometry": turfCentroid(_geojson.features[i]).geometry
+                        }
+                    );
+                }
+
+                this._vue.$map.addSource('label-points', {
+                    'type': 'geojson',
+                    'data': result
+                });
+                
+                this._vue.$map.addLayer({
+                    'id': 'points',
+                    'type': 'symbol',
+                    'source': 'label-points',
+                    'layout': {
+                        'icon-image': 'custom-marker',
+                        // get the title name from the source's "title" property
+                        'text-field': ['get', 'name'],
+                        'text-font': [
+                            'Open Sans Semibold',
+                            'Arial Unicode MS Bold'
+                        ],
+                        'text-offset': [0, 1.25],
+                        'text-anchor': 'top',
+                        'text-size':10
+                    },
+                    'paint':{
+                        'text-halo-width':.5,
+                        'text-halo-color':'black',
+                        'text-color': 'white'
+                    }
+                });
+            }
         })
     }
     addBaserowToMap(_options) {
