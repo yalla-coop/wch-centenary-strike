@@ -5,7 +5,7 @@ import {execa} from "execa";
 import * as fs from "fs";
 (async () => {
   try {
-    await execa("git", ["checkout", "gh-pages"]);
+    await execa("git", ["checkout", "--orphan", "gh-pages"]);
     await execa("git", ["merge", "master"]);
     // eslint-disable-next-line no-console
     console.log("Building started...");
