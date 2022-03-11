@@ -33,9 +33,12 @@ export default class LayerManager {
             }
         }).then((resp) => {
             const entries = resp.data.results;
-            console.log(entries[0])
+            
             entries.forEach(entry => {
-                const marker = new mapboxgl.Marker()
+                const el = document.createElement('div');
+                const _style = this._vue.$styleConfig.styles.marker;
+                Object.assign(el.style, _style)
+                const marker = new mapboxgl.Marker(el)
                     .setLngLat([entry.longitude, entry.latitude])
                     .setPopup(new mapboxgl.Popup().setHTML(`
                     <h1>${entry.title}</h1>

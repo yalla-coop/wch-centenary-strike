@@ -1,5 +1,9 @@
 <template>
   <v-app id="app">
+    <v-toolbar color="yellow">
+      <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
+      <v-toolbar-title > <h1 class="toolbar-title">WORKING CLASS HISTORY</h1> </v-toolbar-title>
+    </v-toolbar>
     <v-container fluid class="pa-0 blue lighten-5">
       <v-row class="ma-0">
         <v-col cols="1" sm="12" class="pa-0">
@@ -7,6 +11,10 @@
         </v-col>
       </v-row>
     </v-container>
+      <v-footer
+      :padless="padless"
+      color="yellow"
+    >Footer</v-footer>
   </v-app>
 </template>
 
@@ -20,11 +28,10 @@ import DataManager from "./js/DataManagement/DataManager.js";
 import QuerystringManager from "./js/DataManagement/QuerystringManager";
 import LayerManager from "./js/LayerManager.js";
 
-
 export default {
   name: "App",
   components: {
-    Map
+    Map,
   },
   beforeCreate: function () {
     Vue.prototype.$dataManager = new DataManager();
@@ -45,8 +52,11 @@ export default {
   },
   watch: {},
   mounted: function () {
-    if (window.location !== window.parent.location && this.$store.getters.isMobile) {
-      document.querySelector('html').classList.add("in-iframe");
+    if (
+      window.location !== window.parent.location &&
+      this.$store.getters.isMobile
+    ) {
+      document.querySelector("html").classList.add("in-iframe");
     }
     const selectedLngLat = (
       this.$querystringManager.route.query.selected || ""
@@ -71,7 +81,7 @@ export default {
       this.$store.getters.isMobile &&
       window.innerHeight > window.innerWidth
     ) {
-       document.querySelector('html').classList.add("in-iframe");
+      document.querySelector("html").classList.add("in-iframe");
       this.dialog = true;
     }
   },
@@ -124,4 +134,12 @@ html.in-iframe {
 .extra-zoom {
   zoom: 0.75;
 }
+
+.toolbar-title{
+      font-family: "Cooper Hewitt Medium", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: bold;
+    text-transform: uppercase;
+}
+
+
 </style>

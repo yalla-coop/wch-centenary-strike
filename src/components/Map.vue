@@ -142,7 +142,7 @@ export default {
 <style scoped>
 #main-map {
   width: 100%;
-  height: 100vh;
+  height:calc(100vh - 100px);
 }
 .mapboxgl-ctrl-bottom-right {
   pointer-events: auto;

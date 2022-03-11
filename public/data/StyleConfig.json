@@ -1,6 +1,13 @@
 {
     "name": "styleConfig",
     "styles": {
-        "baserow-markers":{}
+        "marker":{
+            "backgroundColor": "yellow",
+            "opacity":".8",
+            "width": "8px",
+            "height": "8px",
+            "border-radius":"50%",
+            "cursor":"pointer"
+        }
     }
 }
