@@ -2,12 +2,19 @@
     "name": "styleConfig",
     "styles": {
         "marker":{
-            "backgroundColor": "yellow",
+            "backgroundColor": "grey",
             "opacity":".8",
             "width": "8px",
             "height": "8px",
             "border-radius":"50%",
+            "border":"1px solid white",
             "cursor":"pointer"
+        },
+        "marker-varying":{
+            "color":{
+                "exact-location":"yellow",
+                "near-here": "blue"
+            }
         }
     }
 }

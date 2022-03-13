@@ -1,5 +1,19 @@
 <template>
   <div>
+    <v-card dense elevation="2" class="legend-container">
+      <v-card-title dense>Legend</v-card-title>
+      <v-card-text>
+        <v-chip-group
+          v-model="toggledLayer"
+          active-class="blue accent-4 white--text"
+          column
+        >
+          <v-chip v-for="tag in layers" :key="tag">
+            {{ tag }}
+          </v-chip>
+        </v-chip-group>
+      </v-card-text>
+    </v-card>
     <div id="main-map">
       <div class="mapboxgl-ctrl-bottom-right third-party-container">
         <a
@@ -16,8 +30,8 @@
 </template>
 <script>
 import mapboxgl from "mapbox-gl";
-import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
-import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
+import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
+import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 
 import Vue from "vue";
 import { EventBus } from "../js/DataManagement/EventBus";
@@ -25,7 +39,9 @@ import EventManager from "../js/DataManagement/EventMangager";
 export default {
   name: "Map",
   data: function () {
-    return {};
+    return {
+      toggledLayer: "",
+    };
   },
   mounted: function () {
     mapboxgl.accessToken = this.$mainConfig.api.keys["mb-key"];
@@ -35,7 +51,6 @@ export default {
 
     let self = this;
 
-    
     map.addControl(
       new mapboxgl.GeolocateControl({
         positionOptions: {
@@ -54,7 +69,7 @@ export default {
       placeholder: "Search for address", // Placeholder text for the search bar
     });
 
-    map.addControl(geocoder)
+    map.addControl(geocoder);
     map.addControl(new mapboxgl.NavigationControl(), "bottom-left");
     map.once("idle", () => {
       // self.$layerManager.addLayersToMap({
@@ -133,13 +148,17 @@ export default {
     },
   },
   computed: {},
-  watch: {},
+  watch: {
+    toggledLayer: function (val) {
+      console.log(val);
+    },
+  },
 };
 </script>
 <style scoped>
 #main-map {
   width: 100%;
-  height:calc(100vh - 100px);
+  height: calc(100vh - 100px);
 }
 .mapboxgl-ctrl-bottom-right {
   pointer-events: auto;
@@ -161,5 +180,14 @@ export default {
 }
 .third-party-container {
   transform: translate(-100px, -15px);
+}
+
+.legend-container {
+  position: absolute !important;
+  /* width: 8%; */
+  /* margin: 10px; */
+  z-index: 9;
+  right: 10px;
+  bottom: 90px;
 }
 </style>

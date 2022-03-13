@@ -38,7 +38,7 @@ export default class LayerManager {
                 features: resp.data
             };
             const srcID = _options["layer-id"] + '-source';
-            console.log(srcID)
+            //console.log(srcID)
             this._vue.$map.addSource(srcID, {
                 'type': 'geojson',
                 'data': _geojson
@@ -113,7 +113,21 @@ export default class LayerManager {
             entries.forEach(entry => {
                 const el = document.createElement('div');
                 const _style = this._vue.$styleConfig.styles.marker;
-                Object.assign(el.style, _style)
+                const geotag = entry.geotag_info.toLowerCase().replace(' ','-');
+               _style.backgroundColor = this._vue.$styleConfig.styles["marker-varying"]["color"][geotag] || "grey"
+               Object.assign(el.style, _style)
+               
+            //    if(geotag === 'near-here'){
+            //        const outerEl = document.createElement('div');
+            //        _style.width=_style.height="32px"
+            //        _style.backgroundColor = "rgba(0,200,255,.1)"
+            //        _style.transform = 'translate(-12px, -12px)'
+            //        _style.border = 'none'
+            //        Object.assign(outerEl.style, _style);
+            //        el.appendChild(outerEl);
+            //    }
+               
+               // console.log(entry.geotag_info)
                 const marker = new mapboxgl.Marker(el)
                     .setLngLat([entry.longitude, entry.latitude])
                     .setPopup(new mapboxgl.Popup().setHTML(`
