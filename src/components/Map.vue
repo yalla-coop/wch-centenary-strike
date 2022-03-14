@@ -2,14 +2,29 @@
   <div>
     <v-card dense elevation="2" class="legend-container">
       <v-card-title dense>Legend</v-card-title>
+      <v-divider></v-divider>
+      (TODO)
+      <br>
+      <ul>
+        <li>Exact location of event</li>
+        <li>Approx. location of event</li>
+      </ul>
+      <br>
+      <v-divider></v-divider>
+
       <v-card-text>
         <v-chip-group
           v-model="toggledLayer"
           active-class="blue accent-4 white--text"
           column
         >
-          <v-chip v-for="tag in layers" :key="tag">
-            {{ tag }}
+          <v-chip
+            filter
+            v-for="layer in legendLayers"
+            :click="toggleLayer(layer)"
+            :key="layer['layer-id']"
+          >
+            {{ layer["legend-display"] }}
           </v-chip>
         </v-chip-group>
       </v-card-text>
@@ -146,12 +161,28 @@ export default {
 
       // self.marker.addTo(self.$map);
     },
-  },
-  computed: {},
-  watch: {
-    toggledLayer: function (val) {
-      console.log(val);
+    toggleLayer: function (_layer) {
+      if (_layer) {
+        this.$layerManager.toggleLayer(_layer["layer-id"]);
+        if (_layer.labels) {
+          this.$layerManager.toggleLayer(_layer["layer-id"] + "-labels");
+        }
+      }
     },
+  },
+  computed: {
+    legendLayers: function () {
+      return this.$mainConfig["toggleable-layers"];
+    },
+  },
+  watch: {
+    // toggledLayer: function (val) {
+    //   if (this.legendLayers.length > 0) {
+    //     // if(val){
+    //     // }
+    //     console.log(this.legendLayers[val]["layer-id"]);
+    //   }
+    // },
   },
 };
 </script>

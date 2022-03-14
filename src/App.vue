@@ -294,4 +294,8 @@ li a{
   text-decoration: none;
   margin: 0 5px;
 }
+
+.mapboxgl-popup-close-button{
+  font-size: 32px;
+}
 </style>

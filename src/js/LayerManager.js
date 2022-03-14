@@ -30,6 +30,27 @@ export default class LayerManager {
             default: break;
         }
     }
+
+    toggleLayer(layerid) {
+        if (!this._vue.$map) return;
+        const visibility = this._vue.$map.getLayoutProperty(
+            layerid,
+            'visibility'
+        );
+
+        // Toggle layer visibility by changing the layout object's visibility property.
+        if (visibility === 'visible') {
+            this._vue.$map.setLayoutProperty(layerid, 'visibility', 'none');
+            this.className = '';
+        } else {
+            this.className = 'active';
+            this._vue.$map.setLayoutProperty(
+                layerid,
+                'visibility',
+                'visible'
+            );
+        }
+    }
     addGeoJSONRemoteToMap(_options) {
         let self = this;
         axios.get(_options.url).then(resp => {
@@ -47,7 +68,9 @@ export default class LayerManager {
                 'id': _options["layer-id"],
                 'type': 'fill',
                 'source': srcID, // reference the data source
-                'layout': {},
+                'layout': {
+                    'visibility': _options["visible-by-default"] ? 'visibility' : 'none'
+                },
                 'paint': {
                     'fill-color': ['get', 'color'], // blue color fill
                     'fill-opacity': 0.25
@@ -59,26 +82,26 @@ export default class LayerManager {
                     "type": "FeatureCollection",
                     "features": []
                 };
-                
+
                 for (var i = 0; i < _geojson.features.length; i++) {
                     result.features.push(
                         {
                             "type": "Feature",
-                            "properties": {"name": _geojson.features[i].properties.Name},
+                            "properties": { "name": _geojson.features[i].properties.Name },
                             "geometry": turfCentroid(_geojson.features[i]).geometry
                         }
                     );
                 }
 
-                this._vue.$map.addSource('label-points', {
+                this._vue.$map.addSource(_options["layer-id"] + '-labels-source', {
                     'type': 'geojson',
                     'data': result
                 });
-                
+
                 this._vue.$map.addLayer({
-                    'id': 'points',
+                    'id': _options["layer-id"] + '-labels',
                     'type': 'symbol',
-                    'source': 'label-points',
+                    'source': _options["layer-id"] + '-labels-source',
                     'layout': {
                         'icon-image': 'custom-marker',
                         // get the title name from the source's "title" property
@@ -89,11 +112,12 @@ export default class LayerManager {
                         ],
                         'text-offset': [0, 1.25],
                         'text-anchor': 'top',
-                        'text-size':10
+                        'text-size': 10,
+                        'visibility': _options["visible-by-default"] ? 'visibility' : 'none'
                     },
-                    'paint':{
-                        'text-halo-width':.5,
-                        'text-halo-color':'black',
+                    'paint': {
+                        'text-halo-width': .5,
+                        'text-halo-color': 'black',
                         'text-color': 'white'
                     }
                 });
@@ -113,21 +137,15 @@ export default class LayerManager {
             entries.forEach(entry => {
                 const el = document.createElement('div');
                 const _style = this._vue.$styleConfig.styles.marker;
-                const geotag = entry.geotag_info.toLowerCase().replace(' ','-');
-               _style.backgroundColor = this._vue.$styleConfig.styles["marker-varying"]["color"][geotag] || "grey"
-               Object.assign(el.style, _style)
-               
-            //    if(geotag === 'near-here'){
-            //        const outerEl = document.createElement('div');
-            //        _style.width=_style.height="32px"
-            //        _style.backgroundColor = "rgba(0,200,255,.1)"
-            //        _style.transform = 'translate(-12px, -12px)'
-            //        _style.border = 'none'
-            //        Object.assign(outerEl.style, _style);
-            //        el.appendChild(outerEl);
-            //    }
-               
-               // console.log(entry.geotag_info)
+                const geotag = entry.geotag_info.toLowerCase().replace(' ', '-');
+                _style.backgroundColor = this._vue.$styleConfig.styles["marker-varying"]["color"][geotag] || "grey"
+
+
+                Object.assign(el.style, _style)
+                if (geotag === 'near-here') {
+                    el.style.boxShadow = "0 0 5px 15px #9933ff88"
+                }
+                // console.log(entry.geotag_info)
                 const marker = new mapboxgl.Marker(el)
                     .setLngLat([entry.longitude, entry.latitude])
                     .setPopup(new mapboxgl.Popup().setHTML(`
