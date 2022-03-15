@@ -4,12 +4,12 @@
       <v-card-title dense>Legend</v-card-title>
       <v-divider></v-divider>
       (TODO)
-      <br>
+      <br />
       <ul>
         <li>Exact location of event</li>
         <li>Approx. location of event</li>
       </ul>
-      <br>
+      <br />
       <v-divider></v-divider>
 
       <v-card-text>
@@ -112,24 +112,6 @@ export default {
       map.getCanvas().style.cursor = "";
     });
 
-    map.on("click", function (e) {
-      self.addMarker(e);
-      EventBus.$emit("clearAddress");
-      self.$store.commit("setSelectedLngLat", [e.lngLat.lng, e.lngLat.lat]);
-      EventBus.$emit("select-from-click", [e.lngLat.lng, e.lngLat.lat]);
-    });
-
-    EventBus.$on("add-marker", () => {
-      const lngLat = self.$store.getters.getSelectedLngLat;
-      if (isNaN(+lngLat[0]) || isNaN(+lngLat[1])) return;
-      self.addMarker({
-        lngLat: {
-          lng: +lngLat[0],
-          lat: +lngLat[1],
-        },
-      });
-    });
-
     EventBus.$on("clear-selected", () => {
       if (self.marker) {
         self.marker.remove();
@@ -199,6 +181,32 @@ export default {
 .mapboxgl-popup-content {
   overflow-y: scroll;
   max-height: 35vh;
+  /* font-family: "Avenir Heavy"; */
+  font-size: 12px;
+      width: 125%;
+}
+
+.mapboxgl-popup-content .hidden{
+  display: none;
+}
+.mapboxgl-popup-content .img-caption{
+  font-style:italic;
+}
+.img-container{
+  width: 100%;
+}
+
+.img-container img{
+  max-width: 90%;
+  margin: 0 auto;
+  display: block;
+}
+
+.mapboxgl-popup-content .popup-title {
+  border-bottom: 1px solid black;
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+  font-weight: bold;
 }
 .mapboxgl-ctrl-attrib-inner {
   display: inline-block;

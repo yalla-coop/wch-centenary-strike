@@ -139,20 +139,44 @@ export default class LayerManager {
                 const _style = this._vue.$styleConfig.styles.marker;
                 const geotag = entry.geotag_info.toLowerCase().replace(' ', '-');
                 _style.backgroundColor = this._vue.$styleConfig.styles["marker-varying"]["color"][geotag] || "grey"
-
+                // console.log(entry)
 
                 Object.assign(el.style, _style)
                 if (geotag === 'near-here') {
                     el.style.boxShadow = "0 0 5px 15px #9933ff88"
                 }
-                // console.log(entry.geotag_info)
+                //TODO: This should be cleaned up
                 const marker = new mapboxgl.Marker(el)
                     .setLngLat([entry.longitude, entry.latitude])
                     .setPopup(new mapboxgl.Popup().setHTML(`
-                    <h1>${entry.title}</h1>
-                    <p>${entry.description}</p>
+
+                        <h3 class="popup-title">${entry.title}</h3>
+                        <p>${entry.description}</p>
+                        <div class="${entry.media ? 'media-container' : 'hidden'}">
+                            <p class="img-caption">${entry.media_caption}</p>
+                            <div class="img-container">
+                                <img src="${entry.media}">
+                            </div>
+                        </div>
+                        <a id="zoom-to-${entry.id}" href="#">Zoom To</a>
+                        
                     `))
                     .addTo(this._vue.$map);
+
+                let self = this;
+                document.addEventListener('click', function (event) {
+
+                    if (!event.target.matches(`#zoom-to-${entry.id}`)) return;
+
+                    event.preventDefault();
+                    
+                    self._vue.$map.flyTo({
+                        center: [entry.longitude, entry.latitude],
+                        zoom: 9,
+                        essential: true
+                    });
+                })
+
             });
         })
     }
