@@ -3,13 +3,9 @@
     <v-card dense elevation="2" class="legend-container">
       <v-card-title dense>Legend</v-card-title>
       <v-divider></v-divider>
-      (TODO)
-      <br />
-      <ul>
-        <li>Exact location of event</li>
-        <li>Approx. location of event</li>
+      <ul class="legend-list">
+        <li class="list-item" v-for="item in this.$mainConfig['legend-items']" :key="item.display"><span class="legend-item" :style="item.css"></span>{{item.text}}</li>
       </ul>
-      <br />
       <v-divider></v-divider>
 
       <v-card-text>
@@ -85,7 +81,9 @@ export default {
     });
 
     map.addControl(geocoder);
+    map.addControl(new mapboxgl.ScaleControl(), "bottom-left");
     map.addControl(new mapboxgl.NavigationControl(), "bottom-left");
+    
     map.once("idle", () => {
       // self.$layerManager.addLayersToMap({
       //   map: self.map,
@@ -169,6 +167,10 @@ export default {
 };
 </script>
 <style scoped>
+.legend-list{
+  list-style: none;
+      padding: 0 5px;
+}
 #main-map {
   width: 100%;
   height: calc(100vh - 100px);
@@ -176,8 +178,25 @@ export default {
 .mapboxgl-ctrl-bottom-right {
   pointer-events: auto;
 }
+
+.legend-container .v-card__title{
+    background: yellow;
+    padding: 0 5%;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
 </style>
 <style>
+.legend-item{
+  display: inline-block;
+    margin: 0 5px;
+}
+.list-item{
+  padding: 5px;
+    background: #d7d7d7;
+    margin-bottom: 5px;
+}
 .mapboxgl-popup-content {
   overflow-y: scroll;
   max-height: 35vh;

@@ -1,5 +1,6 @@
 {
 	"name": "mainConfig",
+	"multiplyDataTest":0,
 	"api": {
 		"baserow": {
 			"tables":{
@@ -37,6 +38,34 @@
 			"tag": "native-lands",
 			"labels": true,
 			"active": true
+		}
+	],
+	"legend-items":[
+		{
+			"display":"exact-location",
+			"text": "Exact Location",
+			"css":{
+				"backgroundColor": "yellow",
+				"opacity":".8",
+				"width": "12px",
+				"height": "12px",
+				"border-radius":"50%",
+				"border":"2px solid white",
+				"cursor":"pointer"
+			}
+		},
+		{
+			"display":"near-here",
+			"text": "Near This Location",
+			"css":{
+				"backgroundColor": "#6600cc",
+				"opacity":".8",
+				"width": "12px",
+				"height": "12px",
+				"border-radius":"50%",
+				"border":"2px solid white",
+				"cursor":"pointer"
+			}
 		}
 	]
 }
