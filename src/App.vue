@@ -230,6 +230,8 @@
 
 <script>
 import Map from "./components/Map.vue";
+import InfoPanel from "./components/InfoPanel.vue";
+
 import Vue from "vue";
 
 import { EventBus } from "./js/DataManagement/EventBus";
@@ -237,6 +239,7 @@ import { EventBus } from "./js/DataManagement/EventBus";
 import DataManager from "./js/DataManagement/DataManager.js";
 import QuerystringManager from "./js/DataManagement/QuerystringManager";
 import LayerManager from "./js/LayerManager.js";
+import Store from "./js/DataManagement/Store.js";
 
 export default {
   name: "App",
@@ -258,7 +261,9 @@ export default {
     );
   },
   data() {
-    return {};
+    return {
+      sideInstance: null,
+    };
   },
   watch: {},
   mounted: function () {
@@ -286,6 +291,18 @@ export default {
         );
       });
     }
+    let self = this;
+    EventBus.$on("new-panel", (dat) => {
+      if (!self.sideInstance) {
+        var ComponentClass = Vue.extend(InfoPanel);
+        self.sideInstance = new ComponentClass({ store: Store });
+        
+        self.sideInstance.$mount();
+        self.$el.appendChild(self.sideInstance.$el);
+      }
+
+      self.sideInstance.setData(dat);
+    });
 
     if (
       this.$store.getters.isMobile &&
@@ -359,7 +376,7 @@ html.in-iframe {
   display: inline-block;
 }
 
-.main-navigation a{
+.main-navigation a {
   color: #505050 !important;
 }
 

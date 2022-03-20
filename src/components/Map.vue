@@ -4,7 +4,13 @@
       <v-card-title dense>Legend</v-card-title>
       <v-divider></v-divider>
       <ul class="legend-list">
-        <li class="list-item" v-for="item in this.$mainConfig['legend-items']" :key="item.display"><span class="legend-item" :style="item.css"></span>{{item.text}}</li>
+        <li
+          class="list-item"
+          v-for="item in this.$mainConfig['legend-items']"
+          :key="item.display"
+        >
+          <span class="legend-item" :style="item.css"></span>{{ item.text }}
+        </li>
       </ul>
       <v-divider></v-divider>
 
@@ -83,7 +89,7 @@ export default {
     map.addControl(geocoder);
     map.addControl(new mapboxgl.ScaleControl(), "bottom-left");
     map.addControl(new mapboxgl.NavigationControl(), "bottom-left");
-    
+
     map.once("idle", () => {
       // self.$layerManager.addLayersToMap({
       //   map: self.map,
@@ -93,7 +99,7 @@ export default {
       self.$layerManager.addLayerToMap({
         type: "baserow",
         map: self.map,
-        filter: "filter__field_177149__not_empty",
+        //filter: "filter__field_177149__not_empty",
         sizeLimit: 200,
         tableid: self.$mainConfig.api.baserow.tables.main,
         style: self.$styleConfig["baserow-markers"],
@@ -108,6 +114,13 @@ export default {
 
     map.on("mouseout", () => {
       map.getCanvas().style.cursor = "";
+    });
+
+    map.on("click", (e) => {
+      const features = map.queryRenderedFeatures(e.point);
+      if (features.length === 0) return;
+      EventBus.$emit('new-panel', features.filter(f=>f.layer.source === 'events-source').map(f=>f.properties)); //HC
+      
     });
 
     EventBus.$on("clear-selected", () => {
@@ -167,9 +180,9 @@ export default {
 };
 </script>
 <style scoped>
-.legend-list{
+.legend-list {
   list-style: none;
-      padding: 0 5px;
+  padding: 0 5px;
 }
 #main-map {
   width: 100%;
@@ -179,43 +192,46 @@ export default {
   pointer-events: auto;
 }
 
-.legend-container .v-card__title{
-    background: yellow;
-    padding: 0 5%;
-    text-transform: uppercase;
-    font-weight: bold;
-    margin-bottom: 5px;
+/* raven
+exl and touring */
+
+.legend-container .v-card__title {
+  background: yellow;
+  padding: 0 5%;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 </style>
 <style>
-.legend-item{
+.legend-item {
   display: inline-block;
-    margin: 0 5px;
+  margin: 0 5px;
 }
-.list-item{
+.list-item {
   padding: 5px;
-    background: #d7d7d7;
-    margin-bottom: 5px;
+  background: #d7d7d7;
+  margin-bottom: 5px;
 }
 .mapboxgl-popup-content {
   overflow-y: scroll;
   max-height: 35vh;
   /* font-family: "Avenir Heavy"; */
   font-size: 12px;
-      width: 125%;
+  width: 125%;
 }
 
-.mapboxgl-popup-content .hidden{
+.mapboxgl-popup-content .hidden {
   display: none;
 }
-.mapboxgl-popup-content .img-caption{
-  font-style:italic;
+.mapboxgl-popup-content .img-caption {
+  font-style: italic;
 }
-.img-container{
+.img-container {
   width: 100%;
 }
 
-.img-container img{
+.img-container img {
   max-width: 90%;
   margin: 0 auto;
   display: block;

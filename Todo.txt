@@ -1,4 +1,6 @@
 Stand-alone map
+https://baserow.io/database/16488/table/33215
+username: info@workingclasshistory.com
 
 ideally we would host this at map.workingclasshistory.com
 
