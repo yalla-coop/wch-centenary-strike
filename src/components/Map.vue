@@ -1,36 +1,6 @@
 <template>
   <div>
-    <v-card dense elevation="2" class="legend-container">
-      <v-card-title dense>Legend</v-card-title>
-      <v-divider></v-divider>
-      <ul class="legend-list">
-        <li
-          class="list-item"
-          v-for="item in this.$mainConfig['legend-items']"
-          :key="item.display"
-        >
-          <span class="legend-item" :style="item.css"></span>{{ item.text }}
-        </li>
-      </ul>
-      <v-divider></v-divider>
-
-      <v-card-text>
-        <v-chip-group
-          v-model="toggledLayer"
-          active-class="blue accent-4 white--text"
-          column
-        >
-          <v-chip
-            filter
-            v-for="layer in legendLayers"
-            :click="toggleLayer(layer)"
-            :key="layer['layer-id']"
-          >
-            {{ layer["legend-display"] }}
-          </v-chip>
-        </v-chip-group>
-      </v-card-text>
-    </v-card>
+    <Legend/>
     <div id="main-map">
       <div class="mapboxgl-ctrl-bottom-right third-party-container">
         <a
@@ -50,15 +20,18 @@ import mapboxgl from "mapbox-gl";
 import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 
+import Legend from './Legend.vue';
+
 import Vue from "vue";
 import { EventBus } from "../js/DataManagement/EventBus";
 import EventManager from "../js/DataManagement/EventMangager";
 export default {
   name: "Map",
+  components:{
+    Legend
+  },
   data: function () {
-    return {
-      toggledLayer: "",
-    };
+    return {};
   },
   mounted: function () {
     mapboxgl.accessToken = this.$mainConfig.api.keys["mb-key"];
@@ -156,19 +129,7 @@ export default {
 
       // self.marker.addTo(self.$map);
     },
-    toggleLayer: function (_layer) {
-      if (_layer) {
-        this.$layerManager.toggleLayer(_layer["layer-id"]);
-        if (_layer.labels) {
-          this.$layerManager.toggleLayer(_layer["layer-id"] + "-labels");
-        }
-      }
-    },
-  },
-  computed: {
-    legendLayers: function () {
-      return this.$mainConfig["toggleable-layers"];
-    },
+
   },
   watch: {
     // toggledLayer: function (val) {
@@ -182,10 +143,7 @@ export default {
 };
 </script>
 <style scoped>
-.legend-list {
-  list-style: none;
-  padding: 0 5px;
-}
+
 #main-map {
   width: 100%;
   height: calc(100vh - 100px);
@@ -197,24 +155,9 @@ export default {
 /* raven
 exl and touring */
 
-.legend-container .v-card__title {
-  background: yellow;
-  padding: 0 5%;
-  text-transform: uppercase;
-  font-weight: bold;
-  margin-bottom: 5px;
-}
 </style>
 <style>
-.legend-item {
-  display: inline-block;
-  margin: 0 5px;
-}
-.list-item {
-  padding: 5px;
-  background: #d7d7d7;
-  margin-bottom: 5px;
-}
+
 .mapboxgl-popup-content {
   overflow-y: scroll;
   max-height: 35vh;
@@ -258,12 +201,5 @@ exl and touring */
   transform: translate(-100px, -15px);
 }
 
-.legend-container {
-  position: absolute !important;
-  /* width: 8%; */
-  /* margin: 10px; */
-  z-index: 9;
-  right: 10px;
-  bottom: 90px;
-}
+
 </style>
