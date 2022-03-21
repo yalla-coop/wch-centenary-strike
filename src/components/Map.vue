@@ -96,6 +96,8 @@ export default {
       //   url: self.$mainConfig.[NATIVE LAND URL],
       //   style: self.$styleConfig.[NATIVE LAND STYLE],
       // });
+
+      //HC
       self.$layerManager.addLayerToMap({
         type: "baserow",
         map: self.map,

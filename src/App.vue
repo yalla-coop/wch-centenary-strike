@@ -1,237 +1,23 @@
 <template>
   <v-app id="app">
-    <v-toolbar color="yellow">
-      <!-- <v-app-bar-nav-icon></v-app-bar-nav-icon> -->
-      <v-toolbar-title>
-        <h1 class="toolbar-title">WORKING CLASS HISTORY</h1>
-        <nav id="site-navigation" class="main-navigation" role="navigation">
-          <div class="menu-header-menu-wch-container">
-            <ul id="top-menu" class="menu nav-menu" aria-expanded="false">
-              <li
-                id="menu-item-21"
-                class="
-                  menu-item
-                  menu-item-type-post_type
-                  menu-item-object-page menu-item-21
-                "
-              >
-                <a href="https://workingclasshistory.com/about/">About</a>
-              </li>
-              <li
-                id="menu-item-152"
-                class="
-                  menu-item
-                  menu-item-type-post_type
-                  menu-item-object-page menu-item-152
-                "
-              >
-                <a href="https://workingclasshistory.com/podcast/">Podcast</a>
-              </li>
-              <li
-                id="menu-item-149"
-                class="
-                  menu-item
-                  menu-item-type-post_type
-                  menu-item-object-page menu-item-149
-                "
-              >
-                <a href="https://workingclasshistory.com/projects/">Projects</a>
-              </li>
-              <li
-                id="menu-item-18"
-                class="
-                  menu-item
-                  menu-item-type-post_type
-                  menu-item-object-page menu-item-18
-                "
-              >
-                <a href="https://workingclasshistory.com/support/"
-                  >Support us</a
-                >
-              </li>
-              <li
-                id="menu-item-20"
-                class="
-                  menu-item
-                  menu-item-type-post_type
-                  menu-item-object-page menu-item-20
-                "
-              >
-                <a href="https://workingclasshistory.com/sign-up/">Sign up</a>
-              </li>
-              <li
-                id="menu-item-95"
-                class="
-                  menu-item
-                  menu-item-type-custom
-                  menu-item-object-custom
-                  menu-item-95
-                "
-              >
-                <a
-                  target="_blank"
-                  rel="noopener"
-                  href="https://shop.workingclasshistory.com/"
-                  >Shop</a
-                >
-              </li>
-            </ul>
-          </div>
-        </nav>
-      </v-toolbar-title>
-    </v-toolbar>
+    <MainTopBar/>
     <v-container fluid class="pa-0 blue lighten-5">
       <v-row class="ma-0">
         <v-col cols="1" sm="12" class="pa-0">
           <Map />
         </v-col>
       </v-row>
+      <InfoPanel ref="infoPanel"/>
     </v-container>
-    <v-footer :padless="padless" color="yellow"
-      ><nav
-        class="jetpack-social-navigation jetpack-social-navigation-genericons"
-        aria-label="Social Links Menu"
-      >
-        <div class="menu-social-menu-container">
-          <ul id="menu-social-menu" class="menu">
-            <li
-              id="menu-item-35"
-              class="
-                menu-item
-                menu-item-type-custom
-                menu-item-object-custom
-                menu-item-35
-              "
-            >
-              <a
-                rel="noopener"
-                href="http://instagram.com/workingclasshistory"
-                onclick="javascript:window.open('http://instagram.com/workingclasshistory'); return false;"
-                ><v-icon class="screen-reader-text">mdi-instagram</v-icon></a
-              >
-            </li>
-            <li
-              id="menu-item-27"
-              class="
-                menu-item
-                menu-item-type-custom
-                menu-item-object-custom
-                menu-item-27
-              "
-            >
-              <a
-                rel="noopener"
-                href="https://www.facebook.com/workingclasshistory/"
-                onclick="javascript:window.open('https://www.facebook.com/workingclasshistory/'); return false;"
-                ><v-icon class="screen-reader-text">mdi-facebook</v-icon></a
-              >
-            </li>
-            <li
-              id="menu-item-26"
-              class="
-                menu-item
-                menu-item-type-custom
-                menu-item-object-custom
-                menu-item-26
-              "
-            >
-              <a
-                rel="noopener"
-                href="http://twitter.com/wrkclasshistory"
-                onclick="javascript:window.open('http://twitter.com/wrkclasshistory'); return false;"
-                ><v-icon class="screen-reader-text">mdi-twitter</v-icon></a
-              >
-            </li>
-            <li
-              id="menu-item-34"
-              class="
-                menu-item
-                menu-item-type-custom
-                menu-item-object-custom
-                menu-item-34
-              "
-            >
-              <a
-                rel="noopener"
-                href="https://open.spotify.com/show/3dqQUrBAmXgoU1Q6hcUnBX"
-                onclick="javascript:window.open('https://open.spotify.com/show/3dqQUrBAmXgoU1Q6hcUnBX'); return false;"
-                ><v-icon class="screen-reader-text">mdi-spotify</v-icon></a
-              >
-            </li>
-            <li
-              id="menu-item-49"
-              class="
-                menu-item
-                menu-item-type-custom
-                menu-item-object-custom
-                menu-item-49
-              "
-            >
-              <a
-                rel="noopener"
-                href="https://workingclasshistory.tumblr.com"
-                onclick="javascript:window.open('https://workingclasshistory.tumblr.com/'); return false;"
-                ><v-icon class="screen-reader-text">mdi-tumblr</v-icon></a
-              >
-            </li>
-            <li
-              id="menu-item-28"
-              class="
-                menu-item
-                menu-item-type-custom
-                menu-item-object-custom
-                menu-item-28
-              "
-            >
-              <a
-                rel="noopener"
-                href="https://www.youtube.com/c/workingclasshistory"
-                onclick="javascript:window.open('https://www.youtube.com/c/workingclasshistory'); return false;"
-                ><v-icon class="screen-reader-text">mdi-youtube</v-icon></a
-              >
-            </li>
-            <li
-              id="menu-item-54"
-              class="
-                menu-item
-                menu-item-type-custom
-                menu-item-object-custom
-                menu-item-54
-              "
-            >
-              <a
-                rel="noopener"
-                href="https://www.pinterest.com/workingclasshistory/"
-                onclick="javascript:window.open('https://www.pinterest.com/workingclasshistory/'); return false;"
-                ><v-icon class="screen-reader-text">mdi-pintrest</v-icon></a
-              >
-            </li>
-            <li
-              id="menu-item-1297"
-              class="
-                menu-item
-                menu-item-type-custom
-                menu-item-object-custom
-                menu-item-1297
-              "
-            >
-              <a
-                href="https://mastodon.social/@workingclasshistory"
-                onclick="javascript:window.open('https://mastodon.social/@workingclasshistory'); return false;"
-                ><v-icon class="screen-reader-text">mdi-mastodon</v-icon></a
-              >
-            </li>
-          </ul>
-        </div>
-      </nav></v-footer
-    >
+    <MainFooter/>
   </v-app>
 </template>
 
 <script>
 import Map from "./components/Map.vue";
 import InfoPanel from "./components/InfoPanel.vue";
-
+import MainFooter from "./components/MainFooter.vue";
+import MainTopBar from "./components/MainTopBar.vue";
 import Vue from "vue";
 
 import { EventBus } from "./js/DataManagement/EventBus";
@@ -241,10 +27,14 @@ import QuerystringManager from "./js/DataManagement/QuerystringManager";
 import LayerManager from "./js/LayerManager.js";
 import Store from "./js/DataManagement/Store.js";
 
+
 export default {
   name: "App",
   components: {
     Map,
+    InfoPanel,
+    MainTopBar,
+    MainFooter  
   },
   beforeCreate: function () {
     Vue.prototype.$dataManager = new DataManager();
@@ -293,15 +83,7 @@ export default {
     }
     let self = this;
     EventBus.$on("new-panel", (dat) => {
-      if (!self.sideInstance) {
-        var ComponentClass = Vue.extend(InfoPanel);
-        self.sideInstance = new ComponentClass({ store: Store });
-        
-        self.sideInstance.$mount();
-        self.$el.appendChild(self.sideInstance.$el);
-      }
-
-      self.sideInstance.setData(dat);
+      self.$refs.infoPanel.setData(dat);
     });
 
     if (

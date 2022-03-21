@@ -127,16 +127,16 @@ export default class LayerManager {
     addBaserowToMap(_options) {
         axios({
             method: "GET",
-            url: `https://api.baserow.io/api/database/rows/table/${_options.tableid}/?user_field_names=true${_options.sizeLimit ? '&' : ''}${_options.sizeLimit}${_options.filter ? '&' : ''}${_options.filter}`,
+            url: `https://api.baserow.io/api/database/rows/table/${_options.tableid}/?user_field_names=true${_options.sizeLimit ? '&size=' : ''}${_options.sizeLimit || ''}${_options.filter ? '&filter=' : ''}${_options.filter || ''}`,
             headers: {
                 Authorization: `Token ${this._vue.$mainConfig.api.keys.baserow}`
             }
         }).then((resp) => {
             const entries = resp.data.results;
-            //console.log(entries.length)
+            console.log(entries.length)
             this.addCircleLayer(entries)
 
-        })
+        }).catch(e=>console.log(e))
     }
 
     addCircleLayer(entries) {
@@ -144,17 +144,17 @@ export default class LayerManager {
             "type": "FeatureCollection",
             "features": []
         };
-        //console.log(entries[10])
+       
         for (var i = 0; i < entries.length; i++) {
            
                 result.features.push(
                     {
                         "type": "Feature",
-                        "properties": { "name": entries[i].id, "title":entries[i].title},
+                        "properties": { "name": entries[i].id, "title":entries[i].title, "geotag": entries[i].geotag_info.toLowerCase().replace(' ','_')},
                         "geometry": {
                             "type": "Point",
                             "coordinates": [
-                                entries[i].longitude, entries[i].latitude
+                                entries[i].longitude || Math.random(), entries[i].latitude || Math.random()
                             ]
                         }//turfCentroid(entries[i]).geometry
                     }
@@ -166,14 +166,22 @@ export default class LayerManager {
             'type': 'geojson',
             'data': result
         });
-
+        //HC
         this._vue.$map.addLayer({
             'id': 'events-circles',
             'type': 'circle',
             'source': 'events-source',
             'layout': {},
             'paint': {
-                'circle-color': 'yellow',
+                'circle-color': [
+                    'match',
+                    ['get', 'geotag'],
+                    'exact_location',
+                    'yellow',
+                    'near_here',
+                    '#6600cc',
+                    /* other */ '#ccc'
+                    ],
                 'circle-stroke-width': 2,
                 'circle-stroke-color': 'white'
             }
