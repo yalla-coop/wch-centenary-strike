@@ -29,10 +29,8 @@
           <v-list-item-group color="primary">
             <v-list-item v-for="(d, i) in dat" :key="i">
               <v-list-item-content @click="selectDat(d.name)">
-                 
                 <v-list-item-title style="font-weight: bold" v-text="d.title">
                 </v-list-item-title>
-                
               </v-list-item-content>
             </v-list-item>
           </v-list-item-group>
@@ -45,13 +43,60 @@
       </ul> -->
       <div v-if="selectedDat.length > 0 && dat.length === 1">
         <h3 class="popup-title">{{ selectedDat[0].title }}</h3>
+        <h4>({{ selectedDat[0].geotag_info }})</h4>
+        <h4 v-show="selectedDat[0].visitor_info.length > 0">
+          {{ selectedDat[0].visitor_info }}
+        </h4>
+        <br />
+        <v-divider></v-divider>
+        <br />
         <p>{{ selectedDat[0].description }}</p>
+
         <div :class="selectedDat[0].media ? 'media-container' : 'hidden'">
           <p class="img-caption">{{ selectedDat[0].media_caption }}</p>
+          <p class="img-caption">{{ selectedDat[0].media_credit }}</p>
+
           <div class="img-container">
             <img :src="selectedDat[0].media" />
           </div>
         </div>
+        <!-- //HC -->
+        <v-divider></v-divider>
+        <ul>
+          <li v-show="selectedDat[0].author_name.length > 0">
+            <a :href="selectedDat[0].author_url" target="_blank"
+              >Author: {{ selectedDat[0].author_name }}</a
+            >
+          </li>
+          <li v-show="selectedDat[0].merch_url.length > 0">
+            <a :href="selectedDat[0].merch_url" target="_blank"
+              >Related Merch</a
+            >
+          </li>
+          <li v-show="selectedDat[0].podcast_url.length > 0">
+            <a :href="selectedDat[0].podcast_url" target="_blank"
+              >Related Podcast</a
+            >
+          </li>
+          <li v-show="selectedDat[0].books_url.length > 0">
+            <a :href="selectedDat[0].books_url" target="_blank"
+              >Related Books</a
+            >
+          </li>
+          <li
+            v-show="
+              selectedDat[0].latitude.length > 0 &&
+              selectedDat[0].longitude.length > 0
+            "
+          >
+            <a
+              target="_blank"
+              :href="`https://maps.google.com?q=${selectedDat[0].latitude},${selectedDat[0].longitude}`"
+              >Open in Google Maps</a
+            >
+          </li>
+        </ul>
+
         <a
           @click="
             zoomTo({
@@ -60,7 +105,8 @@
             })
           "
           href="#"
-          >Zoom To</a
+          class="zoom-to"
+          ><v-icon>mdi-magnify</v-icon>Zoom To</a
         >
       </div>
       <div v-if="loading" class="side-loading">
@@ -110,6 +156,7 @@ export default {
         },
       })
         .then((resp) => {
+          console.log(resp.data);
           this.selectedDat = [resp.data];
           this.dat = [resp.data];
           this.loading = false;
@@ -138,8 +185,8 @@ export default {
   position: absolute;
   right: 10px;
 }
-#info-panel .v-list-item__content{
-        border-bottom: 1px solid #d1d0d0;
+#info-panel .v-list-item__content {
+  border-bottom: 1px solid #d1d0d0;
 }
 #info-panel {
   overflow-y: scroll;
@@ -162,6 +209,7 @@ export default {
 }
 #info-panel .img-caption {
   font-style: italic;
+  margin-bottom: 0;
 }
 .img-container {
   width: 100%;
@@ -171,6 +219,21 @@ export default {
   max-width: 90%;
   margin: 0 auto;
   display: block;
+}
+
+#info-panel .media-container{
+    margin: 10px;
+}
+
+#info-panel .zoom-to{
+display: block;
+    font-size: 15px;
+    position: relative;
+    text-decoration: none;
+    /* right: 10px; */
+    width: 100%;
+    text-align: right;
+    bottom: 13px;
 }
 
 #info-panel .popup-title {
