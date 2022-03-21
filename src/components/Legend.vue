@@ -15,6 +15,8 @@
 
     <v-card-text>
         Additional Layers:
+        <br>
+        <i>(click to activate)</i>
       <v-chip-group
         v-model="toggledLayer"
         active-class="blue accent-4 white--text"

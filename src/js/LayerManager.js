@@ -125,47 +125,76 @@ export default class LayerManager {
         })
     }
     addBaserowToMap(_options) {
-        axios({
-            method: "GET",
-            url: `https://api.baserow.io/api/database/rows/table/${_options.tableid}/?user_field_names=true${_options.sizeLimit ? '&size=' : ''}${_options.sizeLimit || ''}${_options.filter ? '&filter=' : ''}${_options.filter || ''}`,
-            headers: {
-                Authorization: `Token ${this._vue.$mainConfig.api.keys.baserow}`
-            }
-        }).then((resp) => {
-            const entries = resp.data.results;
-            console.log(entries.length)
-            this.addCircleLayer(entries)
+        for (let p = 1; p < _options.numPages+1; p++) {
+            axios({
+                method: "GET",
+                url: `https://api.baserow.io/api/database/rows/table/${_options.tableid}/?user_field_names=true&page=${p}&${_options.sizeLimit ? '&size=' : ''}${_options.sizeLimit || ''}${_options.filter ? '&filter=' : ''}${_options.filter || ''}`,
+                headers: {
+                    Authorization: `Token ${this._vue.$mainConfig.api.keys.baserow}`
+                }
+            }).then((resp) => {
+                const entries = resp.data.results;
+                console.log(entries.length)
+                if (!this._vue.$map.getSource('events-source')) {
+                    this.addCircleLayer(entries)
+                } else {
+                    this.updateCircleLayer(entries);
+                }
 
-        }).catch(e=>console.log(e))
+            }).catch(e => console.log(e));
+        }
     }
 
+    updateCircleLayer(entries) {
+        let eventsSource = this._vue.$map.getSource('events-source');
+        let existingData = this._vue.$dataManager.eventData;
+
+        for (var i = 0; i < entries.length; i++) {
+
+            existingData.features.push(
+                {
+                    "type": "Feature",
+                    "properties": { "name": entries[i].id, "title": entries[i].title, "geotag": entries[i].geotag_info.toLowerCase().replace(' ', '_') },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            entries[i].longitude || Math.random(), entries[i].latitude || Math.random()
+                        ]
+                    }
+                }
+            );
+        }
+        eventsSource.setData(existingData);
+    }
     addCircleLayer(entries) {
         var result = {
             "type": "FeatureCollection",
             "features": []
         };
-       
+
         for (var i = 0; i < entries.length; i++) {
-           
-                result.features.push(
-                    {
-                        "type": "Feature",
-                        "properties": { "name": entries[i].id, "title":entries[i].title, "geotag": entries[i].geotag_info.toLowerCase().replace(' ','_')},
-                        "geometry": {
-                            "type": "Point",
-                            "coordinates": [
-                                entries[i].longitude || Math.random(), entries[i].latitude || Math.random()
-                            ]
-                        }//turfCentroid(entries[i]).geometry
-                    }
-                );
+
+            result.features.push(
+                {
+                    "type": "Feature",
+                    "properties": { "name": entries[i].id, "title": entries[i].title, "geotag": entries[i].geotag_info.toLowerCase().replace(' ', '_') },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            entries[i].longitude || Math.random(), entries[i].latitude || Math.random()
+                        ]
+                    }//turfCentroid(entries[i]).geometry
+                }
+            );
         }
 
+        this._vue.$dataManager.eventData = result;
         //HC
         this._vue.$map.addSource('events-source', {
             'type': 'geojson',
             'data': result
         });
+
         //HC
         this._vue.$map.addLayer({
             'id': 'events-circles',
@@ -181,11 +210,12 @@ export default class LayerManager {
                     'near_here',
                     '#6600cc',
                     /* other */ '#ccc'
-                    ],
+                ],
                 'circle-stroke-width': 2,
                 'circle-stroke-color': 'white'
             }
         });
+
     }
 
     addMarkers(entries) {

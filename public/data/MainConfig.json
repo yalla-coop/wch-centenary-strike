@@ -4,7 +4,8 @@
 	"api": {
 		"baserow": {
 			"tables":{
-				"main": "33215"
+				"main": "33215",
+				"num-pages":3
 			}
 		},
 		"keys": {

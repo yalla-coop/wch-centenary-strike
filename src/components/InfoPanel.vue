@@ -96,7 +96,7 @@
             >
           </li>
         </ul>
-
+    <div  class="zoom-to">
         <a
           @click="
             zoomTo({
@@ -105,9 +105,10 @@
             })
           "
           href="#"
-          class="zoom-to"
+         
           ><v-icon>mdi-magnify</v-icon>Zoom To</a
         >
+        </div>
       </div>
       <div v-if="loading" class="side-loading">
         <v-progress-circular
@@ -229,11 +230,17 @@ export default {
 display: block;
     font-size: 15px;
     position: relative;
-    text-decoration: none;
+    
     /* right: 10px; */
     width: 100%;
     text-align: right;
     bottom: 13px;
+    pointer-events: none;
+}
+
+#info-panel .zoom-to a{
+    pointer-events: all;
+    text-decoration: none;
 }
 
 #info-panel .popup-title {

@@ -75,7 +75,8 @@ export default {
         type: "baserow",
         map: self.map,
         //filter: "filter__field_177149__not_empty",
-        sizeLimit: 200,
+        numPages: self.$mainConfig.api.baserow.tables["num-pages"],
+        sizeLimit: 100,
         tableid: self.$mainConfig.api.baserow.tables.main,
         style: self.$styleConfig["baserow-markers"],
       });
