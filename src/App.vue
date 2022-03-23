@@ -1,15 +1,17 @@
 <template>
   <v-app id="app">
-    <MainTopBar/>
+    <MainTopBar />
     <v-container fluid class="pa-0 blue lighten-5">
       <v-row class="ma-0">
         <v-col cols="1" sm="12" class="pa-0">
           <Map />
         </v-col>
       </v-row>
-      <InfoPanel ref="infoPanel"/>
+      <v-icon @click="toggleExpand()" :class="{'retract':true,'panel-toggle':true, 'hidden':panelExpanded}">mdi-chevron-double-right</v-icon>
+       <v-icon @click="toggleExpand()" :class="{'expand':true, 'panel-toggle':true,'hidden':!panelExpanded}">mdi-chevron-double-left</v-icon>
+      <InfoPanel v-show="panelExpanded" ref="infoPanel" />
     </v-container>
-    <MainFooter/>
+    <MainFooter />
   </v-app>
 </template>
 
@@ -27,14 +29,13 @@ import QuerystringManager from "./js/DataManagement/QuerystringManager";
 import LayerManager from "./js/LayerManager.js";
 import Store from "./js/DataManagement/Store.js";
 
-
 export default {
   name: "App",
   components: {
     Map,
     InfoPanel,
     MainTopBar,
-    MainFooter  
+    MainFooter,
   },
   beforeCreate: function () {
     Vue.prototype.$dataManager = new DataManager();
@@ -53,7 +54,14 @@ export default {
   data() {
     return {
       sideInstance: null,
+      panelExpanded: true
     };
+  },
+  methods:{
+    toggleExpand(){
+      this.panelExpanded = !this.panelExpanded;
+      EventBus.$emit('toggle-panel', this.panelExpanded);
+    }
   },
   watch: {},
   mounted: function () {
@@ -96,7 +104,26 @@ export default {
   },
 };
 </script>
+<style scoped>
+.panel-toggle {
+  position: absolute;
+  bottom: 180px;
+  left: 25%;
+  background: #ffffffed;
+  padding: 8px;
+  font-size: 30px;
+  cursor: pointer;
+  display: block;
+}
 
+.hidden{
+  display: none !important;
+}
+
+.retract{
+  left:0;
+}
+</style>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

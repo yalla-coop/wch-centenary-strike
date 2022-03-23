@@ -1,5 +1,6 @@
 <template>
   <div id="info-panel">
+    
     <div :class="dat.length > 0 ? 'hidden' : ''">
       <h3>Information about project here...</h3>
       History is not made by the actions of a few rich and powerful individuals,
@@ -16,7 +17,7 @@
     </div>
     <div :class="dat.length > 0 ? '' : 'hidden'">
       <div @click="selectDat(null)" class="close-btn">
-        <v-icon>mdi-close</v-icon>
+        <v-icon class="close-btn">mdi-close</v-icon>
       </div>
       <v-card class="mx-auto" max-width="300" tile v-if="dat.length > 1">
         <h3 style="text-align: center; background: #ffeb3b; padding: 5px">
@@ -181,6 +182,10 @@ export default {
 </script>
 
 <style>
+.panel-toggle{
+  position: absolute;
+    left: 100%;
+}
 .close-btn {
   cursor: pointer;
   position: absolute;
@@ -258,9 +263,5 @@ display: block;
   display: block;
 }
 
-#main-map,
-#main-map.selection-made {
-  left: 25% !important;
-  width: 75% !important;
-}
+
 </style>

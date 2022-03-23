@@ -1,7 +1,7 @@
 <template>
   <div>
     <Legend/>
-    <div id="main-map">
+    <div id="main-map" :class="{'expanded':this.mapExpanded, 'mapboxgl-map':true}">
       <div class="mapboxgl-ctrl-bottom-right third-party-container">
         <a
           v-for="logo in $mainConfig['map-logos']"
@@ -31,15 +31,25 @@ export default {
     Legend
   },
   data: function () {
-    return {};
+    return {
+      mapExpanded: false
+    };
   },
   mounted: function () {
     mapboxgl.accessToken = this.$mainConfig.api.keys["mb-key"];
     this.map = new mapboxgl.Map(this.$mainConfig.mapConfig);
     let map = (Vue.prototype.$map = this.map);
     Vue.prototype.$eventManager = new EventManager();
-
     let self = this;
+    EventBus.$on('toggle-panel',(panelExpanded)=>{
+      self.mapExpanded = !panelExpanded;
+      self.$nextTick(()=>{
+       
+        self.map.resize();
+      })
+    });
+
+
 
     map.addControl(
       new mapboxgl.GeolocateControl({
@@ -146,8 +156,22 @@ export default {
 <style scoped>
 
 #main-map {
-  width: 100%;
   height: calc(100vh - 100px);
+}
+
+#main-map {
+  left: 25%;
+  width: 75%;
+}
+
+#main-map.expanded{
+  width:100%;
+  left: 0px;
+}
+
+.expanded .mapboxgl-canvas-container {
+  width:100% !important;
+  right:0 !important;
 }
 .mapboxgl-ctrl-bottom-right {
   pointer-events: auto;
