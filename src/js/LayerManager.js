@@ -32,7 +32,7 @@ export default class LayerManager {
     }
 
     toggleLayer(layerid) {
-        if (!this._vue.$map) return;
+        if (!this._vue.$map || !this._vue.$map.getLayer(layerid)) return;
         const visibility = this._vue.$map.getLayoutProperty(
             layerid,
             'visibility'
@@ -53,6 +53,8 @@ export default class LayerManager {
     }
     addGeoJSONRemoteToMap(_options) {
         let self = this;
+        const beforeLayer = this._vue.$styleConfig["layer-placement"]["geojson"];
+
         axios.get(_options.url).then(resp => {
             const _geojson = {
                 type: "FeatureCollection",
@@ -64,18 +66,27 @@ export default class LayerManager {
                 'type': 'geojson',
                 'data': _geojson
             });
-            this._vue.$map.addLayer({
+            //const _visibility = _options["visible-by-default"] ? 'visible' : 'none';
+            const layer = {
                 'id': _options["layer-id"],
                 'type': 'fill',
                 'source': srcID, // reference the data source
                 'layout': {
-                    'visibility': _options["visible-by-default"] ? 'visibility' : 'none'
+                    'visibility': 'none'
                 },
                 'paint': {
-                    'fill-color': ['get', 'color'], // blue color fill
+                    'fill-color': ["case",
+                    ['==', ["length",['get', 'color']],7], 
+                    ['get', 'color'],
+                    '#00ffff'],
                     'fill-opacity': 0.25
                 }
-            });
+            }
+            if(beforeLayer){  
+                this._vue.$map.addLayer(layer,beforeLayer);
+            }else{
+                this._vue.$map.addLayer(layer);
+            }
 
             if (_options.labels) {
                 var result = {
@@ -125,6 +136,7 @@ export default class LayerManager {
         })
     }
     addBaserowToMap(_options) {
+        const beforeLayer = this._vue.$styleConfig["layer-placement"]["events"];
         for (let p = 1; p < _options.numPages+1; p++) {
             axios({
                 method: "GET",
@@ -134,9 +146,9 @@ export default class LayerManager {
                 }
             }).then((resp) => {
                 const entries = resp.data.results;
-                console.log(entries.length)
+                //console.log(entries.length)
                 if (!this._vue.$map.getSource('events-source')) {
-                    this.addCircleLayer(entries)
+                    this.addCircleLayer(beforeLayer,entries)
                 } else {
                     this.updateCircleLayer(entries);
                 }
@@ -166,7 +178,7 @@ export default class LayerManager {
         }
         eventsSource.setData(existingData);
     }
-    addCircleLayer(entries) {
+    addCircleLayer(beforeLayer,entries) {
         var result = {
             "type": "FeatureCollection",
             "features": []
@@ -196,7 +208,7 @@ export default class LayerManager {
         });
 
         //HC
-        this._vue.$map.addLayer({
+        const layer = {
             'id': 'events-circles',
             'type': 'circle',
             'source': 'events-source',
@@ -214,7 +226,12 @@ export default class LayerManager {
                 'circle-stroke-width': 2,
                 'circle-stroke-color': 'white'
             }
-        });
+        }
+        if(beforeLayer){  
+            this._vue.$map.addLayer(layer,beforeLayer);
+        }else{
+            this._vue.$map.addLayer(layer);
+        }
 
     }
 

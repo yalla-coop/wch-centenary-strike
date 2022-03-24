@@ -1,14 +1,14 @@
 <template>
   <v-app id="app">
-    <MainTopBar />
+    <!-- <MainTopBar /> -->
     <v-container fluid class="pa-0 blue lighten-5">
       <v-row class="ma-0">
         <v-col cols="1" sm="12" class="pa-0">
           <Map />
         </v-col>
       </v-row>
-      <v-icon @click="toggleExpand()" :class="{'retract':true,'panel-toggle':true, 'hidden':panelExpanded}">mdi-chevron-double-right</v-icon>
-       <v-icon @click="toggleExpand()" :class="{'expand':true, 'panel-toggle':true,'hidden':!panelExpanded}">mdi-chevron-double-left</v-icon>
+      <v-icon @click="toggleExpand()" :class="{'retract':true,'panel-toggle':true, 'hidden':panelExpanded}">mdi-chevron-double-left</v-icon>
+       <v-icon @click="toggleExpand()" :class="{'expand':true, 'panel-toggle':true,'hidden':!panelExpanded}">mdi-chevron-double-right</v-icon>
       <InfoPanel v-show="panelExpanded" ref="infoPanel" />
     </v-container>
     <MainFooter />
@@ -19,7 +19,7 @@
 import Map from "./components/Map.vue";
 import InfoPanel from "./components/InfoPanel.vue";
 import MainFooter from "./components/MainFooter.vue";
-import MainTopBar from "./components/MainTopBar.vue";
+//import MainTopBar from "./components/MainTopBar.vue";
 import Vue from "vue";
 
 import { EventBus } from "./js/DataManagement/EventBus";
@@ -27,6 +27,7 @@ import { EventBus } from "./js/DataManagement/EventBus";
 import DataManager from "./js/DataManagement/DataManager.js";
 import QuerystringManager from "./js/DataManagement/QuerystringManager";
 import LayerManager from "./js/LayerManager.js";
+ 
 import Store from "./js/DataManagement/Store.js";
 
 export default {
@@ -34,7 +35,7 @@ export default {
   components: {
     Map,
     InfoPanel,
-    MainTopBar,
+    //MainTopBar,
     MainFooter,
   },
   beforeCreate: function () {
@@ -107,8 +108,8 @@ export default {
 <style scoped>
 .panel-toggle {
   position: absolute;
-  bottom: 180px;
-  left: 25%;
+  bottom: 240px;
+  right: 25%;
   background: #ffffffed;
   padding: 8px;
   font-size: 30px;
@@ -121,7 +122,7 @@ export default {
 }
 
 .retract{
-  left:0;
+  right:0;
 }
 </style>
 <style>

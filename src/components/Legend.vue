@@ -36,11 +36,13 @@
 </template>
 
 <script>
+
+
 export default {
   name: "Legend",
   data: function () {
     return {
-      toggledLayer: "",
+      toggledLayer: ""
     };
   },
   computed: {
@@ -71,12 +73,10 @@ export default {
   margin-bottom: 5px;
 }
 .legend-container {
-  position: absolute !important;
+
   /* width: 8%; */
   /* margin: 10px; */
   z-index: 9;
-  right: 10px;
-  bottom: 90px;
   border: 1px solid white !important;
 }
 .legend-list {

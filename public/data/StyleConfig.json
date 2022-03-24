@@ -16,5 +16,9 @@
                 "near-here": "#6600cc"
             }
         }
+    },
+    "layer-placement":{
+        "events":"event-placeholder",
+        "geojson":"additional-layer-placeholder"
     }
 }

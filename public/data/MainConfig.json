@@ -27,6 +27,8 @@
 		"preserveDrawingBuffer": true,
 		"antialias": true
 	},
+	"satellite-style":"mapbox://styles/workingclasshistory/cl1551xsr000q15o12t1ssc39",
+	"street-style":"mapbox://styles/workingclasshistory/cl0im7k3c000y14lrxp7s82oi",
 	"map-logos": [],
 	"toggleable-layers": [
 		{
@@ -34,7 +36,6 @@
 			"url":"https://native-land.ca/wp-json/nativeland/v1/api/index.php?maps=territories",
 			"layer-id": "native-lands",
 			"legend-display": "Native Lands",
-			"visible-by-default":false,
 			"on-load-event": null,
 			"tag": "native-lands",
 			"labels": true,

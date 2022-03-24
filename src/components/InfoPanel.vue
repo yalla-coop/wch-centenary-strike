@@ -184,7 +184,7 @@ export default {
 <style>
 .panel-toggle{
   position: absolute;
-    left: 100%;
+    right: 100%;
 }
 .close-btn {
   cursor: pointer;
@@ -200,8 +200,8 @@ export default {
   font-size: 12px;
   position: absolute;
   /* z-index: 0; */
-  left: 0;
-  top: 64px;
+  right: 0;
+  top: 0px;
   width: 25%;
   /* max-width: 40%; */
   overflow-y: scroll;
