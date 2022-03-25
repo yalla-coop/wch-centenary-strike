@@ -16,10 +16,11 @@ export default class LegendControl {
 
         var ComponentClass = Vue.extend(Legend);
         var instance = new ComponentClass({store:Store, vuetify: new Vuetify()});
-        console.log(instance)
+
         instance.$mount();
        
         this._container.appendChild(instance.$el);
+
         return this._container;
     }
 

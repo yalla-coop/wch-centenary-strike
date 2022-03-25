@@ -52,6 +52,7 @@ export default {
   },
   methods: {
     toggleLayer: function (_layer) {
+      //console.log(_layer)
       if (_layer) {
         this.$layerManager.toggleLayer(_layer["layer-id"]);
         if (_layer.labels) {

@@ -1,5 +1,5 @@
 <template>
-  <v-footer color="yellow"
+  <v-footer color="rgb(18, 2, 50)"
     ><nav
       class="jetpack-social-navigation jetpack-social-navigation-genericons"
       aria-label="Social Links Menu"
@@ -19,7 +19,7 @@
               rel="noopener"
               href="http://instagram.com/workingclasshistory"
               onclick="javascript:window.open('http://instagram.com/workingclasshistory'); return false;"
-              ><v-icon class="screen-reader-text">mdi-instagram</v-icon></a
+              ><v-icon dark class="icon-class">mdi-instagram</v-icon></a
             >
           </li>
           <li
@@ -35,7 +35,7 @@
               rel="noopener"
               href="https://www.facebook.com/workingclasshistory/"
               onclick="javascript:window.open('https://www.facebook.com/workingclasshistory/'); return false;"
-              ><v-icon class="screen-reader-text">mdi-facebook</v-icon></a
+              ><v-icon dark class="icon-class">mdi-facebook</v-icon></a
             >
           </li>
           <li
@@ -51,7 +51,7 @@
               rel="noopener"
               href="http://twitter.com/wrkclasshistory"
               onclick="javascript:window.open('http://twitter.com/wrkclasshistory'); return false;"
-              ><v-icon class="screen-reader-text">mdi-twitter</v-icon></a
+              ><v-icon dark class="icon-class">mdi-twitter</v-icon></a
             >
           </li>
           <li
@@ -67,7 +67,7 @@
               rel="noopener"
               href="https://open.spotify.com/show/3dqQUrBAmXgoU1Q6hcUnBX"
               onclick="javascript:window.open('https://open.spotify.com/show/3dqQUrBAmXgoU1Q6hcUnBX'); return false;"
-              ><v-icon class="screen-reader-text">mdi-spotify</v-icon></a
+              ><v-icon dark class="icon-class">mdi-spotify</v-icon></a
             >
           </li>
           <li
@@ -83,7 +83,7 @@
               rel="noopener"
               href="https://workingclasshistory.tumblr.com"
               onclick="javascript:window.open('https://workingclasshistory.tumblr.com/'); return false;"
-              ><v-icon class="screen-reader-text">mdi-tumblr</v-icon></a
+              ><v-icon dark class="icon-class">mdi-tumblr</v-icon></a
             >
           </li>
           <li
@@ -99,7 +99,7 @@
               rel="noopener"
               href="https://www.youtube.com/c/workingclasshistory"
               onclick="javascript:window.open('https://www.youtube.com/c/workingclasshistory'); return false;"
-              ><v-icon class="screen-reader-text">mdi-youtube</v-icon></a
+              ><v-icon dark class="icon-class">mdi-youtube</v-icon></a
             >
           </li>
           <li
@@ -115,7 +115,7 @@
               rel="noopener"
               href="https://www.pinterest.com/workingclasshistory/"
               onclick="javascript:window.open('https://www.pinterest.com/workingclasshistory/'); return false;"
-              ><v-icon class="screen-reader-text">mdi-pintrest</v-icon></a
+              ><v-icon dark class="icon-class">mdi-pintrest</v-icon></a
             >
           </li>
           <li
@@ -130,7 +130,7 @@
             <a
               href="https://mastodon.social/@workingclasshistory"
               onclick="javascript:window.open('https://mastodon.social/@workingclasshistory'); return false;"
-              ><v-icon class="screen-reader-text">mdi-mastodon</v-icon></a
+              ><v-icon dark class="icon-class">mdi-mastodon</v-icon></a
             >
           </li>
         </ul>
@@ -146,4 +146,15 @@ export default {
 </script>
 
 <style>
+.v-footer{
+  z-index: 9;
+  background-color: rgb(18, 2, 50);
+    box-shadow: #4e4e4e66 0px 0px 16px;
+    border-color: rgb(18, 2, 50);
+}
+
+/* .icon-class{
+  color:white;
+} */
+
 </style>

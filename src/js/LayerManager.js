@@ -114,7 +114,6 @@ export default class LayerManager {
                     'type': 'symbol',
                     'source': _options["layer-id"] + '-labels-source',
                     'layout': {
-                        'icon-image': 'custom-marker',
                         // get the title name from the source's "title" property
                         'text-field': ['get', 'name'],
                         'text-font': [

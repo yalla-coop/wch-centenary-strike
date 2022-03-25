@@ -121,9 +121,9 @@ export default {
       let self = this;
       if (!this.legendControl) {
         this.legendControl = new LegendControl();
-        this.map.once("styledata", () => {
+        //this.map.once("styledata", () => {
           self.map.addControl(new LegendControl(), "bottom-left");
-        });
+        //});
       }
     },
     zoomTo: function () {
@@ -181,10 +181,16 @@ export default {
   pointer-events: auto;
 }
 
+
+
 /* raven
 exl and touring */
 </style>
 <style>
+.mapboxgl-ctrl-top-left {
+    top: 0;
+    left: 155px;
+}
 .mapboxgl-ctrl-bottom-left .mapboxgl-ctrl {
   clear: none;
 }
