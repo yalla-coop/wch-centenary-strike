@@ -12,11 +12,15 @@ Vue.use(Vuex);
 const Store = new Vuex.Store({
   state: () => ({
     selectedLngLat: [],
-    mobile: false
+    mobile: false,
+    selectedEventId: -1
   }),
   mutations: {
     resetSelection: function (state) {
       state.selectedLngLat = [];
+    },
+    setSelectedEventId(state,val){
+      state.selectedEventId = val;
     },
     setSelectedLngLat: function (state, val) {
       state.selectedLngLat = val;
@@ -29,6 +33,9 @@ const Store = new Vuex.Store({
     }
   },
   getters: {
+    getSelectedEventId(state){
+      return state.selectedEventId;
+    },
     getSelectedLngLat: function (state) {
       return state.selectedLngLat;
     },

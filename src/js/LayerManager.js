@@ -6,10 +6,10 @@ import axios from 'axios';
 import mapboxgl from "mapbox-gl";
 import turfCentroid from '@turf/centroid'
 //var turfCentroid = require('turf-centroid');
-
+import Store from './DataManagement/Store';
 export default class LayerManager {
     constructor() {
-        this._vue = new Vue();
+        this._vue = new Vue({store: Store});
         this.layers = [];
         this.sources = [];
     }
@@ -176,6 +176,46 @@ export default class LayerManager {
             );
         }
         eventsSource.setData(existingData);
+    }
+
+    styleCircleSelection(){
+        //console.log()
+        const map = this._vue.$map;
+        if(this._vue.$store.getters.getSelectedEventId === -1){
+            map.setPaintProperty("events-circles", "circle-opacity", 1);
+            map.setPaintProperty("events-circles", "circle-stroke-width", 2);
+            map.setPaintProperty("events-circles", "circle-stroke-opacity", 1);
+            return;
+        }
+
+        map.setPaintProperty("events-circles", "circle-opacity", [
+            "case",
+            ["==", ["get", "name"], this._vue.$store.getters.getSelectedEventId],
+            1,
+            0.3,
+          ]);
+  
+          map.setPaintProperty("events-circles", "circle-radius", [
+            "case",
+            ["==", ["get", "name"], this._vue.$store.getters.getSelectedEventId],
+            7,
+            5,
+          ]);
+  
+          map.setPaintProperty("events-circles", "circle-stroke-width", [
+            "case",
+            ["==", ["get", "name"], this._vue.$store.getters.getSelectedEventId],
+            3,
+            1,
+          ]);
+  
+          map.setPaintProperty("events-circles", "circle-stroke-opacity", [
+            "case",
+            ["==", ["get", "name"], this._vue.$store.getters.getSelectedEventId],
+            1,
+            0.5,
+          ]);
+        
     }
     addCircleLayer(beforeLayer,entries) {
         var result = {

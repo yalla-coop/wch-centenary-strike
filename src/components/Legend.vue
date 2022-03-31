@@ -12,7 +12,6 @@
       </li>
     </ul>
     <v-divider></v-divider>
-
     <v-card-text>
         Additional Layers:
         <br>
@@ -93,5 +92,9 @@ export default {
   text-transform: uppercase;
   font-weight: bold;
   margin-bottom: 5px;
+}
+
+.mapboxgl-ctrl-bottom-left .mapboxgl-ctrl {
+    margin: 0 0 10px 5px;
 }
 </style>

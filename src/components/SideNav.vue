@@ -10,7 +10,7 @@
               viewBox="0 0 86 86"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              style="margin-bottom: 100px"
+              style="margin-bottom: 5%"
             >
               <path d="M85.8974 0H0V85.8974H85.8974V0Z" fill="#FAD40A"></path>
               <path

@@ -1,6 +1,5 @@
 <template>
   <div id="info-panel">
-    
     <div :class="dat.length > 0 ? 'hidden' : ''">
       <h3>Information about project here...</h3>
       History is not made by the actions of a few rich and powerful individuals,
@@ -97,18 +96,17 @@
             >
           </li>
         </ul>
-    <div  class="zoom-to">
-        <a
-          @click="
-            zoomTo({
-              lat: selectedDat[0].latitude,
-              lng: selectedDat[0].longitude,
-            })
-          "
-          href="#"
-         
-          ><v-icon>mdi-magnify</v-icon>Zoom To</a
-        >
+        <div class="zoom-to">
+          <a
+            @click="
+              zoomTo({
+                lat: selectedDat[0].latitude,
+                lng: selectedDat[0].longitude,
+              })
+            "
+            href="#"
+            ><v-icon dark>mdi-magnify</v-icon>Zoom To</a
+          >
         </div>
       </div>
       <div v-if="loading" class="side-loading">
@@ -150,6 +148,11 @@ export default {
       }
       this.loading = true;
       const datId = this.dat.filter((d) => d.name === _name)[0].name;
+      this.$store.commit("setSelectedEventId", datId);
+      let self = this;
+      this.$nextTick(() => {
+        self.$layerManager.styleCircleSelection();
+      });
       axios({
         method: "GET",
         url: `https://api.baserow.io/api/database/rows/table/${this.$mainConfig.api.baserow.tables.main}/${datId}/?user_field_names=true`,
@@ -182,9 +185,9 @@ export default {
 </script>
 
 <style>
-.panel-toggle{
+.panel-toggle {
   position: absolute;
-    right: 100%;
+  right: 100%;
 }
 .close-btn {
   cursor: pointer;
@@ -208,7 +211,7 @@ export default {
   bottom: 37px;
   padding: 10px;
   background: black;
-  color:white;
+  color: white;
 }
 
 #info-panel .hidden {
@@ -228,25 +231,25 @@ export default {
   display: block;
 }
 
-#info-panel .media-container{
-    margin: 10px;
+#info-panel .media-container {
+  margin: 10px;
 }
 
-#info-panel .zoom-to{
-display: block;
-    font-size: 15px;
-    position: relative;
-    
-    /* right: 10px; */
-    width: 100%;
-    text-align: right;
-    bottom: 13px;
-    pointer-events: none;
+#info-panel .zoom-to {
+  display: block;
+  font-size: 15px;
+  position: relative;
+
+  /* right: 10px; */
+  width: 100%;
+  text-align: right;
+  bottom: 13px;
+  pointer-events: none;
 }
 
-#info-panel .zoom-to a{
-    pointer-events: all;
-    text-decoration: none;
+#info-panel .zoom-to a {
+  pointer-events: all;
+  text-decoration: none;
 }
 
 #info-panel .popup-title {
@@ -263,6 +266,4 @@ display: block;
   margin: 0 auto;
   display: block;
 }
-
-
 </style>

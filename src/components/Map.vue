@@ -86,42 +86,28 @@ export default {
 
     map.on("click", (e) => {
       const features = map.queryRenderedFeatures(e.point);
-      if (features.length === 0) return;
+      if (features.length === 0){
+        self.$store.commit("setSelectedEventId", -1);
+        self.$layerManager.styleCircleSelection();
+        return;
+      }
+         
+
       const eventFeatures = features
         .filter((f) => f.layer.source === "events-source")
         .map((f) => f.properties);
 
       EventBus.$emit("new-panel", eventFeatures); //HC
 
-      if (eventFeatures.length === 1) {
-        map.setPaintProperty("events-circles", "circle-opacity", [
-          "case",
-          ["==", ["get", "name"], eventFeatures[0].name],
-          1,
-          0.3,
-        ]);
-
-        map.setPaintProperty("events-circles", "circle-radius", [
-          "case",
-          ["==", ["get", "name"], eventFeatures[0].name],
-          7,
-          5,
-        ]);
-
-        map.setPaintProperty("events-circles", "circle-stroke-width", [
-          "case",
-          ["==", ["get", "name"], eventFeatures[0].name],
-          4,
-          2,
-        ]);
-
-        map.setPaintProperty("events-circles", "circle-stroke-opacity", [
-          "case",
-          ["==", ["get", "name"], eventFeatures[0].name],
-          1,
-          0.5,
-        ]);
-      }
+      //if (eventFeatures.length !== 1) {
+      this.$store.commit(
+        "setSelectedEventId",
+        eventFeatures.length === 1 ? eventFeatures[0].name : -1
+      );
+      // }
+      self.$nextTick(() => {
+        self.$layerManager.styleCircleSelection();
+      });
     });
 
     EventBus.$on("clear-selected", () => {
@@ -272,5 +258,9 @@ exl and touring */
 
 .basemap-control-container ul {
   list-style: none;
+}
+
+.mapboxgl-ctrl-bottom-left{
+  z-index: 3;
 }
 </style>

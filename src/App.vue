@@ -10,11 +10,13 @@
       </v-row>
       <v-icon
         @click="toggleExpand()"
+        dark
         :class="{ retract: true, 'panel-toggle': true, hidden: panelExpanded }"
         >mdi-chevron-double-left</v-icon
       >
       <v-icon
         @click="toggleExpand()"
+        dark
         :class="{ expand: true, 'panel-toggle': true, hidden: !panelExpanded }"
         >mdi-chevron-double-right</v-icon
       >
@@ -121,11 +123,15 @@ export default {
   position: absolute;
   bottom: 240px;
   right: 25%;
-  background: #ffffffed;
   padding: 8px;
   font-size: 30px;
   cursor: pointer;
   display: block;
+  background: #0008;
+  border: 1px 1px 1px 0 solid;
+  border-left: 1px solid #ffffff45;
+  border-top: 1px solid #ffffff45;
+  border-bottom: 1px solid #ffffff45;
 }
 
 .hidden {
@@ -137,8 +143,6 @@ export default {
 }
 </style>
 <style>
-
-
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
