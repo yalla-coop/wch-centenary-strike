@@ -207,7 +207,8 @@ export default {
   overflow-y: scroll;
   bottom: 37px;
   padding: 10px;
-  background: white;
+  background: black;
+  color:white;
 }
 
 #info-panel .hidden {

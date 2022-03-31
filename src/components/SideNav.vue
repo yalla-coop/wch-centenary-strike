@@ -1,6 +1,6 @@
 <template>
   <div class="ma-0 pa-0 side-nav-container">
-    <v-navigation-drawer permanent>
+    <v-navigation-drawer dark class="nav-drawer" permanent>
       <div class="ant-layout-sider-children">
         <div class="css-19iid9s">
           <a href="/"
@@ -128,11 +128,15 @@ export default {
 };
 </script>
 <style>
-
+.nav-drawer{
+      max-height: fit-content;
+    background-color: black !important;
+    position: absolute;
+}
 .list-container a, .list-container .ant-typography{
         font-family: Roboto, sans-serif;
         text-decoration: none;
-        color: black;
+        color: white;
 }
 
 
@@ -148,19 +152,21 @@ export default {
 }
 
 .side-nav-container aside{
-    max-height: calc(100vh - 290px);
         min-width: 160px;
 }
 
 .ant-typography{
     font-family: "ZillaSlab";
 }
+.ant-layout-sider-children a{
+  color: white;
+}
 .ant-layout-sider-children{
     -webkit-tap-highlight-color: rgba(0,0,0,0);
     --antd-wave-shadow-color: #1890ff;
     --scroll-bar: 0;
     text-size-adjust: 100%;
-    color: rgba(0,0,0,.85);
+    color: white;
     font-size: 14px;
     font-variant: tabular-nums;
     line-height: 1.5715;

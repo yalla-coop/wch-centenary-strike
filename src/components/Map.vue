@@ -87,12 +87,41 @@ export default {
     map.on("click", (e) => {
       const features = map.queryRenderedFeatures(e.point);
       if (features.length === 0) return;
-      EventBus.$emit(
-        "new-panel",
-        features
-          .filter((f) => f.layer.source === "events-source")
-          .map((f) => f.properties)
-      ); //HC
+      const eventFeatures = features
+        .filter((f) => f.layer.source === "events-source")
+        .map((f) => f.properties);
+
+      EventBus.$emit("new-panel", eventFeatures); //HC
+
+      if (eventFeatures.length === 1) {
+        map.setPaintProperty("events-circles", "circle-opacity", [
+          "case",
+          ["==", ["get", "name"], eventFeatures[0].name],
+          1,
+          0.3,
+        ]);
+
+        map.setPaintProperty("events-circles", "circle-radius", [
+          "case",
+          ["==", ["get", "name"], eventFeatures[0].name],
+          7,
+          5,
+        ]);
+
+        map.setPaintProperty("events-circles", "circle-stroke-width", [
+          "case",
+          ["==", ["get", "name"], eventFeatures[0].name],
+          4,
+          2,
+        ]);
+
+        map.setPaintProperty("events-circles", "circle-stroke-opacity", [
+          "case",
+          ["==", ["get", "name"], eventFeatures[0].name],
+          1,
+          0.5,
+        ]);
+      }
     });
 
     EventBus.$on("clear-selected", () => {
@@ -122,7 +151,7 @@ export default {
       if (!this.legendControl) {
         this.legendControl = new LegendControl();
         //this.map.once("styledata", () => {
-          self.map.addControl(new LegendControl(), "bottom-left");
+        self.map.addControl(new LegendControl(), "bottom-left");
         //});
       }
     },
@@ -181,15 +210,13 @@ export default {
   pointer-events: auto;
 }
 
-
-
 /* raven
 exl and touring */
 </style>
 <style>
 .mapboxgl-ctrl-top-left {
-    top: 0;
-    left: 155px;
+  top: 0;
+  left: 155px;
 }
 .mapboxgl-ctrl-bottom-left .mapboxgl-ctrl {
   clear: none;
