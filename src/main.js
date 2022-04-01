@@ -11,6 +11,10 @@ import $ from "jquery";
 
 //import AsyncComputed from 'vue-async-computed'
 
+if(window.location !== window.parent.location){
+  document.querySelector('body').classList.add("embed")
+}
+
 Vue.config.productionTip = false;
 
 //Commonly used imports:

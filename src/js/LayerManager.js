@@ -192,20 +192,20 @@ export default class LayerManager {
             "case",
             ["==", ["get", "name"], this._vue.$store.getters.getSelectedEventId],
             1,
-            0.3,
+            0.2,
           ]);
   
           map.setPaintProperty("events-circles", "circle-radius", [
             "case",
             ["==", ["get", "name"], this._vue.$store.getters.getSelectedEventId],
-            7,
+            6,
             5,
           ]);
   
           map.setPaintProperty("events-circles", "circle-stroke-width", [
             "case",
             ["==", ["get", "name"], this._vue.$store.getters.getSelectedEventId],
-            3,
+            2,
             1,
           ]);
   
@@ -213,7 +213,7 @@ export default class LayerManager {
             "case",
             ["==", ["get", "name"], this._vue.$store.getters.getSelectedEventId],
             1,
-            0.5,
+            0.25,
           ]);
         
     }

@@ -121,6 +121,7 @@
 
 <script>
 import axios from "axios";
+import {EventBus} from "../js/DataManagement/EventBus";
 export default {
   name: "InfoPanel",
   data: function () {
@@ -138,6 +139,9 @@ export default {
       this.loading = false;
       if (dat.length === 1) {
         this.selectDat(dat[0].name);
+      }
+      if(dat.length > 1){
+        EventBus.$emit('force-info-open');
       }
     },
     selectDat(_name) {

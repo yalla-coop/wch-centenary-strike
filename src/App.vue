@@ -79,6 +79,15 @@ export default {
   },
   watch: {},
   mounted: function () {
+    this.panelExpanded = window.location === window.parent.location;
+    EventBus.$emit("toggle-panel", this.panelExpanded);
+
+    EventBus.$on("force-info-open", () => {
+      if (this.panelExpanded) return;
+      this.panelExpanded = true;
+      EventBus.$emit("toggle-panel", this.panelExpanded);
+    });
+
     if (
       window.location !== window.parent.location &&
       this.$store.getters.isMobile
@@ -118,6 +127,32 @@ export default {
   },
 };
 </script>
+<style>
+.embed .side-nav-container,
+.embed .mapboxgl-ctrl-top-left,
+.embed .v-footer {
+  display: none;
+}
+
+.embed .container,
+.embed #info-panel {
+  height: 100%;
+  overflow-x: hidden;
+}
+
+.embed #main-map {
+  height: 100vh;
+}
+
+.embed .list-item {
+  padding: 0px;
+  margin-bottom: 0px;
+}
+
+.embed .legend-container .v-card__text {
+  padding: 10px;
+}
+</style>
 <style scoped>
 .panel-toggle {
   position: absolute;

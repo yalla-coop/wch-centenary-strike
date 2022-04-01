@@ -49,16 +49,6 @@ export default {
       });
     });
 
-    map.addControl(
-      new mapboxgl.GeolocateControl({
-        positionOptions: {
-          enableHighAccuracy: true,
-        },
-        trackUserLocation: true,
-        showUserHeading: true,
-      })
-    );
-
     const geocoder = new MapboxGeocoder({
       // Initialize the geocoder
       accessToken: mapboxgl.accessToken, // Set the access token
@@ -68,7 +58,15 @@ export default {
     });
 
     map.addControl(geocoder);
-
+    map.addControl(
+      new mapboxgl.GeolocateControl({
+        positionOptions: {
+          enableHighAccuracy: true,
+        },
+        trackUserLocation: true,
+        showUserHeading: true,
+      })
+    );
     this.map.addControl(new BasemapControl(), "top-left");
     map.addControl(new mapboxgl.ScaleControl(), "bottom-right");
     map.addControl(new mapboxgl.NavigationControl(), "bottom-right");
@@ -86,12 +84,11 @@ export default {
 
     map.on("click", (e) => {
       const features = map.queryRenderedFeatures(e.point);
-      if (features.length === 0){
+      if (features.length === 0) {
         self.$store.commit("setSelectedEventId", -1);
         self.$layerManager.styleCircleSelection();
         return;
       }
-         
 
       const eventFeatures = features
         .filter((f) => f.layer.source === "events-source")
@@ -260,7 +257,7 @@ exl and touring */
   list-style: none;
 }
 
-.mapboxgl-ctrl-bottom-left{
+.mapboxgl-ctrl-bottom-left {
   z-index: 3;
 }
 </style>
