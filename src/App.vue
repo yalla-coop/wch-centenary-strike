@@ -1,6 +1,26 @@
 <template>
   <v-app id="app">
     <!-- <MainTopBar /> -->
+    <div
+      class="open-menu"
+      v-show="!menuOpen"
+      @click="openMenu()"
+      style="cursor: pointer"
+    >
+      <svg
+        width="22"
+        height="11"
+        viewBox="0 0 22 11"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        icon="burger"
+        style="cursor: pointer"
+      >
+        <path d="M1 0.5H21" stroke="white" stroke-linecap="round"></path>
+        <path d="M1 5.5H21" stroke="white" stroke-linecap="round"></path>
+        <path d="M1 10.5H21" stroke="#FAD40A" stroke-linecap="round"></path>
+      </svg>
+    </div>
     <SideNav />
     <v-container fluid class="pa-0 blue lighten-5">
       <v-row class="ma-0">
@@ -69,6 +89,7 @@ export default {
     return {
       sideInstance: null,
       panelExpanded: true,
+      menuOpen: false,
     };
   },
   methods: {
@@ -76,11 +97,20 @@ export default {
       this.panelExpanded = !this.panelExpanded;
       EventBus.$emit("toggle-panel", this.panelExpanded);
     },
+    openMenu() {
+      this.menuOpen = true;
+      EventBus.$emit("open-main-menu");
+    },
   },
   watch: {},
   mounted: function () {
+    let self = this;
     this.panelExpanded = window.location === window.parent.location;
     EventBus.$emit("toggle-panel", this.panelExpanded);
+
+    EventBus.$on("close-main-menu", () => {
+      self.menuOpen = false;
+    });
 
     EventBus.$on("force-info-open", () => {
       if (this.panelExpanded) return;
@@ -99,8 +129,6 @@ export default {
     ).split(",");
 
     if (selectedLngLat.length > 0) {
-      let self = this;
-
       self.$store.commit(
         "setSelectedLngLat",
         selectedLngLat.map((l) => +l)
@@ -112,7 +140,7 @@ export default {
         );
       });
     }
-    let self = this;
+    // let self = this;
     EventBus.$on("new-panel", (dat) => {
       self.$refs.infoPanel.setData(dat);
     });
@@ -128,6 +156,86 @@ export default {
 };
 </script>
 <style>
+.portrait #main-map {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+}
+.portrait .side-nav-container {
+  max-width: 100%;
+  width: 100%;
+  pointer-events: none;
+}
+
+.portrait #info-panel {
+  width: 85%;
+  z-index: 3;
+}
+
+.portrait .side-nav-container aside {
+  max-width: 100%;
+  width: 100% !important;
+}
+
+.portrait .ant-layout-sider-children {
+  padding: 10% 0 0;
+  text-align: left;
+  margin-left: 10%;
+  font-size: 1.25em;
+}
+.portrait .ant-layout-sider-children a {
+  color: white;
+  display: block;
+  margin: 8px 0;
+  min-width: max-content;
+}
+.portrait .v-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+.open-menu,
+.menu-mobile-close-btn {
+  display: none;
+}
+
+.portrait .open-menu {
+  display: inline-block;
+  position: absolute;
+  z-index: 9;
+  /* font-size: 2em; */
+  margin: 4%;
+}
+
+.portrait .nav-drawer::before {
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  height: 4px;
+  background: rgb(250, 212, 10);
+}
+.portrait .menu-mobile-close-btn {
+  display: inline-block;
+  cursor: pointer;
+  position: absolute;
+  top: 25px;
+}
+.portrait a.wch-menu-logo,
+a.wch-menu-logo.outer {
+  display: none;
+}
+
+a.wch-menu-logo.outer {
+  display: block;
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
+}
 .embed .side-nav-container,
 .embed .mapboxgl-ctrl-top-left,
 .embed .v-footer {
@@ -174,6 +282,16 @@ export default {
 }
 
 .retract {
+  right: 0;
+}
+
+.portrait .panel-toggle {
+  right: 85%;
+    z-index: 3;
+  bottom: 50%;
+}
+
+.portrait .panel-toggle.retract {
   right: 0;
 }
 </style>

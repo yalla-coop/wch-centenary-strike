@@ -10,12 +10,47 @@ import Vuetify from 'vuetify/lib';
 import $ from "jquery";
 
 //import AsyncComputed from 'vue-async-computed'
+let getOrientation = Vue.prototype.getOrientation = function () {
+  if (Math.max(
+    document.documentElement["clientWidth"],
+    document.body["scrollWidth"],
+    document.documentElement["scrollWidth"],
+    document.body["offsetWidth"],
+    document.documentElement["offsetWidth"]
+  ) > Math.max(
+    document.documentElement["clientHeight"],
+    document.body["scrollHeight"],
+    document.documentElement["scrollHeight"],
+    document.body["offsetHeight"],
+    document.documentElement["offsetHeight"]
+  )) {
+    return 'landscape';
+  }
+  return 'portrait'
 
-if(window.location !== window.parent.location){
-  document.querySelector('body').classList.add("embed")
+}
+let setOrientation = Vue.prototype.setOrientation = function () {
+  if (getOrientation() === 'portrait') {
+    document.querySelector('body').classList.remove("landscape");
+    document.querySelector('body').classList.add("portrait");
+  } else {
+    document.querySelector('body').classList.remove("portrait");
+    document.querySelector('body').classList.add("landscape");
+  }
 }
 
-Vue.config.productionTip = false;
+
+if (window.location !== window.parent.location) {
+  document.querySelector('body').classList.add("embed")
+} else{
+  setOrientation();
+}
+
+window.addEventListener('resize',()=>{
+  setOrientation()
+})
+
+  Vue.config.productionTip = false;
 
 //Commonly used imports:
 Vue.prototype.$axios = axios;
@@ -48,19 +83,21 @@ Promise.all(configs).then((_configs) => {
     created: () => {
       setConfigs(_configs);
     },
-    mounted:()=>{},
+    mounted: () => { },
     render: h => h(App)
   }).$mount('#app');
 
 
-}).catch((err)=>{
+}).catch((err) => {
   $("body > #loading").hide();
   $("body > #error").show();
   $("body > #error-message").show();
-  $("body > #error-message").html(err.response.config.url + " : "+err + ("<br/>MESSAGE: "+err.response.data.message || ""));
-  
+  $("body > #error-message").html(err.response.config.url + " : " + err + ("<br/>MESSAGE: " + err.response.data.message || ""));
+
   console.error(err.response.data);
   console.error(err.response.status);
   console.error(err.response.headers);
   $("body > #error-message").show();
 });
+
+

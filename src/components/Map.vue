@@ -260,4 +260,13 @@ exl and touring */
 .mapboxgl-ctrl-bottom-left {
   z-index: 3;
 }
+
+.portrait .mapboxgl-ctrl-bottom-left {
+  z-index: 2;
+}
+.portrait .mapboxgl-ctrl-top-left,
+.portrait .mapboxgl-ctrl-bottom-right,
+.portrait .mapboxgl-ctrl-top-right{
+  display: none;
+}
 </style>
