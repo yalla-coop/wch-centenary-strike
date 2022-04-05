@@ -1,5 +1,11 @@
 <template>
-  <v-card dense dark elevation="2" class="legend-container">
+  <v-card
+    dense
+    dark
+    elevation="2"
+    v-show="legendVisible"
+    class="legend-container"
+  >
     <v-card-title dense>Legend</v-card-title>
     <v-divider></v-divider>
     <ul class="legend-list">
@@ -13,9 +19,9 @@
     </ul>
     <v-divider></v-divider>
     <v-card-text>
-        Additional Layers:
-        <br>
-        <i>(click to activate)</i>
+      Additional Layers:
+      <br />
+      <i>(click to activate)</i>
       <v-chip-group
         v-model="toggledLayer"
         active-class="blue accent-4 white--text"
@@ -24,7 +30,7 @@
         <v-chip
           filter
           v-for="layer in legendLayers"
-          :click="toggleLayer(layer)"
+          @click="toggleLayer(layer)"
           :key="layer['layer-id']"
         >
           {{ layer["legend-display"] }}
@@ -35,8 +41,6 @@
 </template>
 
 <script>
-
-
 export default {
   name: "Legend",
   data: function () {
@@ -44,14 +48,26 @@ export default {
       toggledLayer: ""
     };
   },
+  mounted() {
+    this.mobileOnMounted = window.innerHeight > window.innerWidth;
+  },
   computed: {
     legendLayers: function () {
       return this.$mainConfig["toggleable-layers"];
     },
+    legendVisible() {
+     
+      if (
+        window.innerHeight > window.innerWidth &&
+        this.$store.getters.getInfoPanelExpanded
+      ) {
+        return false;
+      }
+      return true;
+    },
   },
   methods: {
     toggleLayer: function (_layer) {
-      //console.log(_layer)
       if (_layer) {
         this.$layerManager.toggleLayer(_layer["layer-id"]);
         if (_layer.labels) {
@@ -73,7 +89,6 @@ export default {
   margin-bottom: 5px;
 }
 .legend-container {
-
   /* width: 8%; */
   /* margin: 10px; */
   z-index: 9;
@@ -95,6 +110,6 @@ export default {
 }
 
 .mapboxgl-ctrl-bottom-left .mapboxgl-ctrl {
-    margin: 0 0 10px 5px;
+  margin: 0 0 10px 5px;
 }
 </style>

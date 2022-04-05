@@ -31,13 +31,13 @@
       <v-icon
         @click="toggleExpand()"
         dark
-        :class="{ retract: true, 'panel-toggle': true, hidden: panelExpanded }"
+        :class="{ retract: true, 'panel-toggle': true, hidden: panelExpanded || this.$store.getters.getNavMenuExpanded}"
         >mdi-chevron-double-left</v-icon
       >
       <v-icon
         @click="toggleExpand()"
         dark
-        :class="{ expand: true, 'panel-toggle': true, hidden: !panelExpanded }"
+        :class="{ expand: true, 'panel-toggle': true, hidden: !panelExpanded || this.$store.getters.getNavMenuExpanded}"
         >mdi-chevron-double-right</v-icon
       >
       <InfoPanel v-show="panelExpanded" ref="infoPanel" />
@@ -95,10 +95,12 @@ export default {
   methods: {
     toggleExpand() {
       this.panelExpanded = !this.panelExpanded;
+      this.$store.commit('setInfoPanelExpanded', this.panelExpanded);
       EventBus.$emit("toggle-panel", this.panelExpanded);
     },
     openMenu() {
       this.menuOpen = true;
+      this.$store.commit('setNavMenuExpanded', true);
       EventBus.$emit("open-main-menu");
     },
   },
@@ -115,6 +117,7 @@ export default {
     EventBus.$on("force-info-open", () => {
       if (this.panelExpanded) return;
       this.panelExpanded = true;
+      
       EventBus.$emit("toggle-panel", this.panelExpanded);
     });
 

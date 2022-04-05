@@ -64,8 +64,9 @@
         <v-divider></v-divider>
         <ul>
           <li v-show="selectedDat[0].author_name.length > 0">
+            <span class="list-title">Author:</span>  
             <a :href="selectedDat[0].author_url" target="_blank"
-              >Author: {{ selectedDat[0].author_name }}</a
+              >{{ selectedDat[0].author_name }}</a
             >
           </li>
           <li v-show="selectedDat[0].merch_url.length > 0">
@@ -105,7 +106,7 @@
               })
             "
             href="#"
-            ><v-icon dark>mdi-magnify</v-icon>Zoom To</a
+            ><v-icon dark>mdi-magnify</v-icon><span class="list-title">Zoom To</span></a
           >
         </div>
       </div>
@@ -140,7 +141,7 @@ export default {
       if (dat.length === 1) {
         this.selectDat(dat[0].name);
       }
-      if(dat.length > 1){
+      if(dat.length > 0){
         EventBus.$emit('force-info-open');
       }
     },
@@ -202,22 +203,40 @@ export default {
   border-bottom: 1px solid #d1d0d0;
 }
 #info-panel {
-  overflow-y: scroll;
+
   /* font-family: "Avenir Heavy"; */
-  font-size: 12px;
+
   position: absolute;
   /* z-index: 0; */
   right: 0;
   top: 0px;
   width: 25%;
   /* max-width: 40%; */
-  overflow-y: scroll;
+  overflow-y: auto;
   bottom: 37px;
   padding: 10px;
   background: black;
   color: white;
+  font-family: Roboto, sans-serif;
+    font-size: 14px;
+  
+    font-weight: 300;
+    margin: 0px !important;
 }
 
+#info-panel p{
+  word-break: break-word;
+}
+#info-panel .list-title{
+  font-family: "ZillaSlab";
+  margin-right: 5px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#info-panel a{
+  color: white;
+}
 #info-panel .hidden {
   display: none;
 }
@@ -249,18 +268,22 @@ export default {
   text-align: right;
   bottom: 13px;
   pointer-events: none;
+      margin-top: 2em;
 }
 
 #info-panel .zoom-to a {
   pointer-events: all;
   text-decoration: none;
+      margin-top: 20px;
 }
 
 #info-panel .popup-title {
+  font-family: "ZillaSlab";
   border-bottom: 1px solid black;
   padding-bottom: 8px;
   margin-bottom: 8px;
   font-weight: bold;
+  font-size: 2em;
 }
 
 #info-panel .side-loading {

@@ -198,6 +198,7 @@ export default {
   methods: {
     hideMobileMenu() {
       EventBus.$emit("close-main-menu");
+      this.$store.commit('setNavMenuExpanded', false);
       this.expanded = false;
     },
   },

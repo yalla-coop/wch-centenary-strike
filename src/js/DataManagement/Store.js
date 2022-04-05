@@ -13,7 +13,9 @@ const Store = new Vuex.Store({
   state: () => ({
     selectedLngLat: [],
     mobile: false,
-    selectedEventId: -1
+    selectedEventId: -1,
+    infoPanelExpanded: false,
+    navMenuExpanded: false
   }),
   mutations: {
     resetSelection: function (state) {
@@ -30,9 +32,21 @@ const Store = new Vuex.Store({
       if (md.mobile()) state.mobile = true;
       state.mobile = window.innerWidth < 800;
      // state.mobile = val;
+    },
+    setInfoPanelExpanded(state,val){
+      state.infoPanelExpanded = val;
+    },
+    setNavMenuExpanded(state,val){
+      state.navMenuExpanded = val;
     }
   },
   getters: {
+     getInfoPanelExpanded(state){
+      return state.infoPanelExpanded;
+    },
+    getNavMenuExpanded(state){
+      return state.navMenuExpanded;
+    },
     getSelectedEventId(state){
       return state.selectedEventId;
     },
