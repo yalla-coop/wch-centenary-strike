@@ -8,4 +8,5 @@ export default class DataManager {
     constructor() {
         this._vue = new Vue();
     }
+    
 }

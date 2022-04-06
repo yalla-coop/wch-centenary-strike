@@ -199,6 +199,7 @@ export default {
   position: absolute;
   bottom: 0;
   width: 100%;
+
 }
 .open-menu,
 .menu-mobile-close-btn {
@@ -225,7 +226,7 @@ export default {
 .portrait .menu-mobile-close-btn {
   display: inline-block;
   cursor: pointer;
-  position: absolute;
+  margin-bottom: 25px;
   top: 25px;
 }
 .portrait a.wch-menu-logo,

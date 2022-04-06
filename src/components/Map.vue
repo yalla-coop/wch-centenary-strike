@@ -21,6 +21,8 @@
 import mapboxgl from "mapbox-gl";
 import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
+import axios from "axios";
+
 
 import BasemapControl from "../js/BasemapControl";
 import LegendControl from "../js/LegendControl";
@@ -72,6 +74,16 @@ export default {
     map.addControl(new mapboxgl.NavigationControl(), "bottom-right");
     map.once("idle", () => {
       self.initLayers();
+      
+    });
+
+    map.on("moveend", () => {
+      const url = new URL(location.href);
+      console.log(url);
+      if (url.hash.includes("##")) {
+        const newHref = location.href.replace(/(?<=#).*?(?=&)/g, "");
+        window.history.replaceState({}, "", newHref);
+      }
     });
 
     map.on("mousemove", () => {
@@ -266,7 +278,7 @@ exl and touring */
 }
 .portrait .mapboxgl-ctrl-top-left,
 .portrait .mapboxgl-ctrl-bottom-right,
-.portrait .mapboxgl-ctrl-top-right{
+.portrait .mapboxgl-ctrl-top-right {
   display: none;
 }
 </style>

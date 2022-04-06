@@ -22,6 +22,7 @@ export default class EventManager {
 			EventBus.$on("select-from-click", self.selectFromClick.bind(self));
 			EventBus.$on("select-from-type-switch", self.selectFromTypeSwitch.bind(self));
 			EventBus.$on("select-from-proposal-switch", self.selectFromProposalSwitch.bind(self));
+			EventBus.$on('check-for-url-event', self.checkURL.bind(self));
 		});
 	}
 
@@ -31,6 +32,22 @@ export default class EventManager {
 	unselect() {
 
 	}
+	checkURL() {
+		const params = new URLSearchParams(location.search);
+		if (params.get("event")) {
+			const eId = params.get("event");
+			this._vue.$store.commit("setSelectedEventId", +eId);
+			EventBus.$emit('select-from-url', eId);
+			let self = this;
+			this._vue.$nextTick(() => {
+				self._vue.$layerManager.styleCircleSelection();
+			});
+		}
+	}
+	// setQueryStringParam(id){
+	// 	console.log(id);
+
+	// }
 
 	updateMapSelection(options) {
 
@@ -50,7 +67,7 @@ export default class EventManager {
 		);
 	}
 
-	
+
 	selectFromDistrictSearch(lnglat) {
 		console.log("select-from-district-search")
 		this.selectDistrictOnMapFromLatLng(

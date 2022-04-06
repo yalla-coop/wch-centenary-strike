@@ -64,10 +64,10 @@
         <v-divider></v-divider>
         <ul>
           <li v-show="selectedDat[0].author_name.length > 0">
-            <span class="list-title">Author:</span>  
-            <a :href="selectedDat[0].author_url" target="_blank"
-              >{{ selectedDat[0].author_name }}</a
-            >
+            <span class="list-title">Author:</span>
+            <a :href="selectedDat[0].author_url" target="_blank">{{
+              selectedDat[0].author_name
+            }}</a>
           </li>
           <li v-show="selectedDat[0].merch_url.length > 0">
             <a :href="selectedDat[0].merch_url" target="_blank"
@@ -106,7 +106,8 @@
               })
             "
             href="#"
-            ><v-icon dark>mdi-magnify</v-icon><span class="list-title">Zoom To</span></a
+            ><v-icon dark>mdi-magnify</v-icon
+            ><span class="list-title">Zoom To</span></a
           >
         </div>
       </div>
@@ -122,7 +123,7 @@
 
 <script>
 import axios from "axios";
-import {EventBus} from "../js/DataManagement/EventBus";
+import { EventBus } from "../js/DataManagement/EventBus";
 export default {
   name: "InfoPanel",
   data: function () {
@@ -132,7 +133,31 @@ export default {
       loading: true,
     };
   },
-  mounted: function () {},
+  mounted: function () {
+    let self = this;
+    //TODO: This is redundant with code for handling clicks
+    EventBus.$on("select-from-url", (datId) => {
+      axios({
+        method: "GET",
+        url: `https://api.baserow.io/api/database/rows/table/${self.$mainConfig.api.baserow.tables.main}/${datId}/?user_field_names=true`,
+        headers: {
+          Authorization: `Token ${self.$mainConfig.api.keys.baserow}`,
+        },
+      })
+        .then((resp) => {
+          // console.log(resp.data);
+          self.selectedDat = [resp.data];
+          self.dat = [resp.data];
+          self.loading = false;
+        })
+        .catch((err) => {
+          console.error(err);
+          self.selectedDat = [];
+          self.dat = [];
+          self.loading = false;
+        });
+    });
+  },
   methods: {
     setData(dat) {
       this.dat = dat;
@@ -141,11 +166,12 @@ export default {
       if (dat.length === 1) {
         this.selectDat(dat[0].name);
       }
-      if(dat.length > 0){
-        EventBus.$emit('force-info-open');
+      if (dat.length > 0) {
+        EventBus.$emit("force-info-open");
       }
     },
     selectDat(_name) {
+      console.log(_name);
       if (!_name) {
         this.selectedDat = [];
         this.dat = [];
@@ -166,7 +192,7 @@ export default {
         },
       })
         .then((resp) => {
-          console.log(resp.data);
+          // console.log(resp.data);
           this.selectedDat = [resp.data];
           this.dat = [resp.data];
           this.loading = false;
@@ -203,7 +229,6 @@ export default {
   border-bottom: 1px solid #d1d0d0;
 }
 #info-panel {
-
   /* font-family: "Avenir Heavy"; */
 
   position: absolute;
@@ -218,23 +243,23 @@ export default {
   background: black;
   color: white;
   font-family: Roboto, sans-serif;
-    font-size: 14px;
-  
-    font-weight: 300;
-    margin: 0px !important;
+  font-size: 14px;
+
+  font-weight: 300;
+  margin: 0px !important;
 }
 
-#info-panel p{
+#info-panel p {
   word-break: break-word;
 }
-#info-panel .list-title{
+#info-panel .list-title {
   font-family: "ZillaSlab";
   margin-right: 5px;
   font-size: 16px;
   font-weight: bold;
 }
 
-#info-panel a{
+#info-panel a {
   color: white;
 }
 #info-panel .hidden {
@@ -268,13 +293,13 @@ export default {
   text-align: right;
   bottom: 13px;
   pointer-events: none;
-      margin-top: 2em;
+  margin-top: 2em;
 }
 
 #info-panel .zoom-to a {
   pointer-events: all;
   text-decoration: none;
-      margin-top: 20px;
+  margin-top: 20px;
 }
 
 #info-panel .popup-title {

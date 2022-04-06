@@ -136,6 +136,7 @@ export default class LayerManager {
     }
     addBaserowToMap(_options) {
         const beforeLayer = this._vue.$styleConfig["layer-placement"]["events"];
+        let layersLeft = +_options.numPages;
         for (let p = 1; p < _options.numPages+1; p++) {
             axios({
                 method: "GET",
@@ -151,8 +152,13 @@ export default class LayerManager {
                 } else {
                     this.updateCircleLayer(entries);
                 }
-
-            }).catch(e => console.log(e));
+                layersLeft--;
+                if(layersLeft === 0) EventBus.$emit('check-for-url-event');
+            }).catch(e =>{
+                layersLeft--;
+                if(layersLeft === 0) EventBus.$emit('check-for-url-event');
+                console.log(e)
+            });
         }
     }
 

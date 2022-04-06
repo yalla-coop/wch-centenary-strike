@@ -4,7 +4,7 @@
 import Vuex from 'vuex';
 import Vue from 'vue';
 import MobileDetect from 'mobile-detect';
-// import qs from "query-string";
+import QuerystringManager from "./QuerystringManager";
 
 
 Vue.use(Vuex);
@@ -15,45 +15,52 @@ const Store = new Vuex.Store({
     mobile: false,
     selectedEventId: -1,
     infoPanelExpanded: false,
-    navMenuExpanded: false
+    navMenuExpanded: false,
+    
   }),
   mutations: {
     resetSelection: function (state) {
       state.selectedLngLat = [];
     },
-    setSelectedEventId(state,val){
+    setSelectedEventId(state, val) {
       state.selectedEventId = val;
+      const qsMan = new QuerystringManager();
+      if(val > 0){
+        qsMan.addQueryParam('event',val);
+      }else{
+        qsMan.removeQueryParam('event');
+      }
     },
     setSelectedLngLat: function (state, val) {
       state.selectedLngLat = val;
     },
-    setMobile: function(state){
+    setMobile: function (state) {
       let md = new MobileDetect(window.navigator.userAgent);
       if (md.mobile()) state.mobile = true;
       state.mobile = window.innerWidth < 800;
-     // state.mobile = val;
+      // state.mobile = val;
     },
-    setInfoPanelExpanded(state,val){
+    setInfoPanelExpanded(state, val) {
       state.infoPanelExpanded = val;
     },
-    setNavMenuExpanded(state,val){
+    setNavMenuExpanded(state, val) {
       state.navMenuExpanded = val;
     }
   },
   getters: {
-     getInfoPanelExpanded(state){
+    getInfoPanelExpanded(state) {
       return state.infoPanelExpanded;
     },
-    getNavMenuExpanded(state){
+    getNavMenuExpanded(state) {
       return state.navMenuExpanded;
     },
-    getSelectedEventId(state){
+    getSelectedEventId(state) {
       return state.selectedEventId;
     },
     getSelectedLngLat: function (state) {
       return state.selectedLngLat;
     },
-    isMobile:function(state){
+    isMobile: function (state) {
       return state.mobile;
     }
   },
