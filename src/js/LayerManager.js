@@ -145,6 +145,7 @@ export default class LayerManager {
                     Authorization: `Token ${this._vue.$mainConfig.api.keys.baserow}`
                 }
             }).then((resp) => {
+                
                 const entries = resp.data.results;
                 //console.log(entries.length)
                 if (!this._vue.$map.getSource('events-source')) {

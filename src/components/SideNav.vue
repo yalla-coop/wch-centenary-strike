@@ -1,7 +1,7 @@
 <template>
   <div class="ma-0 pa-0 side-nav-container">
     <v-navigation-drawer v-show="showMenu" dark class="nav-drawer" permanent>
-      <a class="wch-menu-logo outer" href="/"
+      <a class="wch-menu-logo outer lower" href="/"
         ><svg
           width="86"
           height="86"
@@ -32,7 +32,7 @@
       ></a>
       <div class="ant-layout-sider-children">
         <div class="css-19iid9s">
-          <a class="wch-menu-logo" href="/"
+          <a class="wch-menu-logo upper" href="/"
             ><svg
               width="86"
               height="86"

@@ -99,6 +99,7 @@ export default {
       if (features.length === 0) {
         self.$store.commit("setSelectedEventId", -1);
         self.$layerManager.styleCircleSelection();
+        EventBus.$emit("clear-event");
         return;
       }
 
@@ -134,7 +135,7 @@ export default {
       this.$layerManager.addLayerToMap({
         type: "baserow",
         map: this.map,
-        //filter: "filter__field_177149__not_empty",
+        filter: "filter__field_177149__not_empty",
         numPages: this.$mainConfig.api.baserow.tables["num-pages"],
         sizeLimit: 100,
         tableid: this.$mainConfig.api.baserow.tables.main,

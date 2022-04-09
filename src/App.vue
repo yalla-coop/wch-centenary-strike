@@ -229,12 +229,12 @@ export default {
   margin-bottom: 25px;
   top: 25px;
 }
-.portrait a.wch-menu-logo,
-a.wch-menu-logo.outer {
+.portrait a.wch-menu-logo.upper,
+a.wch-menu-logo.outer.upper {
   display: none;
 }
 
-a.wch-menu-logo.outer {
+a.wch-menu-logo.outer.lower {
   display: block;
   position: absolute;
   bottom: 5%;

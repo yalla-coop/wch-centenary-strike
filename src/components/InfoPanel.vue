@@ -16,7 +16,7 @@
     </div>
     <div :class="dat.length > 0 ? '' : 'hidden'">
       <div @click="selectDat(null)" class="close-btn">
-        <v-icon class="close-btn">mdi-close</v-icon>
+        <v-icon dark class="close-btn">mdi-close</v-icon>
       </div>
       <v-card class="mx-auto" max-width="300" tile v-if="dat.length > 1">
         <h3 style="text-align: center; background: #ffeb3b; padding: 5px">
@@ -135,6 +135,7 @@ export default {
   },
   mounted: function () {
     let self = this;
+    EventBus.$on("clear-event",()=>self.selectDat(null));
     //TODO: This is redundant with code for handling clicks
     EventBus.$on("select-from-url", (datId) => {
       axios({
@@ -172,15 +173,18 @@ export default {
     },
     selectDat(_name) {
       console.log(_name);
+      let self=this;
       if (!_name) {
         this.selectedDat = [];
         this.dat = [];
+        this.$store.commit("setSelectedEventId", -1);
+        this.$layerManager.styleCircleSelection();
         return;
       }
       this.loading = true;
       const datId = this.dat.filter((d) => d.name === _name)[0].name;
       this.$store.commit("setSelectedEventId", datId);
-      let self = this;
+     // let self = this;
       this.$nextTick(() => {
         self.$layerManager.styleCircleSelection();
       });
@@ -221,9 +225,12 @@ export default {
   right: 100%;
 }
 .close-btn {
-  cursor: pointer;
-  position: absolute;
-  right: 10px;
+    cursor: pointer;
+    /* position: absolute; */
+    right: 10px;
+    color: white;
+    text-align: right;
+    clear: both;
 }
 #info-panel .v-list-item__content {
   border-bottom: 1px solid #d1d0d0;
