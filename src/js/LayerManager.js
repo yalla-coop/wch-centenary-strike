@@ -161,6 +161,7 @@ export default class LayerManager {
                 EventBus.$emit('check-for-url-event');
             }
         }).catch(e => {
+            this.eventsLoaded = 0;
             EventBus.$emit('check-for-url-event');
             console.error(e)
         });
