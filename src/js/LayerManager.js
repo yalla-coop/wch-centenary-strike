@@ -9,9 +9,10 @@ import turfCentroid from '@turf/centroid'
 import Store from './DataManagement/Store';
 export default class LayerManager {
     constructor() {
-        this._vue = new Vue({store: Store});
+        this._vue = new Vue({ store: Store });
         this.layers = [];
         this.sources = [];
+        this.eventsLoaded = 0;
     }
     initToggledLayersFromUrl(_map) {
         const toggledLayers = this._vue.$mainConfig["toggleable-layers"];
@@ -25,7 +26,7 @@ export default class LayerManager {
                 this.addGeoJSONRemoteToMap(_options);
                 break;
             case 'baserow':
-                this.addBaserowToMap(_options);
+                this.addBaserowToMap(_options, 1);
                 break;
             default: break;
         }
@@ -76,15 +77,15 @@ export default class LayerManager {
                 },
                 'paint': {
                     'fill-color': ["case",
-                    ['==', ["length",['get', 'color']],7], 
-                    ['get', 'color'],
-                    '#00ffff'],
+                        ['==', ["length", ['get', 'color']], 7],
+                        ['get', 'color'],
+                        '#00ffff'],
                     'fill-opacity': 0.25
                 }
             }
-            if(beforeLayer){  
-                this._vue.$map.addLayer(layer,beforeLayer);
-            }else{
+            if (beforeLayer) {
+                this._vue.$map.addLayer(layer, beforeLayer);
+            } else {
                 this._vue.$map.addLayer(layer);
             }
 
@@ -134,33 +135,36 @@ export default class LayerManager {
             }
         })
     }
-    addBaserowToMap(_options) {
+    addBaserowToMap(_options, _page) {
         const beforeLayer = this._vue.$styleConfig["layer-placement"]["events"];
-        let layersLeft = +_options.numPages;
-        for (let p = 1; p < _options.numPages+1; p++) {
-            axios({
-                method: "GET",
-                url: `https://api.baserow.io/api/database/rows/table/${_options.tableid}/?user_field_names=true&page=${p}&${_options.sizeLimit ? '&size=' : ''}${_options.sizeLimit || ''}${_options.filter ? '&filter=' : ''}${_options.filter || ''}`,
-                headers: {
-                    Authorization: `Token ${this._vue.$mainConfig.api.keys.baserow}`
-                }
-            }).then((resp) => {
-                
-                const entries = resp.data.results;
-                //console.log(entries.length)
-                if (!this._vue.$map.getSource('events-source')) {
-                    this.addCircleLayer(beforeLayer,entries)
-                } else {
-                    this.updateCircleLayer(entries);
-                }
-                layersLeft--;
-                if(layersLeft === 0) EventBus.$emit('check-for-url-event');
-            }).catch(e =>{
-                layersLeft--;
-                if(layersLeft === 0) EventBus.$emit('check-for-url-event');
-                console.log(e)
-            });
-        }
+
+        axios({
+            method: "GET",
+            url: `https://api.baserow.io/api/database/rows/table/${_options.tableid}/?user_field_names=true&page=${_page}${_options.sizeLimit ? '&size=' : ''}${_options.sizeLimit || ''}${_options.filter ? '&filter=' : ''}${_options.filter || ''}`,
+            headers: {
+                Authorization: `Token ${this._vue.$mainConfig.api.keys.baserow}`
+            }
+        }).then((resp) => {
+
+            const entries = resp.data.results;
+            if (!this._vue.$map.getSource('events-source')) {
+                this.addCircleLayer(beforeLayer, entries)
+            } else {
+                this.updateCircleLayer(entries);
+            }
+
+            this.eventsLoaded += resp.data.results.length;
+            if (resp.data.count > this.eventsLoaded) {
+                this.addBaserowToMap(_options, ++_page);
+            } else {
+                this.eventsLoaded = 0;
+                EventBus.$emit('check-for-url-event');
+            }
+        }).catch(e => {
+            EventBus.$emit('check-for-url-event');
+            console.error(e)
+        });
+        
     }
 
     updateCircleLayer(entries) {
@@ -168,27 +172,28 @@ export default class LayerManager {
         let existingData = this._vue.$dataManager.eventData;
 
         for (var i = 0; i < entries.length; i++) {
-
-            existingData.features.push(
-                {
-                    "type": "Feature",
-                    "properties": { "name": entries[i].id, "title": entries[i].title, "geotag": entries[i].geotag_info.toLowerCase().replace(' ', '_') },
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": [
-                            entries[i].longitude || Math.random(), entries[i].latitude || Math.random()
-                        ]
+            if (entries[i].longitude && entries[i].latitude) {
+                existingData.features.push(
+                    {
+                        "type": "Feature",
+                        "properties": { "name": entries[i].id, "title": entries[i].title, "geotag": entries[i].geotag_info.toLowerCase().replace(' ', '_') },
+                        "geometry": {
+                            "type": "Point",
+                            "coordinates": [
+                                entries[i].longitude || Math.random(), entries[i].latitude || Math.random()
+                            ]
+                        }
                     }
-                }
-            );
+                );
+            }
         }
         eventsSource.setData(existingData);
     }
 
-    styleCircleSelection(){
+    styleCircleSelection() {
         //console.log()
         const map = this._vue.$map;
-        if(this._vue.$store.getters.getSelectedEventId === -1){
+        if (this._vue.$store.getters.getSelectedEventId === -1) {
             map.setPaintProperty("events-circles", "circle-opacity", 1);
             map.setPaintProperty("events-circles", "circle-stroke-width", 2);
             map.setPaintProperty("events-circles", "circle-stroke-opacity", 1);
@@ -200,50 +205,51 @@ export default class LayerManager {
             ["==", ["get", "name"], this._vue.$store.getters.getSelectedEventId],
             1,
             0.2,
-          ]);
-  
-          map.setPaintProperty("events-circles", "circle-radius", [
+        ]);
+
+        map.setPaintProperty("events-circles", "circle-radius", [
             "case",
             ["==", ["get", "name"], this._vue.$store.getters.getSelectedEventId],
             6,
             5,
-          ]);
-  
-          map.setPaintProperty("events-circles", "circle-stroke-width", [
+        ]);
+
+        map.setPaintProperty("events-circles", "circle-stroke-width", [
             "case",
             ["==", ["get", "name"], this._vue.$store.getters.getSelectedEventId],
             2,
             1,
-          ]);
-  
-          map.setPaintProperty("events-circles", "circle-stroke-opacity", [
+        ]);
+
+        map.setPaintProperty("events-circles", "circle-stroke-opacity", [
             "case",
             ["==", ["get", "name"], this._vue.$store.getters.getSelectedEventId],
             1,
             0.25,
-          ]);
-        
+        ]);
+
     }
-    addCircleLayer(beforeLayer,entries) {
+    addCircleLayer(beforeLayer, entries) {
         var result = {
             "type": "FeatureCollection",
             "features": []
         };
 
         for (var i = 0; i < entries.length; i++) {
-
-            result.features.push(
-                {
-                    "type": "Feature",
-                    "properties": { "name": entries[i].id, "title": entries[i].title, "geotag": entries[i].geotag_info.toLowerCase().replace(' ', '_') },
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": [
-                            entries[i].longitude || Math.random(), entries[i].latitude || Math.random()
-                        ]
-                    }//turfCentroid(entries[i]).geometry
-                }
-            );
+            if (entries[i].longitude && entries[i].latitude) {
+                result.features.push(
+                    {
+                        "type": "Feature",
+                        "properties": { "name": entries[i].id, "title": entries[i].title, "geotag": entries[i].geotag_info.toLowerCase().replace(' ', '_') },
+                        "geometry": {
+                            "type": "Point",
+                            "coordinates": [
+                                entries[i].longitude || Math.random(), entries[i].latitude || Math.random()
+                            ]
+                        }//turfCentroid(entries[i]).geometry
+                    }
+                );
+            }
         }
 
         this._vue.$dataManager.eventData = result;
@@ -273,9 +279,9 @@ export default class LayerManager {
                 'circle-stroke-color': 'white'
             }
         }
-        if(beforeLayer){  
-            this._vue.$map.addLayer(layer,beforeLayer);
-        }else{
+        if (beforeLayer) {
+            this._vue.$map.addLayer(layer, beforeLayer);
+        } else {
             this._vue.$map.addLayer(layer);
         }
 

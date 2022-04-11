@@ -1,11 +1,11 @@
 {
 	"name": "mainConfig",
 	"multiplyDataTest":10,
+	"baseurl":"http://localhost:8080",
 	"api": {
 		"baserow": {
 			"tables":{
-				"main": "33215",
-				"num-pages":3
+				"main": "33215"
 			}
 		},
 		"keys": {

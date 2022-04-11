@@ -42,15 +42,15 @@ let setOrientation = Vue.prototype.setOrientation = function () {
 
 if (window.location !== window.parent.location) {
   document.querySelector('body').classList.add("embed")
-} else{
+} else {
   setOrientation();
 }
 
-window.addEventListener('resize',()=>{
+window.addEventListener('resize', () => {
   setOrientation()
 })
 
-  Vue.config.productionTip = false;
+Vue.config.productionTip = false;
 
 //Commonly used imports:
 Vue.prototype.$axios = axios;
@@ -63,6 +63,7 @@ const setConfigs = (configs) => {
   configs.forEach((_config) => {
     if (_config.data.name) {
       Vue.prototype[`$${_config.data.name}`] = _config.data;
+      if (_config.data.baseurl) Vue.prototype.$baseurl = _config.data.baseurl;
     }
   });
 };

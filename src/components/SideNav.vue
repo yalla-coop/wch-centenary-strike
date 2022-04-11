@@ -32,7 +32,7 @@
       ></a>
       <div class="ant-layout-sider-children">
         <div class="css-19iid9s">
-          <a class="wch-menu-logo upper" href="/"
+          <a class="wch-menu-logo upper" :href="`${this.$baseurl}/`"
             ><svg
               width="86"
               height="86"
@@ -85,11 +85,11 @@
               ></path>
             </svg>
           </div>
-          <h4 class="ant-typography css-16shlwq" weight="bold" mb="1" mt="2">
+          <h3 class="ant-typography css-16shlwq" weight="bold" mb="1" mt="2">
             Menu
-          </h4>
+          </h3>
           <div class="list-container">
-            <a class="css-1xqwpqk" href="/stories"
+            <a class="css-1xqwpqk" :href="`${this.$baseurl}/stories`"
               ><div
                 class="ant-typography css-107d6n4"
                 weight="regular"
@@ -97,7 +97,8 @@
               >
                 Stories Home
               </div></a
-            ><a class="css-1xqwpqk" href="/index"
+            >
+            <!-- <a class="css-1xqwpqk" href="/index"
               ><div
                 class="ant-typography css-107d6n4"
                 weight="regular"
@@ -105,7 +106,8 @@
               >
                 Index
               </div></a
-            ><a
+            > -->
+            <a
               target="_blank"
               class="css-1xqwpqk"
               href="https://workingclasshistory.com/podcast/"
@@ -138,7 +140,7 @@
               >
                 Support Us
               </div></a
-            ><a class="css-1xqwpqk" href="/contribute"
+            ><a class="css-1xqwpqk" :href="`${this.$baseurl}/contribute`"
               ><div
                 class="ant-typography css-107d6n4"
                 weight="regular"

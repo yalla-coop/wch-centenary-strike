@@ -79,7 +79,7 @@ export default {
 
     map.on("moveend", () => {
       const url = new URL(location.href);
-      console.log(url);
+      //console.log(url);
       if (url.hash.includes("##")) {
         const newHref = location.href.replace(/(?<=#).*?(?=&)/g, "");
         window.history.replaceState({}, "", newHref);
@@ -135,8 +135,8 @@ export default {
       this.$layerManager.addLayerToMap({
         type: "baserow",
         map: this.map,
-        filter: "filter__field_177149__not_empty",
-        numPages: this.$mainConfig.api.baserow.tables["num-pages"],
+        filter: "filter__field_177149__not_empty",//FILTER NOT WORKING. REMOVING THESE IN CODE
+        //numPages: this.$mainConfig.api.baserow.tables["num-pages"],//Don't need this anymore
         sizeLimit: 100,
         tableid: this.$mainConfig.api.baserow.tables.main,
         style: this.$styleConfig["baserow-markers"],
