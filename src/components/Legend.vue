@@ -3,10 +3,11 @@
     dense
     dark
     elevation="2"
+    rounded="false"
     v-show="legendVisible"
     class="legend-container"
   >
-    <v-card-title dense>Legend</v-card-title>
+    <v-card-title class="legend-title" dense>Legend</v-card-title>
     <v-divider></v-divider>
     <ul class="legend-list">
       <li
@@ -22,19 +23,22 @@
       Additional Layers:
       <br />
       <i>(click to activate)</i>
+      <v-divider></v-divider>
       <v-chip-group
         v-model="toggledLayer"
         active-class="blue accent-4 white--text"
         column
       >
-        <v-chip
-          filter
-          v-for="layer in legendLayers"
-          @click="toggleLayer(layer)"
-          :key="layer['layer-id']"
-        >
-          {{ layer["legend-display"] }}
-        </v-chip>
+        <span v-for="layer in legendLayers" :key="layer['layer-id']">
+          <v-chip style="margin: 0 auto" filter @click="toggleLayer(layer)">
+            {{ layer["legend-display"] }}
+          </v-chip>
+          <div
+            style="text-align: center; margin: 0 auto"
+            v-if="layer['legend-note']"
+            v-html="layer['legend-note']"
+          ></div>
+        </span>
       </v-chip-group>
     </v-card-text>
   </v-card>
@@ -45,7 +49,7 @@ export default {
   name: "Legend",
   data: function () {
     return {
-      toggledLayer: ""
+      toggledLayer: "",
     };
   },
   mounted() {
@@ -56,7 +60,6 @@ export default {
       return this.$mainConfig["toggleable-layers"];
     },
     legendVisible() {
-     
       if (
         window.innerHeight > window.innerWidth &&
         this.$store.getters.getInfoPanelExpanded
@@ -92,7 +95,7 @@ export default {
   /* width: 8%; */
   /* margin: 10px; */
   z-index: 9;
-  border: 1px solid white !important;
+  border: none;
 }
 .legend-list {
   list-style: none;
@@ -100,16 +103,26 @@ export default {
   padding-left: 0px !important;
 }
 
+.legend-container {
+  border-radius: 0 !important;
+}
+
 .legend-container .v-card__title {
-  background: yellow;
+  background: #fad40a;
   color: black;
   padding: 0 5%;
   text-transform: uppercase;
   font-weight: bold;
   margin-bottom: 5px;
+  text-align: center;
+  display: inline-block;
+  width: 100%;
 }
 
 .mapboxgl-ctrl-bottom-left .mapboxgl-ctrl {
   margin: 0 0 10px 5px;
+}
+.legend-title {
+  font-family: "ZillaSlab";
 }
 </style>

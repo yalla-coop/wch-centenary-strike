@@ -1,30 +1,37 @@
 <template>
   <div id="info-panel">
     <div :class="dat.length > 0 ? 'hidden' : ''">
-      <h3>Information about project here...</h3>
-      History is not made by the actions of a few rich and powerful individuals,
-      like so much of the history we learn in school. History is made by the
-      combined everyday actions of hundreds of millions of us: women, men,
-      youth, people of colour, migrants, Indigenous people, LGBT+ people,
-      disabled people, workers, older people, the unemployed, housewives – the
-      working class. It is our struggles which have shaped our world, and any
-      improvement in our conditions has been won by years of often violent
-      conflict and sacrifice. This project is dedicated to all those who have
-      struggled in the past for a better world, and who continue to do so now.
-      To help record and popularise our grassroots, people’s history, as opposed
-      to the top-down accounts of most history books.
+      <h3 style="font-family: 'ZillaSlab'">
+        What is Working Class History | Map?
+      </h3>
+      History isn't made by kings and politicians, it is made by us: billions of
+      ordinary people. This is a map containing our historical stories of our
+      collective struggles to build a better world. Here you can browse stories
+      geographically, and you can click through to our
+      <a href="https://working-class-history.netlify.app/">Stories app</a> to
+      see more information like sources for each story. Our work is funded
+      entirely by our readers and listeners on patreon, so if you value our work
+      please consider
+      <a href="https://patreon.com/workingclasshistory">supporting us.</a>
     </div>
     <div :class="dat.length > 0 ? '' : 'hidden'">
       <div @click="selectDat(null)" class="close-btn">
         <v-icon dark class="close-btn">mdi-close</v-icon>
       </div>
       <v-card class="mx-auto" max-width="300" tile v-if="dat.length > 1">
-        <h3 style="text-align: center; background: #ffeb3b; padding: 5px">
+        <h3
+          :style="{
+            'text-align': 'center',
+            'font-family': 'ZillaSlab',
+            background: this.$styleConfig.colors.yellow.primary,
+            padding: '5px',
+          }"
+        >
           Events Near Here
         </h3>
 
-        <v-list dense>
-          <i style="padding: 10px">Select One:</i>
+        <v-list style="font-family: 'Roboto'" dense>
+          <span style="padding: 10px">Select one:</span>
           <v-divider></v-divider>
           <v-list-item-group color="primary">
             <v-list-item v-for="(d, i) in dat" :key="i">
@@ -43,10 +50,6 @@
       </ul> -->
       <div v-if="selectedDat.length > 0 && dat.length === 1">
         <h3 class="popup-title">{{ selectedDat[0].title }}</h3>
-        <h4>({{ selectedDat[0].geotag_info }})</h4>
-        <h4 v-show="selectedDat[0].visitor_info.length > 0">
-          {{ selectedDat[0].visitor_info }}
-        </h4>
         <br />
         <v-divider></v-divider>
         <br />
@@ -62,7 +65,12 @@
         </div>
         <!-- //HC -->
         <v-divider></v-divider>
-        <ul>
+        <div>{{ selectedDat[0].geotag_info }}: {{ selectedDat[0].geotag_description}}</div>
+        <div v-show="selectedDat[0].visitor_info.length > 0">
+          {{ selectedDat[0].visitor_info }}
+        </div>
+          <v-divider></v-divider>
+        <ul class="info-list">
           <li v-show="selectedDat[0].author_name.length > 0">
             <span class="list-title">Author:</span>
             <a :href="selectedDat[0].author_url" target="_blank">{{
@@ -135,7 +143,7 @@ export default {
   },
   mounted: function () {
     let self = this;
-    EventBus.$on("clear-event",()=>self.selectDat(null));
+    EventBus.$on("clear-event", () => self.selectDat(null));
     //TODO: This is redundant with code for handling clicks
     EventBus.$on("select-from-url", (datId) => {
       axios({
@@ -173,7 +181,7 @@ export default {
     },
     selectDat(_name) {
       console.log(_name);
-      let self=this;
+      let self = this;
       if (!_name) {
         this.selectedDat = [];
         this.dat = [];
@@ -184,7 +192,7 @@ export default {
       this.loading = true;
       const datId = this.dat.filter((d) => d.name === _name)[0].name;
       this.$store.commit("setSelectedEventId", datId);
-     // let self = this;
+      // let self = this;
       this.$nextTick(() => {
         self.$layerManager.styleCircleSelection();
       });
@@ -225,12 +233,12 @@ export default {
   right: 100%;
 }
 .close-btn {
-    cursor: pointer;
-    /* position: absolute; */
-    right: 10px;
-    color: white;
-    text-align: right;
-    clear: both;
+  cursor: pointer;
+  /* position: absolute; */
+  right: 10px;
+  color: white;
+  text-align: right;
+  clear: both;
 }
 #info-panel .v-list-item__content {
   border-bottom: 1px solid #d1d0d0;
@@ -246,7 +254,7 @@ export default {
   /* max-width: 40%; */
   overflow-y: auto;
   bottom: 37px;
-  padding: 10px;
+  padding: 15px;
   background: black;
   color: white;
   font-family: Roboto, sans-serif;
@@ -324,5 +332,9 @@ export default {
 #info-panel .side-loading .v-progress-circular {
   margin: 0 auto;
   display: block;
+}
+
+#info-panel .info-list{
+      margin-top: 15px;
 }
 </style>

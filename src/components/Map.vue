@@ -23,7 +23,6 @@ import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import axios from "axios";
 
-
 import BasemapControl from "../js/BasemapControl";
 import LegendControl from "../js/LegendControl";
 
@@ -74,7 +73,6 @@ export default {
     map.addControl(new mapboxgl.NavigationControl(), "bottom-right");
     map.once("idle", () => {
       self.initLayers();
-      
     });
 
     map.on("moveend", () => {
@@ -135,7 +133,7 @@ export default {
       this.$layerManager.addLayerToMap({
         type: "baserow",
         map: this.map,
-        filter: "filter__field_177149__not_empty",//FILTER NOT WORKING. REMOVING THESE IN CODE
+        filter: "filter__field_177149__not_empty", //FILTER NOT WORKING. REMOVING THESE IN CODE
         //numPages: this.$mainConfig.api.baserow.tables["num-pages"],//Don't need this anymore
         sizeLimit: 100,
         tableid: this.$mainConfig.api.baserow.tables.main,
@@ -215,7 +213,8 @@ exl and touring */
   left: 155px;
 }
 .mapboxgl-ctrl-bottom-left .mapboxgl-ctrl {
-  clear: none;
+  margin: 0;
+  width: 160px;
 }
 .mapboxgl-popup-content {
   overflow-y: scroll;
@@ -272,6 +271,10 @@ exl and touring */
 
 .mapboxgl-ctrl-bottom-left {
   z-index: 3;
+}
+
+.mapboxgl-ctrl-bottom-right .mapboxgl-ctrl-attrib-inner a {
+  color: #565656;
 }
 
 .portrait .mapboxgl-ctrl-bottom-left {

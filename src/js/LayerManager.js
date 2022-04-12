@@ -13,6 +13,13 @@ export default class LayerManager {
         this.layers = [];
         this.sources = [];
         this.eventsLoaded = 0;
+
+        this.exactLocationColorName = this._vue.$styleConfig.styles["marker-varying"]["color"]["exact-location"];
+        this.exactLocationColor = this._vue.$styleConfig.colors[this.exactLocationColorName];
+
+        this.nearLocationColorName = this._vue.$styleConfig.styles["marker-varying"]["color"]["near-here"];
+        this.nearLocationColor = this._vue.$styleConfig.colors[this.nearLocationColorName];
+
     }
     initToggledLayersFromUrl(_map) {
         const toggledLayers = this._vue.$mainConfig["toggleable-layers"];
@@ -165,7 +172,7 @@ export default class LayerManager {
             EventBus.$emit('check-for-url-event');
             console.error(e)
         });
-        
+
     }
 
     updateCircleLayer(entries) {
@@ -193,19 +200,43 @@ export default class LayerManager {
 
     styleCircleSelection() {
         //console.log()
+        let self = this;
         const map = this._vue.$map;
+        //TODO: Set highlighted/non-highlighted here:
         if (this._vue.$store.getters.getSelectedEventId === -1) {
-            map.setPaintProperty("events-circles", "circle-opacity", 1);
             map.setPaintProperty("events-circles", "circle-stroke-width", 2);
-            map.setPaintProperty("events-circles", "circle-stroke-opacity", 1);
+            map.setPaintProperty("events-circles", "circle-color", [
+                'match',
+                ['get', 'geotag'],
+                'exact_location',
+                self.exactLocationColor.primary,
+                'near_here',
+                self.nearLocationColor.primary,
+                '#00f'
+            ]
+            );
             return;
         }
-
-        map.setPaintProperty("events-circles", "circle-opacity", [
+       
+        map.setPaintProperty("events-circles", "circle-color", [
             "case",
             ["==", ["get", "name"], this._vue.$store.getters.getSelectedEventId],
-            1,
-            0.2,
+            ['match',
+                ['get', 'geotag'],
+                'exact_location',
+                self.exactLocationColor.primary,
+                'near_here',
+                self.nearLocationColor.primary,
+                '#00f'
+            ],
+            ['match',
+                ['get', 'geotag'],
+                'exact_location',
+                self.exactLocationColor.mid,
+                'near_here',
+                self.nearLocationColor.mid,
+                '#f00'
+            ]
         ]);
 
         map.setPaintProperty("events-circles", "circle-radius", [
@@ -222,15 +253,16 @@ export default class LayerManager {
             1,
         ]);
 
-        map.setPaintProperty("events-circles", "circle-stroke-opacity", [
-            "case",
-            ["==", ["get", "name"], this._vue.$store.getters.getSelectedEventId],
-            1,
-            0.25,
-        ]);
+        // map.setPaintProperty("events-circles", "circle-stroke-opacity", [
+        //     "case",
+        //     ["==", ["get", "name"], this._vue.$store.getters.getSelectedEventId],
+        //     1,
+        //     0.25,
+        // ]);
 
     }
     addCircleLayer(beforeLayer, entries) {
+
         var result = {
             "type": "FeatureCollection",
             "features": []
@@ -259,6 +291,7 @@ export default class LayerManager {
             'type': 'geojson',
             'data': result
         });
+        // console.log(this._vue.$styleConfig.colors["yellow.primary"])
 
         //HC
         const layer = {
@@ -271,10 +304,10 @@ export default class LayerManager {
                     'match',
                     ['get', 'geotag'],
                     'exact_location',
-                    'yellow',
+                    this.exactLocationColor.primary,
                     'near_here',
-                    '#6600cc',
-                    /* other */ '#ccc'
+                    this.nearLocationColor.primary,
+                    /* other */ '#0f0'
                 ],
                 'circle-stroke-width': 2,
                 'circle-stroke-color': 'white'
@@ -293,9 +326,11 @@ export default class LayerManager {
             const el = document.createElement('div');
             const _style = this._vue.$styleConfig.styles.marker;
             const geotag = entry.geotag_info.toLowerCase().replace(' ', '-');
-            _style.backgroundColor = this._vue.$styleConfig.styles["marker-varying"]["color"][geotag] || "grey"
+            //_style.backgroundColor = this._vue.$styleConfig.styles["marker-varying"]["color"][geotag] || "grey"
             // console.log(entry)
-
+            _style.backgroundColor = this._vue.$styleConfig.colors[
+                this._vue.$styleConfig.styles["marker-varying"]["color"][geotag]
+            ] || "grey"
             Object.assign(el.style, _style)
             if (geotag === 'near-here') {
                 el.style.boxShadow = "0 0 5px 15px #9933ff88"
@@ -323,7 +358,9 @@ export default class LayerManager {
                     const _el = document.createElement('div');
                     const _style = this._vue.$styleConfig.styles.marker;
                     const geotag = entry.geotag_info.toLowerCase().replace(' ', '-');
-                    _style.backgroundColor = this._vue.$styleConfig.styles["marker-varying"]["color"][geotag] || "grey"
+                    _style.backgroundColor = this._vue.$styleConfig.colors[
+                        this._vue.$styleConfig.styles["marker-varying"]["color"][geotag]
+                    ] || "grey"
                     // console.log(entry)
 
                     Object.assign(_el.style, _style)

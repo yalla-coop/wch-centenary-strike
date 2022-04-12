@@ -17,8 +17,8 @@
         style="cursor: pointer"
       >
         <path d="M1 0.5H21" stroke="white" stroke-linecap="round"></path>
-        <path d="M1 5.5H21" stroke="white" stroke-linecap="round"></path>
-        <path d="M1 10.5H21" stroke="#FAD40A" stroke-linecap="round"></path>
+        <path d="M1 5.5H21" :stroke="this.$styleConfig.colors.purple.primary" stroke-linecap="round"></path>
+        <path d="M1 10.5H21" :stroke="this.$styleConfig.colors.yellow.mid" stroke-linecap="round"></path>
       </svg>
     </div>
     <SideNav />
@@ -159,6 +159,9 @@ export default {
 };
 </script>
 <style>
+*{
+  font-family: 'Roboto', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
 .portrait #main-map {
   position: absolute;
   left: 0;
@@ -201,9 +204,17 @@ export default {
   width: 100%;
 
 }
+
+
+a.wch-menu-logo.outer.lower,
+.portrait .wch-menu-logo.upper,
 .open-menu,
 .menu-mobile-close-btn {
   display: none;
+}
+
+.portrait a.wch-menu-logo.outer.lower{
+  display: inline-block;
 }
 
 .portrait .open-menu {
@@ -235,14 +246,16 @@ a.wch-menu-logo.outer.upper {
 }
 
 a.wch-menu-logo.outer.lower {
-  display: block;
   position: absolute;
   bottom: 5%;
   right: 5%;
 }
 .embed .side-nav-container,
 .embed .mapboxgl-ctrl-top-left,
-.embed .v-footer {
+.embed .mapboxgl-ctrl-top-right,
+.embed .v-footer,
+.embed .legend-title,
+.embed .legend-list{
   display: none;
 }
 
