@@ -16,29 +16,34 @@
   <link rel="stylesheet" href="assets/fonts/cooperhewitt.css">
   <style>
     @font-face {
-  font-family: 'ZillaSlab';
-  src: url('./assets/fonts/zilla-slab/ZillaSlab-Regular.ttf');
-}
-
+      font-family: 'ZillaSlab';
+      src: url('./assets/fonts/zilla-slab/ZillaSlab-Regular.ttf');
+    }
   </style>
 </head>
 
 <body style="background-color: black#000000 !important;">
   <div id="loading" style="
   margin: 10% auto;
-  text-align: center;">
+  text-align: center;
+  position: fixed;
+  z-index: 9999;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;">
     <div style="
     overflow: hidden;
     background-color: #000;
     color:white;
     font-family: 'Roboto', sans-serif !important;
-    position: absolute;
+    position: fixed;
     top: 0;
     bottom: 0;
     right: 0;
     left: 0;
 ">
-      <div style="position: absolute;
+      <div style="position: fixed;
       top: 0;
       width: 100%;
       z-index: 9;
@@ -46,7 +51,7 @@
       margin: 20px 0;">
         Loading...
       </div>
-      <img style="position: absolute;
+      <img style="position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);

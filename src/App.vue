@@ -251,6 +251,13 @@ a.wch-menu-logo.outer.lower {
   right: 5%;
 }
 .embed .side-nav-container,
+.embed .info-book,
+.embed .info-podcast,
+.embed .info-merch,
+.embed .info-author,
+.embed .info-photo,
+.embed .info-description,
+.embed .info-title,
 .embed .mapboxgl-ctrl-top-left,
 .embed .mapboxgl-ctrl-top-right,
 .embed .v-footer,

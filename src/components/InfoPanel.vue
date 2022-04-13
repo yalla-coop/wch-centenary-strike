@@ -27,7 +27,7 @@
             padding: '5px',
           }"
         >
-          Events Near Here
+          Events near here
         </h3>
 
         <v-list style="font-family: 'Roboto'" dense>
@@ -49,50 +49,65 @@
         </li>
       </ul> -->
       <div v-if="selectedDat.length > 0 && dat.length === 1">
-        <h3 class="popup-title">{{ selectedDat[0].title }}</h3>
+        <h3 class="info-title popup-title">{{ selectedDat[0].title }}</h3>
         <br />
         <v-divider></v-divider>
         <br />
-        <p>{{ selectedDat[0].description }}</p>
+        <p class="info-description">{{ selectedDat[0].description }}</p>
 
-        <div :class="selectedDat[0].media ? 'media-container' : 'hidden'">
-          <p class="img-caption">{{ selectedDat[0].media_caption }}</p>
-          <p class="img-caption">{{ selectedDat[0].media_credit }}</p>
-
+        <div
+          :class="
+            selectedDat[0].media
+              ? 'media-container info-photo'
+              : 'hidden info-photo'
+          "
+        >
           <div class="img-container">
             <img :src="selectedDat[0].media" />
           </div>
+          <p class="img-caption">{{ selectedDat[0].media_caption }}</p>
+          <p class="img-caption">{{ selectedDat[0].media_credit }}</p>
         </div>
         <!-- //HC -->
         <v-divider></v-divider>
-        <div>{{ selectedDat[0].geotag_info }}: {{ selectedDat[0].geotag_description}}</div>
+        <div>
+          {{ selectedDat[0].geotag_info }}:
+          {{ selectedDat[0].geotag_description }}
+        </div>
         <div v-show="selectedDat[0].visitor_info.length > 0">
           {{ selectedDat[0].visitor_info }}
         </div>
-          <v-divider></v-divider>
+        <v-divider></v-divider>
         <ul class="info-list">
-          <li v-show="selectedDat[0].author_name.length > 0">
+          <li
+            class="info-author"
+            v-show="selectedDat[0].author_name.length > 0"
+          >
             <span class="list-title">Author:</span>
             <a :href="selectedDat[0].author_url" target="_blank">{{
               selectedDat[0].author_name
             }}</a>
           </li>
-          <li v-show="selectedDat[0].merch_url.length > 0">
+          <li class="info-merch" v-show="selectedDat[0].merch_url.length > 0">
             <a :href="selectedDat[0].merch_url" target="_blank"
               >Related Merch</a
             >
           </li>
-          <li v-show="selectedDat[0].podcast_url.length > 0">
+          <li
+            class="info-podcast"
+            v-show="selectedDat[0].podcast_url.length > 0"
+          >
             <a :href="selectedDat[0].podcast_url" target="_blank"
               >Related Podcast</a
             >
           </li>
-          <li v-show="selectedDat[0].books_url.length > 0">
+          <li class="info-book" v-show="selectedDat[0].books_url.length > 0">
             <a :href="selectedDat[0].books_url" target="_blank"
               >Related Books</a
             >
           </li>
           <li
+            class="info-googlemaps"
             v-show="
               selectedDat[0].latitude.length > 0 &&
               selectedDat[0].longitude.length > 0
@@ -281,8 +296,9 @@ export default {
   display: none;
 }
 #info-panel .img-caption {
-  font-style: italic;
-  margin-bottom: 0;
+      margin-bottom: 0;
+    text-align: center;
+    font-size: .85em;
 }
 .img-container {
   width: 100%;
@@ -334,7 +350,7 @@ export default {
   display: block;
 }
 
-#info-panel .info-list{
-      margin-top: 15px;
+#info-panel .info-list {
+  margin-top: 15px;
 }
 </style>

@@ -74,7 +74,7 @@ const configs = [
 ];
 
 Promise.all(configs).then((_configs) => {
-  $("body > #loading").hide();
+  //$("body > #loading").hide();
   new Vue({
     icons: {
       iconfont: 'fa',

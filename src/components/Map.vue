@@ -29,6 +29,8 @@ import LegendControl from "../js/LegendControl";
 import Vue from "vue";
 import { EventBus } from "../js/DataManagement/EventBus";
 import EventManager from "../js/DataManagement/EventMangager";
+
+import $ from "jquery";
 export default {
   name: "Map",
   components: {},
@@ -72,6 +74,7 @@ export default {
     map.addControl(new mapboxgl.ScaleControl(), "bottom-right");
     map.addControl(new mapboxgl.NavigationControl(), "bottom-right");
     map.once("idle", () => {
+      $("body > #loading").fadeOut();
       self.initLayers();
     });
 
