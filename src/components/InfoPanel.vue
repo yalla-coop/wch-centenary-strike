@@ -4,18 +4,22 @@
       <h3 style="font-family: 'ZillaSlab'; font-size: 24px">
         What is Working Class History | Map?
       </h3>
-      <br />
-      History isn't made by kings and politicians, it is made by us: billions of
-      ordinary people. This is a map containing our historical stories of our
-      collective struggles to build a better world.
-      <br />
-      Here you can browse stories geographically, and you can click through to
-      our
-      <a href="https://working-class-history.netlify.app/">Stories app</a> to
-      see more information like sources for each story. Our work is funded
-      entirely by our readers and listeners on patreon, so if you value our work
-      please consider
-      <a href="https://patreon.com/workingclasshistory">supporting us.</a>
+      <br>
+      <p>
+        History isn't made by kings and politicians, it is made by us: billions
+        of ordinary people. This is a map containing our historical stories of
+        our collective struggles to build a better world.
+      </p>
+
+      <p>
+        Here you can browse stories geographically, and you can click through to
+        our
+        <a href="https://working-class-history.netlify.app/">Stories app</a> to
+        see more information like sources for each story. Our work is funded
+        entirely by our readers and listeners on patreon, so if you value our
+        work please consider
+        <a href="https://patreon.com/workingclasshistory">supporting us.</a>
+      </p>
     </div>
     <div :class="dat.length > 0 ? '' : 'hidden'">
       <div @click="selectDat(null)" class="close-btn">

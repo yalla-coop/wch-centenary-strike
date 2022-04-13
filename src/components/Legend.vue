@@ -111,7 +111,7 @@ export default {
   background: #fad40a;
   color: black;
   padding: 0 5%;
-  text-transform: uppercase;
+
   font-weight: bold;
   margin-bottom: 5px;
   text-align: center;
