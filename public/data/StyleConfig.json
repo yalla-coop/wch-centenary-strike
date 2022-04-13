@@ -24,12 +24,14 @@
     "colors":{
         "yellow":{
             "primary":"#FAD40A",
+            "inactive":"#f5e27f",
             "mid":"#FEF6CE",
             "light":"#FEFAE8"
         },
         "purple":{
-            "primary":"#120232",
-            "mid": "#6013FB",
+            "primary":"#6013FB",
+            "inactive":"#d2befa",
+            "mid": "#120232",
             "light":"#FCFBFF"
         }
     }

@@ -95,7 +95,7 @@
                 weight="regular"
                 color="neutral"
               >
-                Stories Home
+                Stories
               </div></a
             >
             <!-- <a class="css-1xqwpqk" href="/index"

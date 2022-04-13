@@ -124,5 +124,6 @@ export default {
 }
 .legend-title {
   font-family: "ZillaSlab";
+  text-transform: initial;
 }
 </style>

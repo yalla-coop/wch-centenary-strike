@@ -232,9 +232,9 @@ export default class LayerManager {
             ['match',
                 ['get', 'geotag'],
                 'exact_location',
-                self.exactLocationColor.mid,
+                self.exactLocationColor.inactive,
                 'near_here',
-                self.nearLocationColor.mid,
+                self.nearLocationColor.inactive,
                 '#f00'
             ]
         ]);

@@ -121,6 +121,13 @@ export default {
       EventBus.$emit("toggle-panel", this.panelExpanded);
     });
 
+    EventBus.$on("force-info-close", () => {
+      if (!this.panelExpanded) return;
+      this.panelExpanded = false;
+      
+      EventBus.$emit("toggle-panel", this.panelExpanded);
+    });
+
     if (
       window.location !== window.parent.location &&
       this.$store.getters.isMobile

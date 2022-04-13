@@ -1,13 +1,16 @@
 <template>
   <div id="info-panel">
     <div :class="dat.length > 0 ? 'hidden' : ''">
-      <h3 style="font-family: 'ZillaSlab'">
+      <h3 style="font-family: 'ZillaSlab'; font-size: 24px">
         What is Working Class History | Map?
       </h3>
+      <br />
       History isn't made by kings and politicians, it is made by us: billions of
       ordinary people. This is a map containing our historical stories of our
-      collective struggles to build a better world. Here you can browse stories
-      geographically, and you can click through to our
+      collective struggles to build a better world.
+      <br />
+      Here you can browse stories geographically, and you can click through to
+      our
       <a href="https://working-class-history.netlify.app/">Stories app</a> to
       see more information like sources for each story. Our work is funded
       entirely by our readers and listeners on patreon, so if you value our work
@@ -87,6 +90,15 @@
             <a :href="selectedDat[0].author_url" target="_blank">{{
               selectedDat[0].author_name
             }}</a>
+          </li>
+          <li class="info-learn">
+            <a
+              :href="`${this.$baseurl}/article/${
+                selectedDat[0].name
+              }/${selectedDat[0].title.replaceAll(' ', '-')}`"
+              target="_blank"
+              >Learn More</a
+            >
           </li>
           <li class="info-merch" v-show="selectedDat[0].merch_url.length > 0">
             <a :href="selectedDat[0].merch_url" target="_blank"
@@ -195,13 +207,16 @@ export default {
       }
     },
     selectDat(_name) {
-      console.log(_name);
       let self = this;
       if (!_name) {
         this.selectedDat = [];
         this.dat = [];
         this.$store.commit("setSelectedEventId", -1);
         this.$layerManager.styleCircleSelection();
+        if (this.getOrientation() === "portrait") {
+          EventBus.$emit("force-info-close");
+        }
+
         return;
       }
       this.loading = true;
@@ -237,7 +252,6 @@ export default {
         zoom: 9,
         essential: true,
       });
-      
     },
   },
 };
@@ -297,9 +311,9 @@ export default {
   display: none;
 }
 #info-panel .img-caption {
-      margin-bottom: 0;
-    text-align: center;
-    font-size: .85em;
+  margin-bottom: 0;
+  text-align: left;
+  font-size: 0.85em;
 }
 .img-container {
   width: 100%;
@@ -307,12 +321,13 @@ export default {
 
 .img-container img {
   max-width: 90%;
-  margin: 0 auto;
   display: block;
+  margin-left: 0;
 }
 
 #info-panel .media-container {
   margin: 10px;
+  margin-left: 0;
 }
 
 #info-panel .zoom-to {
