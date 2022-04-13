@@ -83,7 +83,8 @@ export default {
       //console.log(url);
       if (url.hash.includes("##")) {
         const newHref = location.href.replace(/(?<=#).*?(?=&)/g, "");
-        window.history.replaceState({}, "", newHref);
+        window.history.replaceState({}, "", newHref.replace("##","#"));
+        
       }
     });
 

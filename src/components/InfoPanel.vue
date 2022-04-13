@@ -237,6 +237,7 @@ export default {
         zoom: 9,
         essential: true,
       });
+      
     },
   },
 };
