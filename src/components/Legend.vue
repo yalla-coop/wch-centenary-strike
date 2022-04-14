@@ -20,9 +20,9 @@
     </ul>
     <v-divider></v-divider>
     <v-card-text>
-      Additional Layers:
+      Additional Layers
       <br />
-      <i>(click to activate)</i>
+      (click to activate):
       <v-divider></v-divider>
       <v-chip-group
         v-model="toggledLayer"
@@ -111,10 +111,10 @@ export default {
   background: #fad40a;
   color: black;
   padding: 0 5%;
-
+  padding-left: 12px;
   font-weight: bold;
   margin-bottom: 5px;
-  text-align: center;
+  text-align: left;
   display: inline-block;
   width: 100%;
 }

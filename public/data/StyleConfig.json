@@ -1,38 +1,58 @@
 {
     "name": "styleConfig",
     "styles": {
-        "marker":{
+        "marker": {
             "backgroundColor": "grey",
-            "opacity":".8",
+            "opacity": ".8",
             "width": "12px",
             "height": "12px",
-            "border-radius":"50%",
-            "border":"2px solid white",
-            "cursor":"pointer"
+            "border-radius": "50%",
+            "border": "2px solid white",
+            "cursor": "pointer"
         },
-        "marker-varying":{
-            "color":{
-                "exact-location":"yellow",
+        "marker-varying": {
+            "color": {
+                "exact-location": "yellow",
                 "near-here": "purple"
-            }
+            },
+            "highlightable-props": [
+                {
+                    "prop-name": "circle-radius",
+                    "active": 7,
+                    "inactive": 5,
+                    "default": 6
+                },
+                {
+                    "prop-name": "circle-stroke-width",
+                    "active": 2,
+                    "inactive": 1,
+                    "default": 2
+                },
+                {
+                    "prop-name": "circle-stroke-color",
+                    "active": "white",
+                    "inactive": "lightgray",
+                    "default": "white"
+                }
+            ]
         }
     },
-    "layer-placement":{
-        "events":"event-placeholder",
-        "geojson":"additional-layer-placeholder"
+    "layer-placement": {
+        "events": "event-placeholder",
+        "geojson": "additional-layer-placeholder"
     },
-    "colors":{
-        "yellow":{
-            "primary":"#FAD40A",
-            "inactive":"#f5e27f",
-            "mid":"#FEF6CE",
-            "light":"#FEFAE8"
+    "colors": {
+        "yellow": {
+            "primary": "#FAD40A",
+            "inactive": "#d5d26f",
+            "mid": "#FEF6CE",
+            "light": "#FEFAE8"
         },
-        "purple":{
-            "primary":"#6013FB",
-            "inactive":"#d2befa",
+        "purple": {
+            "primary": "#6013FB",
+            "inactive": "#d2befa",
             "mid": "#120232",
-            "light":"#FCFBFF"
+            "light": "#FCFBFF"
         }
     }
 }

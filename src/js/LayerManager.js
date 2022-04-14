@@ -202,9 +202,14 @@ export default class LayerManager {
         //console.log()
         let self = this;
         const map = this._vue.$map;
-        //TODO: Set highlighted/non-highlighted here:
+
+        const highlightProps = this._vue.$styleConfig.styles["marker-varying"]["highlightable-props"]
+
         if (this._vue.$store.getters.getSelectedEventId === -1) {
-            map.setPaintProperty("events-circles", "circle-stroke-width", 2);
+            highlightProps.forEach((prop) => {
+                map.setPaintProperty("events-circles", prop["prop-name"], prop["default"]);
+            });
+
             map.setPaintProperty("events-circles", "circle-color", [
                 'match',
                 ['get', 'geotag'],
@@ -217,7 +222,7 @@ export default class LayerManager {
             );
             return;
         }
-       
+
         map.setPaintProperty("events-circles", "circle-color", [
             "case",
             ["==", ["get", "name"], this._vue.$store.getters.getSelectedEventId],
@@ -239,26 +244,15 @@ export default class LayerManager {
             ]
         ]);
 
-        map.setPaintProperty("events-circles", "circle-radius", [
-            "case",
-            ["==", ["get", "name"], this._vue.$store.getters.getSelectedEventId],
-            6,
-            5,
-        ]);
-
-        map.setPaintProperty("events-circles", "circle-stroke-width", [
-            "case",
-            ["==", ["get", "name"], this._vue.$store.getters.getSelectedEventId],
-            2,
-            1,
-        ]);
-
-        // map.setPaintProperty("events-circles", "circle-stroke-opacity", [
-        //     "case",
-        //     ["==", ["get", "name"], this._vue.$store.getters.getSelectedEventId],
-        //     1,
-        //     0.25,
-        // ]);
+        highlightProps.forEach((prop) => {
+            map.setPaintProperty("events-circles", prop["prop-name"], [
+                "case",
+                ["==", ["get", "name"], this._vue.$store.getters.getSelectedEventId],
+                prop["active"],
+                prop["inactive"]
+            ]
+            );
+        });
 
     }
     addCircleLayer(beforeLayer, entries) {

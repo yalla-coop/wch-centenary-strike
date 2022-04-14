@@ -286,7 +286,7 @@ exl and touring */
 }
 .portrait .mapboxgl-ctrl-top-left,
 .portrait .mapboxgl-ctrl-bottom-right,
-.portrait .mapboxgl-ctrl-top-right {
+.portrait .mapboxgl-ctrl-top-right .mapboxgl-ctrl-geocoder {
   display: none;
 }
 </style>

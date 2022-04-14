@@ -2,7 +2,7 @@
   <div id="info-panel">
     <div :class="dat.length > 0 ? 'hidden' : ''">
       <h3 style="font-family: 'ZillaSlab'; font-size: 24px">
-        What is Working Class History | Map?
+        Working Class History | Map
       </h3>
       <br>
       <p>
