@@ -18,7 +18,7 @@
       >
         <path d="M1 0.5H21" stroke="white" stroke-linecap="round"></path>
         <path d="M1 5.5H21" :stroke="this.$styleConfig.colors.purple.primary" stroke-linecap="round"></path>
-        <path d="M1 10.5H21" :stroke="this.$styleConfig.colors.yellow.mid" stroke-linecap="round"></path>
+        <path d="M1 10.5H21" :stroke="this.$styleConfig.colors.yellow.primary" stroke-linecap="round"></path>
       </svg>
     </div>
     <SideNav />
@@ -117,14 +117,14 @@ export default {
     EventBus.$on("force-info-open", () => {
       if (this.panelExpanded) return;
       this.panelExpanded = true;
-      
+       this.$store.commit("setInfoPanelExpanded", true);
       EventBus.$emit("toggle-panel", this.panelExpanded);
     });
 
     EventBus.$on("force-info-close", () => {
       if (!this.panelExpanded) return;
       this.panelExpanded = false;
-      
+      this.$store.commit("setInfoPanelExpanded", false);
       EventBus.$emit("toggle-panel", this.panelExpanded);
     });
 
