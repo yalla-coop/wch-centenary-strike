@@ -1,12 +1,13 @@
 {
     "name": "styleConfig",
     "styles": {
-        "marker-varying": {
+        "marker-varying": { //Used for styling the pins on the map itself
             "color": {
-                "exact-location": "yellow",
+                "exact-location": "yellow", //References the color name in "colors" below
                 "near-here": "purple"
             },
-            "highlightable-props": [
+            "highlightable-props": [ //Styling options for the pins when a selection is made or cleared
+                //https://docs.mapbox.com/mapbox-gl-js/style-spec/layers/#circle
                 {
                     "prop-name": "circle-radius",
                     "active": 7,
@@ -27,6 +28,7 @@
                 }
             ]
         },
+        //No longer used! This is left over from popup pins rendered as html elements.
         "marker(HTML MARKERS DEPRICATED)": {
             "backgroundColor": "grey",
             "opacity": ".8",
@@ -37,6 +39,7 @@
             "cursor": "pointer"
         }
     },
+    //Where each layer type should be placed in the stack specified in the mapbox style
     "layer-placement": {
         "events": "event-placeholder",
         "geojson": "additional-layer-placeholder"

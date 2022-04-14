@@ -314,85 +314,85 @@ export default class LayerManager {
         }
 
     }
+    //DEPRICATED:
+    // addMarkers(entries) {
+    //     entries.forEach(entry => {
+    //         const el = document.createElement('div');
+    //         const _style = this._vue.$styleConfig.styles.marker;
+    //         const geotag = entry.geotag_info.toLowerCase().replace(' ', '-');
+    //         //_style.backgroundColor = this._vue.$styleConfig.styles["marker-varying"]["color"][geotag] || "grey"
+    //         // console.log(entry)
+    //         _style.backgroundColor = this._vue.$styleConfig.colors[
+    //             this._vue.$styleConfig.styles["marker-varying"]["color"][geotag]
+    //         ] || "grey"
+    //         Object.assign(el.style, _style)
+    //         if (geotag === 'near-here') {
+    //             el.style.boxShadow = "0 0 5px 15px #9933ff88"
+    //         }
+    //         //TODO: This should be cleaned up
+    //         const marker = new mapboxgl.Marker(el)
+    //             .setLngLat([entry.longitude, entry.latitude])
+    //             .setPopup(new mapboxgl.Popup().setHTML(`
 
-    addMarkers(entries) {
-        entries.forEach(entry => {
-            const el = document.createElement('div');
-            const _style = this._vue.$styleConfig.styles.marker;
-            const geotag = entry.geotag_info.toLowerCase().replace(' ', '-');
-            //_style.backgroundColor = this._vue.$styleConfig.styles["marker-varying"]["color"][geotag] || "grey"
-            // console.log(entry)
-            _style.backgroundColor = this._vue.$styleConfig.colors[
-                this._vue.$styleConfig.styles["marker-varying"]["color"][geotag]
-            ] || "grey"
-            Object.assign(el.style, _style)
-            if (geotag === 'near-here') {
-                el.style.boxShadow = "0 0 5px 15px #9933ff88"
-            }
-            //TODO: This should be cleaned up
-            const marker = new mapboxgl.Marker(el)
-                .setLngLat([entry.longitude, entry.latitude])
-                .setPopup(new mapboxgl.Popup().setHTML(`
-
-                    <h3 class="popup-title">${entry.title}</h3>
-                    <p>${entry.description}</p>
-                    <div class="${entry.media ? 'media-container' : 'hidden'}">
-                        <p class="img-caption">${entry.media_caption}</p>
-                        <div class="img-container">
-                            <img src="${entry.media}">
-                        </div>
-                    </div>
-                    <a id="zoom-to-${entry.id}" href="#">Zoom To</a>
+    //                 <h3 class="popup-title">${entry.title}</h3>
+    //                 <p>${entry.description}</p>
+    //                 <div class="${entry.media ? 'media-container' : 'hidden'}">
+    //                     <p class="img-caption">${entry.media_caption}</p>
+    //                     <div class="img-container">
+    //                         <img src="${entry.media}">
+    //                     </div>
+    //                 </div>
+    //                 <a id="zoom-to-${entry.id}" href="#">Zoom To</a>
                     
-                `))
-                .addTo(this._vue.$map);
+    //             `))
+    //             .addTo(this._vue.$map);
 
-            if (+this._vue.$mainConfig.multiplyDataTest > 0) {
-                for (let i = 0; i < +this._vue.$mainConfig.multiplyDataTest; i++) {
-                    const _el = document.createElement('div');
-                    const _style = this._vue.$styleConfig.styles.marker;
-                    const geotag = entry.geotag_info.toLowerCase().replace(' ', '-');
-                    _style.backgroundColor = this._vue.$styleConfig.colors[
-                        this._vue.$styleConfig.styles["marker-varying"]["color"][geotag]
-                    ] || "grey"
-                    // console.log(entry)
+    //         if (+this._vue.$mainConfig.multiplyDataTest > 0) {
+    //             for (let i = 0; i < +this._vue.$mainConfig.multiplyDataTest; i++) {
+    //                 const _el = document.createElement('div');
+    //                 const _style = this._vue.$styleConfig.styles.marker;
+    //                 const geotag = entry.geotag_info.toLowerCase().replace(' ', '-');
+    //                 _style.backgroundColor = this._vue.$styleConfig.colors[
+    //                     this._vue.$styleConfig.styles["marker-varying"]["color"][geotag]
+    //                 ] || "grey"
+    //                 // console.log(entry)
 
-                    Object.assign(_el.style, _style)
-                    if (geotag === 'near-here') {
-                        _el.style.boxShadow = "0 0 5px 15px #9933ff88"
-                    }
-                    new mapboxgl.Marker(_el)
-                        .setLngLat([+entry.longitude + (Math.random() * 2 - 1), +entry.latitude + (Math.random() * 2 - 1)])
-                        .setPopup(new mapboxgl.Popup().setHTML(`
+    //                 Object.assign(_el.style, _style)
+    //                 if (geotag === 'near-here') {
+    //                     _el.style.boxShadow = "0 0 5px 15px #9933ff88"
+    //                 }
+    //                 new mapboxgl.Marker(_el)
+    //                     .setLngLat([+entry.longitude + (Math.random() * 2 - 1), +entry.latitude + (Math.random() * 2 - 1)])
+    //                     .setPopup(new mapboxgl.Popup().setHTML(`
 
-                    <h3 class="popup-title">${entry.title}</h3>
-                    <p>${entry.description}</p>
-                    <div class="${entry.media ? 'media-container' : 'hidden'}">
-                        <p class="img-caption">${entry.media_caption}</p>
-                        <div class="img-container">
-                            <img src="${entry.media}">
-                        </div>
-                    </div>
+    //                 <h3 class="popup-title">${entry.title}</h3>
+    //                 <p>${entry.description}</p>
+    //                 <div class="${entry.media ? 'media-container' : 'hidden'}">
+    //                     <p class="img-caption">${entry.media_caption}</p>
+    //                     <div class="img-container">
+    //                         <img src="${entry.media}">
+    //                     </div>
+    //                 </div>
                     
-                `))
-                        .addTo(this._vue.$map);
-                }
-            }
+    //             `))
+    //                     .addTo(this._vue.$map);
+    //             }
+    //         }
 
-            let self = this;
-            document.addEventListener('click', function (event) {
+    //         let self = this;
+    //         document.addEventListener('click', function (event) {
 
-                if (!event.target.matches(`#zoom-to-${entry.id}`)) return;
+    //             if (!event.target.matches(`#zoom-to-${entry.id}`)) return;
 
-                event.preventDefault();
+    //             event.preventDefault();
 
-                self._vue.$map.flyTo({
-                    center: [entry.longitude, entry.latitude],
-                    zoom: 9,
-                    essential: true
-                });
-            })
+    //             self._vue.$map.flyTo({
+    //                 center: [entry.longitude, entry.latitude],
+    //                 zoom: 9,
+    //                 essential: true
+    //             });
+    //         })
 
-        });
-    }
+    //     });
+    // }
 }
