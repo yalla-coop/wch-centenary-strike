@@ -6,6 +6,7 @@
                 "exact-location": "yellow", //References the color name in "colors" below
                 "near-here": "purple"
             },
+            "hit-radius":16, //Radius of circles as rendered is too small to register clicks, esp. on mobile. This is an extra invisible layer that JUST receives clicks/taps
             "highlightable-props": [ //Styling options for the pins when a selection is made or cleared
                 //https://docs.mapbox.com/mapbox-gl-js/style-spec/layers/#circle
                 {

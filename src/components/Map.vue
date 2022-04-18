@@ -97,7 +97,9 @@ export default {
     });
 
     map.on("click", (e) => {
+     
       const features = map.queryRenderedFeatures(e.point);
+      
       if (features.length === 0) {
         self.$store.commit("setSelectedEventId", -1);
         self.$layerManager.styleCircleSelection();
@@ -106,7 +108,7 @@ export default {
       }
 
       const eventFeatures = features
-        .filter((f) => f.layer.source === "events-source")
+        .filter((f) => f.layer.id === "event-hit-layer")
         .map((f) => f.properties);
 
       EventBus.$emit("new-panel", eventFeatures); //HC

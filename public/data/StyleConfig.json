@@ -6,6 +6,7 @@
                 "exact-location": "yellow",
                 "near-here": "purple"
             },
+            "hit-radius":16,
             "highlightable-props": [
                 {
                     "prop-name": "circle-radius",

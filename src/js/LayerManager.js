@@ -210,6 +210,8 @@ export default class LayerManager {
                 map.setPaintProperty("events-circles", prop["prop-name"], prop["default"]);
             });
 
+            map.setLayoutProperty("events-circles", "circle-sort-key", 0);
+
             map.setPaintProperty("events-circles", "circle-color", [
                 'match',
                 ['get', 'geotag'],
@@ -244,6 +246,13 @@ export default class LayerManager {
             ]
         ]);
 
+        map.setLayoutProperty("events-circles", "circle-sort-key", [
+            "case",
+            ["==", ["get", "name"], this._vue.$store.getters.getSelectedEventId],
+            9,
+            0
+        ]);
+
         highlightProps.forEach((prop) => {
             map.setPaintProperty("events-circles", prop["prop-name"], [
                 "case",
@@ -255,6 +264,7 @@ export default class LayerManager {
         });
 
     }
+
     addCircleLayer(beforeLayer, entries) {
 
         var result = {
@@ -287,7 +297,6 @@ export default class LayerManager {
         });
         // console.log(this._vue.$styleConfig.colors["yellow.primary"])
 
-        //HC
         const layer = {
             'id': 'events-circles',
             'type': 'circle',
@@ -307,10 +316,24 @@ export default class LayerManager {
                 'circle-stroke-color': 'white'
             }
         }
+
+        const hitLayer = {
+            'id': 'event-hit-layer',
+            'type': 'circle',
+            'source': 'events-source',
+            'layout': {},
+            'paint': {
+                'circle-color': 'white',
+                'circle-opacity': 0,
+                'circle-radius': this._vue.$styleConfig.styles["marker-varying"]["hit-radius"]
+            }
+        }
         if (beforeLayer) {
             this._vue.$map.addLayer(layer, beforeLayer);
+            this._vue.$map.addLayer(hitLayer, beforeLayer);
         } else {
             this._vue.$map.addLayer(layer);
+            this._vue.$map.addLayer(hitLayer);
         }
 
     }
@@ -343,7 +366,7 @@ export default class LayerManager {
     //                     </div>
     //                 </div>
     //                 <a id="zoom-to-${entry.id}" href="#">Zoom To</a>
-                    
+
     //             `))
     //             .addTo(this._vue.$map);
 
@@ -373,7 +396,7 @@ export default class LayerManager {
     //                         <img src="${entry.media}">
     //                     </div>
     //                 </div>
-                    
+
     //             `))
     //                     .addTo(this._vue.$map);
     //             }

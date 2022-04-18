@@ -1,7 +1,7 @@
 {
 	"name": "mainConfig",
 	"multiplyDataTest":10,
-	"baseurl":"http://localhost:8080",
+	"baseurl":"https://working-class-history.netlify.app",
 	"api": {
 		"baserow": {
 			"tables":{

@@ -96,9 +96,10 @@
             }}</a>
           </li>
           <li class="info-learn">
+         
             <a
               :href="`${this.$baseurl}/article/${
-                selectedDat[0].name
+                selectedDat[0].id
               }/${selectedDat[0].title.replaceAll(' ', '-')}`"
               target="_blank"
               >Learn More</a
