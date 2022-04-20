@@ -195,6 +195,7 @@ export default {
     });
     EventBus.$on("open-main-menu", () => {
       self.expanded = true;
+      EventBus.$emit("force-info-close");
     });
   },
   methods: {

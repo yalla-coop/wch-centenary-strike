@@ -133,9 +133,30 @@
               ><v-icon dark class="icon-class">mdi-mastodon</v-icon></a
             >
           </li>
+
+         
         </ul>
       </div>
-    </nav></v-footer
+       </nav>
+       <div
+            id="wijfi"
+            class="
+              menu-item
+              menu-item-type-custom
+              menu-item-object-custom
+              menu-item-1297
+            "
+          >
+            <a href="mailto: wijfi@duck.com">map by wijfi</a>
+          <a
+              href="https://github.com/Willjfield/WCH_Map"
+              onclick="javascript:window.open('https://github.com/Willjfield/WCH_Map'); return false;"
+              ><v-icon dark small class="icon-class">mdi-github</v-icon></a
+            >
+        
+            
+          </div>
+   </v-footer
   >
 </template>
 
@@ -153,6 +174,17 @@ export default {
     border-color: rgb(18, 2, 50);
 }
 
+#wijfi, #wijfi a{
+  color: lightgray;
+  text-decoration: none;
+  padding: 2px;
+}
+
+#wijfi{
+      right: 5px;
+    position: absolute;
+    font-size: .75em;
+}
 /* .icon-class{
   color:white;
 } */
