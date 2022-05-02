@@ -71,20 +71,26 @@
             >
           </li>
           <li
-            id="menu-item-49"
+            id="menu-item-54"
             class="
               menu-item
               menu-item-type-custom
               menu-item-object-custom
-              menu-item-49
+              menu-item-54
             "
           >
             <a
               rel="noopener"
-              href="https://workingclasshistory.tumblr.com"
+              href="https://workingclasshistory.tumblr.com/"
               onclick="javascript:window.open('https://workingclasshistory.tumblr.com/'); return false;"
-              ><v-icon dark class="icon-class">mdi-tumblr</v-icon></a
             >
+              <img
+                width="25px"
+                class="v-icon v-icon"
+                src="assets/icons/ico_tumblr.svg"
+                alt="tumblr"
+              />
+            </a>
           </li>
           <li
             id="menu-item-28"
@@ -115,8 +121,14 @@
               rel="noopener"
               href="https://www.pinterest.com/workingclasshistory/"
               onclick="javascript:window.open('https://www.pinterest.com/workingclasshistory/'); return false;"
-              ><v-icon dark class="icon-class">mdi-pintrest</v-icon></a
             >
+              <img
+                width="22px"
+                class="v-icon v-icon"
+                src="assets/icons/ico_pintrest.svg"
+                alt="pintrest"
+              />
+            </a>
           </li>
           <li
             id="menu-item-1297"
@@ -133,13 +145,8 @@
               ><v-icon dark class="icon-class">mdi-mastodon</v-icon></a
             >
           </li>
-
-         
-        </ul>
-      </div>
-       </nav>
-       <div
-            id="wijfi"
+          <!-- <li
+            id="menu-item-1297"
             class="
               menu-item
               menu-item-type-custom
@@ -147,17 +154,51 @@
               menu-item-1297
             "
           >
-            <a href="mailto: wijfi@duck.com">map by wijfi</a>
-          <a
-              href="https://github.com/Willjfield/WCH_Map"
-              onclick="javascript:window.open('https://github.com/Willjfield/WCH_Map'); return false;"
-              ><v-icon dark small class="icon-class">mdi-github</v-icon></a
+            <a
+              href="https://tiktok.com/@workingclasshistory"
+              onclick="javascript:window.open('https://tiktok.com/@workingclasshistory'); return false;"
+              ><v-icon dark class="icon-class">mdi-tiktok</v-icon></a
             >
-        
-            
-          </div>
-   </v-footer
-  >
+          </li> -->
+          <li
+            id="menu-item-54"
+            class="
+              menu-item
+              menu-item-type-custom
+              menu-item-object-custom
+              menu-item-54
+            "
+          >
+            <a
+              rel="noopener"
+              href="https://tiktok.com/@workingclasshistory"
+              onclick="javascript:window.open('https://tiktok.com/@workingclasshistory/'); return false;"
+            >
+              <img
+                width="22px"
+                class="v-icon v-icon"
+                src="assets/icons/ico_tiktok.svg"
+                alt="tumblr"
+              />
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div
+      id="wijfi"
+      class="
+        menu-item menu-item-type-custom menu-item-object-custom menu-item-1297
+      "
+    >
+      <a target="_blank" href="mailto: wijfi@duck.com">map by wijfi</a>
+      <a
+        href="https://github.com/Willjfield/WCH_Map"
+        onclick="javascript:window.open('https://github.com/Willjfield/WCH_Map'); return false;"
+        ><v-icon dark small class="icon-class">mdi-github</v-icon></a
+      >
+    </div>
+  </v-footer>
 </template>
 
 <script>
@@ -167,26 +208,26 @@ export default {
 </script>
 
 <style>
-.v-footer{
+.v-footer {
   z-index: 9;
   background-color: rgb(18, 2, 50);
-    box-shadow: #4e4e4e66 0px 0px 16px;
-    border-color: rgb(18, 2, 50);
+  box-shadow: #4e4e4e66 0px 0px 16px;
+  border-color: rgb(18, 2, 50);
 }
 
-#wijfi, #wijfi a{
+#wijfi,
+#wijfi a {
   color: lightgray;
   text-decoration: none;
   padding: 2px;
 }
 
-#wijfi{
-      right: 5px;
-    position: absolute;
-    font-size: .75em;
+#wijfi {
+  right: 5px;
+  position: absolute;
+  font-size: 0.75em;
 }
 /* .icon-class{
   color:white;
 } */
-
 </style>
