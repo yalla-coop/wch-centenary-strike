@@ -191,11 +191,10 @@
         menu-item menu-item-type-custom menu-item-object-custom menu-item-1297
       "
     >
-      <a target="_blank" href="mailto: wijfi@duck.com">map by wijfi</a>
       <a
         href="https://github.com/Willjfield/WCH_Map"
         onclick="javascript:window.open('https://github.com/Willjfield/WCH_Map'); return false;"
-        ><v-icon dark small class="icon-class">mdi-github</v-icon></a
+        >map by will field <v-icon dark small class="icon-class">mdi-github</v-icon></a
       >
     </div>
   </v-footer>
