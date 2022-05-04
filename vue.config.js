@@ -16,9 +16,7 @@ module.exports = {
   ],
   "publicPath": "./",
   //publicPath: '\.\/',
-  outputDir: process.env.VUE_APP_ENV === 'PROD'
-  ? 'build-prod'
-  : 'build-dev',
+  outputDir: 'build',
   chainWebpack: config => {
     config
       .plugin('html')

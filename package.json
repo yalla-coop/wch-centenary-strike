@@ -3,13 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "set VUE_APP_ENV=DEV&&vue-cli-service serve",
-    "serve-prod": "set VUE_APP_ENV=PROD&&vue-cli-service serve",
+    "serve": "VUE_APP_ENV=DEV&&vue-cli-service serve",
+    "serve-prod": "VUE_APP_ENV=PROD&&vue-cli-service serve",
     "serve-https": "vue-cli-service serve --https",
-    "build": "vue-cli-service build",
+    "build": "VUE_APP_ENV=PROD&&vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "build-for-dev": "set VUE_APP_ENV=DEV&&npm run build -- --mode dev",
-    "build-for-prod": "set VUE_APP_ENV=PROD&&npm run build -- --mode prod",
     "deploy": "node deploy/gh-pages-deploy.js"
   },
   "dependencies": {
