@@ -20,6 +20,12 @@ export default class LayerManager {
         this.nearLocationColorName = this._vue.$styleConfig.styles["marker-varying"]["color"]["near-here"];
         this.nearLocationColor = this._vue.$styleConfig.colors[this.nearLocationColorName];
 
+        this.cityColorName = this._vue.$styleConfig.styles["marker-varying"]["color"]["in_this_town_city"];
+        this.cityColor = this._vue.$styleConfig.colors[this.cityColorName];
+
+        this.countryColorName = this._vue.$styleConfig.styles["marker-varying"]["color"]["in_this_country"];
+        this.countryColor = this._vue.$styleConfig.colors[this.countryColorName];
+
     }
     initToggledLayersFromUrl(_map) {
         const toggledLayers = this._vue.$mainConfig["toggleable-layers"];
@@ -154,13 +160,16 @@ export default class LayerManager {
         }).then((resp) => {
 
             const entries = resp.data.results;
+            //console.log(entries.filter(e=>e.title.includes('Francesc')))
             if (!this._vue.$map.getSource('events-source')) {
-                this.addCircleLayer(beforeLayer, entries)
+                this.addCircleLayer(beforeLayer, entries);
+                
             } else {
                 this.updateCircleLayer(entries);
             }
 
             this.eventsLoaded += resp.data.results.length;
+            
             if (resp.data.count > this.eventsLoaded) {
                 this.addBaserowToMap(_options, ++_page);
             } else {
@@ -181,10 +190,11 @@ export default class LayerManager {
 
         for (var i = 0; i < entries.length; i++) {
             if (entries[i].longitude && entries[i].latitude) {
+                
                 existingData.features.push(
                     {
                         "type": "Feature",
-                        "properties": { "name": entries[i].id, "title": entries[i].title, "geotag": entries[i].geotag_info.toLowerCase().replace(' ', '_') },
+                        "properties": { "name": entries[i].id, "title": entries[i].title, "geotag": entries[i].geotag_info.toLowerCase().replaceAll(' ', '_').replaceAll('/', '_') },
                         "geometry": {
                             "type": "Point",
                             "coordinates": [
@@ -219,7 +229,11 @@ export default class LayerManager {
                 self.exactLocationColor.primary,
                 'near_here',
                 self.nearLocationColor.primary,
-                '#00f'
+                "in_this_town_city",
+                self.cityColor.primary,
+                "in_this_country",
+                self.countryColor.primary,
+                '#000000'
             ]
             );
             return;
@@ -234,7 +248,11 @@ export default class LayerManager {
                 self.exactLocationColor.primary,
                 'near_here',
                 self.nearLocationColor.primary,
-                '#00f'
+                "in_this_town_city",
+                self.cityColor.primary,
+                "in_this_country",
+                self.countryColor.primary,
+                '#000000'
             ],
             ['match',
                 ['get', 'geotag'],
@@ -242,7 +260,11 @@ export default class LayerManager {
                 self.exactLocationColor.inactive,
                 'near_here',
                 self.nearLocationColor.inactive,
-                '#f00'
+                "in_this_town_city",
+                self.cityColor.inactive,
+                "in_this_country",
+                self.countryColor.inactive,
+                '#000000'
             ]
         ]);
 
@@ -277,7 +299,7 @@ export default class LayerManager {
                 result.features.push(
                     {
                         "type": "Feature",
-                        "properties": { "name": entries[i].id, "title": entries[i].title, "geotag": entries[i].geotag_info.toLowerCase().replace(' ', '_') },
+                        "properties": { "name": entries[i].id, "title": entries[i].title, "geotag": entries[i].geotag_info.toLowerCase().replaceAll(' ', '_').replaceAll('/', '_') },
                         "geometry": {
                             "type": "Point",
                             "coordinates": [
@@ -310,7 +332,11 @@ export default class LayerManager {
                     this.exactLocationColor.primary,
                     'near_here',
                     this.nearLocationColor.primary,
-                    /* other */ '#0f0'
+                    "in_this_town_city",
+                    this.cityColor.primary,
+                    "in_this_country",
+                    this.countryColor.primary,
+                    /* other */ '#000000'
                 ],
                 'circle-stroke-width': 2,
                 'circle-stroke-color': 'white'
@@ -337,85 +363,5 @@ export default class LayerManager {
         }
 
     }
-    //DEPRICATED:
-    // addMarkers(entries) {
-    //     entries.forEach(entry => {
-    //         const el = document.createElement('div');
-    //         const _style = this._vue.$styleConfig.styles.marker;
-    //         const geotag = entry.geotag_info.toLowerCase().replace(' ', '-');
-    //         //_style.backgroundColor = this._vue.$styleConfig.styles["marker-varying"]["color"][geotag] || "grey"
-    //         // console.log(entry)
-    //         _style.backgroundColor = this._vue.$styleConfig.colors[
-    //             this._vue.$styleConfig.styles["marker-varying"]["color"][geotag]
-    //         ] || "grey"
-    //         Object.assign(el.style, _style)
-    //         if (geotag === 'near-here') {
-    //             el.style.boxShadow = "0 0 5px 15px #9933ff88"
-    //         }
-    //         //TODO: This should be cleaned up
-    //         const marker = new mapboxgl.Marker(el)
-    //             .setLngLat([entry.longitude, entry.latitude])
-    //             .setPopup(new mapboxgl.Popup().setHTML(`
 
-    //                 <h3 class="popup-title">${entry.title}</h3>
-    //                 <p>${entry.description}</p>
-    //                 <div class="${entry.media ? 'media-container' : 'hidden'}">
-    //                     <p class="img-caption">${entry.media_caption}</p>
-    //                     <div class="img-container">
-    //                         <img src="${entry.media}">
-    //                     </div>
-    //                 </div>
-    //                 <a id="zoom-to-${entry.id}" href="#">Zoom To</a>
-
-    //             `))
-    //             .addTo(this._vue.$map);
-
-    //         if (+this._vue.$mainConfig.multiplyDataTest > 0) {
-    //             for (let i = 0; i < +this._vue.$mainConfig.multiplyDataTest; i++) {
-    //                 const _el = document.createElement('div');
-    //                 const _style = this._vue.$styleConfig.styles.marker;
-    //                 const geotag = entry.geotag_info.toLowerCase().replace(' ', '-');
-    //                 _style.backgroundColor = this._vue.$styleConfig.colors[
-    //                     this._vue.$styleConfig.styles["marker-varying"]["color"][geotag]
-    //                 ] || "grey"
-    //                 // console.log(entry)
-
-    //                 Object.assign(_el.style, _style)
-    //                 if (geotag === 'near-here') {
-    //                     _el.style.boxShadow = "0 0 5px 15px #9933ff88"
-    //                 }
-    //                 new mapboxgl.Marker(_el)
-    //                     .setLngLat([+entry.longitude + (Math.random() * 2 - 1), +entry.latitude + (Math.random() * 2 - 1)])
-    //                     .setPopup(new mapboxgl.Popup().setHTML(`
-
-    //                 <h3 class="popup-title">${entry.title}</h3>
-    //                 <p>${entry.description}</p>
-    //                 <div class="${entry.media ? 'media-container' : 'hidden'}">
-    //                     <p class="img-caption">${entry.media_caption}</p>
-    //                     <div class="img-container">
-    //                         <img src="${entry.media}">
-    //                     </div>
-    //                 </div>
-
-    //             `))
-    //                     .addTo(this._vue.$map);
-    //             }
-    //         }
-
-    //         let self = this;
-    //         document.addEventListener('click', function (event) {
-
-    //             if (!event.target.matches(`#zoom-to-${entry.id}`)) return;
-
-    //             event.preventDefault();
-
-    //             self._vue.$map.flyTo({
-    //                 center: [entry.longitude, entry.latitude],
-    //                 zoom: 9,
-    //                 essential: true
-    //             });
-    //         })
-
-    //     });
-    // }
 }

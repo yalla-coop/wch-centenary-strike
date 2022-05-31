@@ -4,7 +4,9 @@
         "marker-varying": {
             "color": {
                 "exact-location": "yellow",
-                "near-here": "purple"
+                "near-here": "purple",
+                "in_this_country":"pink",
+                "in_this_town_city":"grey"
             },
             "hit-radius":16,
             "highlightable-props": [
@@ -54,6 +56,14 @@
             "inactive": "#d2befa",
             "mid": "#120232",
             "light": "#FCFBFF"
+        },
+        "pink":{
+            "primary": "#CC0066",
+            "inactive": "#CC9999"
+        },
+        "grey":{
+            "primary": "#999",
+            "inactive": "#CCC"
         }
     }
 }
