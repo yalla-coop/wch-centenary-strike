@@ -72,7 +72,7 @@
 			"display":"in-this-town-city",
 			"text": "In This Town/City",
 			"css":{
-				"backgroundColor": "#999",
+				"backgroundColor": "#CC0066",
 				"width": "12px",
 				"height": "12px",
 				"border-radius":"50%",
@@ -84,7 +84,7 @@
 			"display":"in-this-country",
 			"text": "In This Country",
 			"css":{
-				"backgroundColor": "#CC0066",
+				"backgroundColor": "#999",
 				"width": "12px",
 				"height": "12px",
 				"border-radius":"50%",

@@ -5,8 +5,8 @@
             "color": {
                 "exact-location": "yellow",
                 "near-here": "purple",
-                "in_this_country":"pink",
-                "in_this_town_city":"grey"
+                "in_this_country":"grey",
+                "in_this_town_city":"pink"
             },
             "hit-radius":16,
             "highlightable-props": [
