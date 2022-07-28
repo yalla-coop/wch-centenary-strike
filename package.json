@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "VUE_APP_ENV=DEV&&vue-cli-service serve",
+    "serve": "set VUE_APP_ENV=DEV&&vue-cli-service serve",
     "serve-prod": "VUE_APP_ENV=PROD&&vue-cli-service serve",
     "serve-https": "vue-cli-service serve --https",
     "build": "VUE_APP_ENV=PROD&&vue-cli-service build",

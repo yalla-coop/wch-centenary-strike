@@ -41,7 +41,12 @@ let setOrientation = Vue.prototype.setOrientation = function () {
 
 
 if (window.location !== window.parent.location) {
-  document.querySelector('body').classList.add("embed")
+  if (getOrientation() === 'landscape') {
+    document.querySelector('body').classList.add("embed");
+  }else{
+    document.querySelector('body').classList.add("mobile-embed");
+    setOrientation();
+  }
 } else {
   setOrientation();
 }

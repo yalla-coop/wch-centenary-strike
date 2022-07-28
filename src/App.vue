@@ -270,10 +270,19 @@ a.wch-menu-logo.outer.lower {
 .embed .mapboxgl-ctrl-top-right,
 .embed .v-footer,
 .embed .legend-title,
-.embed .legend-list{
+.embed .legend-list,
+.mobile-embed footer{
   display: none;
 }
 
+.mobile-embed .legend-list .list-item{
+      margin: 0;
+    line-height: .67em;
+}
+.mobile-embed .legend-container .v-card__text{
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
 .embed .container,
 .embed #info-panel {
   height: 100%;

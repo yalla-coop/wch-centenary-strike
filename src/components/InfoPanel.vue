@@ -60,7 +60,7 @@
         <br />
         <v-divider></v-divider>
         <br />
-        <p class="info-description">{{ selectedDat[0].description }}</p>
+        <p class="info-description" v-html="selectedDat[0].description"></p>
 
         <div
           :class="
