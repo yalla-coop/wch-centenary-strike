@@ -22,17 +22,19 @@ export default class EventManager {
 			EventBus.$on("select-from-click", self.selectFromClick.bind(self));
 			EventBus.$on("select-from-type-switch", self.selectFromTypeSwitch.bind(self));
 			EventBus.$on("select-from-proposal-switch", self.selectFromProposalSwitch.bind(self));
-			EventBus.$on('check-for-url-event', self.checkURL.bind(self));
+			EventBus.$on('select-url-event', self.selectEventFromUrl.bind(self));
 		});
 	}
 
-	selectDistrictOnMapFromLatLng(lnglat, shouldZoom, selectionType) {
-	}
+	// selectDistrictOnMapFromLatLng(lnglat, shouldZoom, selectionType) {
+	// }
 
-	unselect() {
+	// unselect() {
 
-	}
-	checkURL() {
+	// }
+
+
+	selectEventFromUrl() {
 		const params = new URLSearchParams(location.search);
 		if (params.get("event")) {
 			const eId = params.get("event");

@@ -108,6 +108,13 @@ export default {
   mounted: function () {
     let self = this;
     this.panelExpanded = window.location === window.parent.location;
+
+    const params = new URLSearchParams(location.search);
+		const eId = params.get("event");
+		if(eId){
+			this.$store.commit("setSelectedEventId", +eId);
+		}
+
     EventBus.$emit("toggle-panel", this.panelExpanded);
 
     EventBus.$on("close-main-menu", () => {
