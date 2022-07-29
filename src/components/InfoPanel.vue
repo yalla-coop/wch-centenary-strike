@@ -14,7 +14,7 @@
       <p>
         Here you can browse stories geographically, and you can click through to
         our
-        <a href="https://working-class-history.netlify.app/">Stories app</a> to
+        <a href="https://stories.workingclasshistory.com/">Stories app</a> to
         see more information like sources for each story. Our work is funded
         entirely by our readers and listeners on patreon, so if you value our
         work please consider
