@@ -66,7 +66,7 @@ export default class LayerManager {
         }
     }
     addGeoJSONRemoteToMap(_options) {
-        let self = this;
+        //let self = this;
         const beforeLayer = this._vue.$styleConfig["layer-placement"]["geojson"];
 
         axios.get(_options.url).then(resp => {
@@ -148,49 +148,90 @@ export default class LayerManager {
             }
         })
     }
-    addBaserowToMap(_options, _page) {
-        const beforeLayer = this._vue.$styleConfig["layer-placement"]["events"];
 
-        axios({
+    //Going to need to know number of rows to get the number of requests that will need to be made
+    getNumRows(_options) {
+        return axios({
             method: "GET",
-            url: `https://api.baserow.io/api/database/rows/table/${_options.tableid}/?user_field_names=true&page=${_page}${_options.sizeLimit ? '&size=' : ''}${_options.sizeLimit || ''}${_options.filter ? '&filter=' : ''}${_options.filter || ''}`,
+            url: `https://api.baserow.io/api/database/rows/table/${_options.tableid}/?user_field_names=true&page=1&size=1${_options.filter ? '&filter=' : ''}${_options.filter || ''}`,
             headers: {
                 Authorization: `Token ${this._vue.$mainConfig.api.keys.baserow}`
             }
-        }).then((resp) => {
-
-            const entries = resp.data.results;
-            //console.log(entries.filter(e=>e.title.includes('Francesc')))
-            if (!this._vue.$map.getSource('events-source')) {
-                this.addCircleLayer(beforeLayer, entries);
-                
-            } else {
-                this.updateCircleLayer(entries);
-            }
-
-            this.eventsLoaded += resp.data.results.length;
-            
-            if (resp.data.count > this.eventsLoaded) {
-                this.addBaserowToMap(_options, ++_page);
-            } else {
-                this.eventsLoaded = 0;
-                EventBus.$emit('check-for-url-event');
-            }
-        }).catch(e => {
-            this.eventsLoaded = 0;
-            EventBus.$emit('check-for-url-event');
-            console.error(e)
-        });
-
+        })
     }
 
-    updateCircleLayer(entries) {
+    getURLEvent(_id) {
+        const _url = `https://api.baserow.io/api/database/rows/table/33215/${_id}/?user_field_names=true`
+        return axios({
+            method: "GET",
+            url: _url,
+            headers: {
+                Authorization: `Token ${this._vue.$mainConfig.api.keys.baserow}`
+            }
+        })
+    }
+
+    addBaserowToMap(_options, _page) {
+        const beforeLayer = this._vue.$styleConfig["layer-placement"]["events"];
+
+        //If there's a selected event load it first on its own before loading all the rest
+        if (this._vue.$store.getters.getSelectedEventId > 0) {
+            this.getURLEvent(this._vue.$store.getters.getSelectedEventId).then((resp) => {
+                const entries = [resp.data];
+                if (!this._vue.$map.getSource('events-source')) {
+                    this.addCircleLayer(beforeLayer, entries, true);
+                } else {
+                    this.updateCircleLayer(entries, true);
+                }
+            }).then(()=>{
+                EventBus.$emit('select-url-event');
+            });
+        }
+
+        this.getNumRows(_options).then((resp) => {
+            const totalResponsesExpected = resp.data.count;
+            const requestsNeeded = Math.ceil(totalResponsesExpected / _options.sizeLimit);
+
+            for (let reqNum = 0; reqNum < requestsNeeded; reqNum++) {
+                axios({
+                    method: "GET",
+                    url: `https://api.baserow.io/api/database/rows/table/${_options.tableid}/?user_field_names=true&page=${reqNum + 1}${_options.sizeLimit ? '&size=' : ''}${_options.sizeLimit || ''}${_options.filter ? '&filter=' : ''}${_options.filter || ''}`,
+                    headers: {
+                        Authorization: `Token ${this._vue.$mainConfig.api.keys.baserow}`
+                    }
+                }).then((resp) => {
+                    const entries = resp.data.results;
+
+                    if (!this._vue.$map.getSource('events-source')) {
+                        this.addCircleLayer(beforeLayer, entries, false);
+
+                    } else {
+                        this.updateCircleLayer(entries, false);
+                    }
+
+                    this.eventsLoaded += resp.data.results.length;
+
+                    if (reqNum >= requestsNeeded) {
+                        this.eventsLoaded = 0;
+                    }
+                }).catch(e => {
+                    this.eventsLoaded = 0;
+                    console.error(e);
+                });
+            }
+        });
+    }
+
+    updateCircleLayer(entries, addedFromURL) {
         let eventsSource = this._vue.$map.getSource('events-source');
         let existingData = this._vue.$dataManager.eventData;
 
         for (var i = 0; i < entries.length; i++) {
-            if (entries[i].longitude && entries[i].latitude) {
-                
+
+            const skipURLEvent = (!addedFromURL && entries[i].id === this._vue.$store.getters.getSelectedEventId);
+
+            if (entries[i].longitude && entries[i].latitude && !skipURLEvent) {
+
                 existingData.features.push(
                     {
                         "type": "Feature",
@@ -287,7 +328,7 @@ export default class LayerManager {
 
     }
 
-    addCircleLayer(beforeLayer, entries) {
+    addCircleLayer(beforeLayer, entries, addedFromURL) {
 
         var result = {
             "type": "FeatureCollection",
@@ -295,7 +336,9 @@ export default class LayerManager {
         };
 
         for (var i = 0; i < entries.length; i++) {
-            if (entries[i].longitude && entries[i].latitude) {
+            const skipURLEvent = (!addedFromURL && entries[i].id === this._vue.$store.getters.getSelectedEventId);
+
+            if (entries[i].longitude && entries[i].latitude && !skipURLEvent) {
                 result.features.push(
                     {
                         "type": "Feature",
@@ -342,7 +385,7 @@ export default class LayerManager {
                 'circle-stroke-color': 'white'
             }
         }
-
+        //hit layer makes options easier to select
         const hitLayer = {
             'id': 'event-hit-layer',
             'type': 'circle',
