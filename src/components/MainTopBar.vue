@@ -27,7 +27,7 @@
                 menu-item-object-page menu-item-21
               "
             >
-              <a target="_blank" href="https://working-class-history.netlify.app/"
+              <a target="_blank" href="https://stories.workingclasshistory.com/"
                 >Stories</a
               >
             </li>
