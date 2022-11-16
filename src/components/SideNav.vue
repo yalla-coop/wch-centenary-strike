@@ -140,14 +140,6 @@
               >
                 Support Us
               </div></a
-            ><a class="css-1xqwpqk" :href="`${this.$baseurl}/contribute`"
-              ><div
-                class="ant-typography css-107d6n4"
-                weight="regular"
-                color="neutral"
-              >
-                Contribute
-              </div></a
             ><a
               target="_blank"
               class="css-1xqwpqk"
