@@ -5,21 +5,11 @@
         Working Class History | Map
       </h3>
       <br>
-      <p>
-        History isn't made by kings and politicians, it is made by us: billions
-        of ordinary people. This is a map containing our historical stories of
-        our collective struggles to build a better world.
-      </p>
-
-      <p>
-        Here you can browse stories geographically, and you can click through to
-        our
-        <a href="https://stories.workingclasshistory.com/">Stories app</a> to
-        see more information like sources for each story. Our work is funded
-        entirely by our readers and listeners on patreon, so if you value our
-        work please consider
-        <a href="https://patreon.com/workingclasshistory">supporting us.</a>
-      </p>
+      <p>History isn't made by kings and politicians, it is made by us: billions of ordinary people. This is a map containing our historical stories of our collective struggles to build a better world.</p>
+<p>Welcome to the private, test preview of the WCH Map. This version still contains some issues and bugs, and is not ready to be launched publicly, so please do not share any link to it publicly.</p>
+<p>On this map you can browse stories geographically, and you can click through to our new <a href="https://stories.workingclasshistory.com/">Stories app</a> preview to see more information like sources for each story.&nbsp;</p>
+<p>We have been able to develop this map and the companion web app thanks to generous support from our <a href="https://patreon.com/workingclasshistory" target="_blank">backers on patreon</a>, and some fantastic people who contributed to a GoFundMe campaign. With our GoFundMe we attempted to raise $8000 to cover the cost of the development of these apps. We were able to raise approximately $3000, and so there remains a significant shortfall. So if you can, please consider <a href="https://patreon.com/workingclasshistory" target="_blank">supporting us on patreon</a> or giving us a <a href="https://workingclasshistory.com/support/" target="_blank">one-off donation</a> to help cover our costs.</p>
+<p>If you are interested in collaborating with us and contributing data for the map please email us at info@workingclasshistory.com</p>
     </div>
     <div :class="dat.length > 0 ? '' : 'hidden'">
       <div @click="selectDat(null)" class="close-btn">
