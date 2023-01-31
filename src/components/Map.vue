@@ -80,10 +80,10 @@ export default {
 
     map.on("moveend", () => {
       const url = new URL(location.href);
-      //console.log(url);
-      if (url.hash.includes("##")) {
-        const newHref = location.href.replace(/(?<=#).*?(?=&)/g, "");
-        window.history.replaceState({}, "", newHref.replace("##","#"));
+     // console.log(navigator.userAgent.includes('safari'));
+      if (url.hash.includes("##") && !navigator.userAgent.includes('safari')) {
+      //  const newHref = location.href.replace(/(?<=#).*?(?=&)/g, "");
+       // window.history.replaceState({}, "", newHref.replace("##","#"));
         
       }
     });
