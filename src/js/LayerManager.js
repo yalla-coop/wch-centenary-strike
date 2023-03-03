@@ -153,7 +153,7 @@ export default class LayerManager {
     getNumRows(_options) {
         return axios({
             method: "GET",
-            url: `https://api.baserow.io/api/database/rows/table/${_options.tableid}/?user_field_names=true&page=1&size=1${_options.filter ? '&filter=' : ''}${_options.filter || ''}`,
+            url: `https://api.baserow.io/api/database/rows/table/${_options.tableid}/?user_field_names=true&page=1&size=1${_options.filter ? '&' + _options.filter : ''}`,
             headers: {
                 Authorization: `Token ${this._vue.$mainConfig.api.keys.baserow}`
             }
@@ -195,7 +195,7 @@ export default class LayerManager {
             for (let reqNum = 0; reqNum < requestsNeeded; reqNum++) {
                 axios({
                     method: "GET",
-                    url: `https://api.baserow.io/api/database/rows/table/${_options.tableid}/?user_field_names=true&page=${reqNum + 1}${_options.sizeLimit ? '&size=' : ''}${_options.sizeLimit || ''}${_options.filter ? '&filter=' : ''}${_options.filter || ''}`,
+                    url: `https://api.baserow.io/api/database/rows/table/${_options.tableid}/?user_field_names=true&page=${reqNum + 1}${_options.sizeLimit ? '&size=' : ''}${_options.sizeLimit || ''}${_options.filter ? '&' + _options.filter : ''}`,
                     headers: {
                         Authorization: `Token ${this._vue.$mainConfig.api.keys.baserow}`
                     }

@@ -84,7 +84,6 @@ export default {
       if (url.hash.includes("##") && !navigator.userAgent.includes('safari')) {
       //  const newHref = location.href.replace(/(?<=#).*?(?=&)/g, "");
        // window.history.replaceState({}, "", newHref.replace("##","#"));
-        
       }
     });
 
@@ -97,9 +96,8 @@ export default {
     });
 
     map.on("click", (e) => {
-     
       const features = map.queryRenderedFeatures(e.point);
-      
+
       if (features.length === 0) {
         self.$store.commit("setSelectedEventId", -1);
         self.$layerManager.styleCircleSelection();
@@ -139,7 +137,7 @@ export default {
       this.$layerManager.addLayerToMap({
         type: "baserow",
         map: this.map,
-        //filter: "filter__field_177149__not_empty", //FILTER NOT WORKING. REMOVING THESE IN CODE
+        filter: "filter__field_177157__contains=published", // TODO: Abstract filter options to object
         //numPages: this.$mainConfig.api.baserow.tables["num-pages"],//Don't need this anymore
         sizeLimit: 150,
         tableid: this.$mainConfig.api.baserow.tables.main,
