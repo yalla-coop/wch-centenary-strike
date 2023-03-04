@@ -235,7 +235,14 @@ export default class LayerManager {
                 existingData.features.push(
                     {
                         "type": "Feature",
-                        "properties": { "name": entries[i].id, "title": entries[i].title, "geotag": entries[i].geotag_info.toLowerCase().replaceAll(' ', '_').replaceAll('/', '_') },
+                        "properties": {
+                            "name": entries[i].id,
+                            "title": entries[i].title,
+                            "geotag": entries[i].geotag_info.toLowerCase().replaceAll(' ', '_').replaceAll('/', '_'),
+                            "year": entries[i].year,
+                            "month": entries[i].month,
+                            "day": entries[i].day
+                        },
                         "geometry": {
                             "type": "Point",
                             "coordinates": [
@@ -342,7 +349,14 @@ export default class LayerManager {
                 result.features.push(
                     {
                         "type": "Feature",
-                        "properties": { "name": entries[i].id, "title": entries[i].title, "geotag": entries[i].geotag_info.toLowerCase().replaceAll(' ', '_').replaceAll('/', '_') },
+                        "properties": {
+                            "name": entries[i].id,
+                            "title": entries[i].title,
+                            "geotag": entries[i].geotag_info.toLowerCase().replaceAll(' ', '_').replaceAll('/', '_'),
+                            "year": entries[i].year,
+                            "month": entries[i].month,
+                            "day": entries[i].day
+                        },
                         "geometry": {
                             "type": "Point",
                             "coordinates": [

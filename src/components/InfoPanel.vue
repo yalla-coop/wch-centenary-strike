@@ -6,9 +6,9 @@
       </h3>
       <br>
       <p>History isn't made by kings and politicians, it is made by us: billions of ordinary people. This is a map containing our historical stories of our collective struggles to build a better world.</p>
-<p>Welcome to the new WCH Map! On this map you can browse our historical stories geographically, and you can click "Learn more" at the bottom of each story to be taken to our new <a href="https://stories.workingclasshistory.com/">Stories app</a> to see more information like sources for each story and&nbsp;links to more information.&nbsp;</p>
-<p>We have been able to develop this Map and Stories app thanks to generous support from our <a href="https://patreon.com/workingclasshistory">backers on patreon</a>, and some fantastic people who contributed to a GoFundMe campaign. With our GoFundMe we attempted to raise $8000 to cover the cost of the development of these apps. We were able to raise approximately $3000, and so there remains a significant shortfall. We also would like to develop improved functionality for the map, including a search, and filters by topic and year. So if you can, please consider <a href="https://patreon.com/workingclasshistory">supporting us on patreon</a> or giving us a <a href="https://workingclasshistory.com/support">one-off donation</a> to help cover our costs.</p>
-<p>If you are interested in collaborating with us and contributing data for the map,&nbsp;or if you spot any errors, please email us at info@workingclasshistory.com</p>
+      <p>Welcome to the new WCH Map! On this map you can browse our historical stories geographically, and you can click "Learn more" at the bottom of each story to be taken to our new <a href="https://stories.workingclasshistory.com/">Stories app</a> to see more information like sources for each story and&nbsp;links to more information.&nbsp;</p>
+      <p>We have been able to develop this Map and Stories app thanks to generous support from our <a href="https://patreon.com/workingclasshistory">backers on patreon</a>, and some fantastic people who contributed to a GoFundMe campaign. With our GoFundMe we attempted to raise $8000 to cover the cost of the development of these apps. We were able to raise approximately $3000, and so there remains a significant shortfall. We also would like to develop improved functionality for the map, including a search, and filters by topic and year. So if you can, please consider <a href="https://patreon.com/workingclasshistory">supporting us on patreon</a> or giving us a <a href="https://workingclasshistory.com/support">one-off donation</a> to help cover our costs.</p>
+      <p>If you are interested in collaborating with us and contributing data for the map,&nbsp;or if you spot any errors, please email us at info@workingclasshistory.com</p>
     </div>
     <div :class="dat.length > 0 ? '' : 'hidden'">
       <div @click="selectDat(null)" class="close-btn">
@@ -32,18 +32,13 @@
           <v-list-item-group color="primary">
             <v-list-item v-for="(d, i) in dat" :key="i">
               <v-list-item-content @click="selectDat(d.name)">
-                <v-list-item-title style="font-weight: bold" v-text="d.title">
+                <v-list-item-title style="font-weight: bold" v-text="formatTitleYear(d)">
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </v-list-item-group>
         </v-list>
       </v-card>
-      <!-- <ul v-if="dat.length > 1">
-        <li v-for="d in dat" :key="d.name">
-          <a @click="selectDat(d.name)">{{ d.title }}</a>
-        </li>
-      </ul> -->
       <div v-if="selectedDat.length > 0 && dat.length === 1">
         <h3 class="info-title popup-title">{{ selectedDat[0].title }}</h3>
         <br />
@@ -85,7 +80,6 @@
             }}</a>
           </li>
           <li class="info-learn">
-         
             <a
               :href="`${this.$baseurl}/article/${
                 selectedDat[0].id
@@ -153,6 +147,7 @@
 <script>
 import axios from "axios";
 import { EventBus } from "../js/DataManagement/EventBus";
+import { formatTitleYear } from '../js/helpers/stringHelpers.js';
 export default {
   name: "InfoPanel",
   data: function () {
@@ -189,9 +184,9 @@ export default {
     });
   },
   methods: {
+    formatTitleYear,
     setData(dat) {
-      this.dat = dat;
-      //document.getElementById('main-map').classList.add("selection-made");
+      this.dat = (dat.length > 1) ? dat.sort((a, b) => (b.year - a.year || b.month - a.month || b.day - a.day)) : dat
       this.loading = false;
       if (dat.length === 1) {
         this.selectDat(dat[0].name);
@@ -216,7 +211,6 @@ export default {
       this.loading = true;
       const datId = this.dat.filter((d) => d.name === _name)[0].name;
       this.$store.commit("setSelectedEventId", datId);
-      // let self = this;
       this.$nextTick(() => {
         self.$layerManager.styleCircleSelection();
       });
