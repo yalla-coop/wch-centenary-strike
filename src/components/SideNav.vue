@@ -1,7 +1,7 @@
 <template>
   <div class="ma-0 pa-0 side-nav-container">
     <v-navigation-drawer v-show="showMenu" dark class="nav-drawer" permanent>
-      <a class="wch-menu-logo outer lower" href="/"
+      <a class="wch-menu-logo outer lower" @click="resetView()"
         ><svg
           width="86"
           height="86"
@@ -32,7 +32,7 @@
       ></a>
       <div class="ant-layout-sider-children">
         <div class="css-19iid9s">
-          <a class="wch-menu-logo upper" :href="`${this.$baseurl}/`"
+          <a class="wch-menu-logo upper" @click="resetView()"
             ><svg
               width="86"
               height="86"
@@ -196,6 +196,16 @@ export default {
       this.$store.commit('setNavMenuExpanded', false);
       this.expanded = false;
     },
+    resetView() {
+      this.$store.commit("setSelectedEventId", -1);
+      this.$map.flyTo({
+        center: [0,0],
+        zoom: 2,
+        essential: true,
+      });
+      EventBus.$emit("clear-event");
+      this.hideMobileMenu()
+    }
   },
   computed: {
     showMenu() {
