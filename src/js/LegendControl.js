@@ -1,26 +1,21 @@
 
 import Legend from '../components/Legend.vue';
-import Store from './DataManagement/Store';
-import Vue from 'vue';
-import vuetify from 'vuetify';
-import Vuetify from 'vuetify/lib';
+import { createApp } from 'vue';
+import { createVuetify } from 'vuetify';
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
 export default class LegendControl {
-    constructor() {
-        this._vue = new Vue();
-        Vue.use(vuetify);
+    constructor(globalProps) {
+        this.globalProps = globalProps
+        this.vuetify = createVuetify({components, directives})
     }
     onAdd(map) {
         this._map = map;
         this._container = document.createElement('div');
         this._container.className = 'mapboxgl-ctrl legend-control-container';
-
-        var ComponentClass = Vue.extend(Legend);
-        var instance = new ComponentClass({store:Store, vuetify: new Vuetify()});
-
-        instance.$mount();
-       
-        this._container.appendChild(instance.$el);
-
+        this.app = createApp(Legend, {layerManager: this.globalProps.$layerManager, store: this.globalProps.$store})
+        this.app.use(this.vuetify)
+        this.app.mount(this._container);
         return this._container;
     }
 

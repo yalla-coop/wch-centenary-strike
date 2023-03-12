@@ -1,44 +1,30 @@
-// import {
-//   createStore
-// } from 'vuex';
-import Vuex from 'vuex';
-import Vue from 'vue';
+import { createStore } from 'vuex';
 import MobileDetect from 'mobile-detect';
-import QuerystringManager from "./QuerystringManager";
 
-
-Vue.use(Vuex);
-
-const Store = new Vuex.Store({
-  state: () => ({
-    selectedLngLat: [],
-    mobile: false,
-    selectedEventId: -1,
-    infoPanelExpanded: false,
-    navMenuExpanded: false,
-    
-  }),
+const Store = createStore({
+  state() {
+    return {
+      selectedLngLat: [],
+      mobile: false,
+      selectedEventId: -1,
+      infoPanelExpanded: false,
+      navMenuExpanded: false,
+    }
+  },
   mutations: {
-    resetSelection: function (state) {
+    resetSelection(state) {
       state.selectedLngLat = [];
     },
     setSelectedEventId(state, val) {
       state.selectedEventId = val;
-      const qsMan = new QuerystringManager();
-      if(val > 0){
-        qsMan.addQueryParam('event',val);
-      }else{
-        qsMan.removeQueryParam('event');
-      }
     },
-    setSelectedLngLat: function (state, val) {
+    setSelectedLngLat(state, val) {
       state.selectedLngLat = val;
     },
-    setMobile: function (state) {
+    setMobile(state) {
       let md = new MobileDetect(window.navigator.userAgent);
       if (md.mobile()) state.mobile = true;
       state.mobile = window.innerWidth < 800;
-      // state.mobile = val;
     },
     setInfoPanelExpanded(state, val) {
       state.infoPanelExpanded = val;

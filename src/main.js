@@ -1,44 +1,19 @@
+import { createApp } from 'vue'
 import App from './App.vue'
-import Vue from 'vue'
-import VueHtmlToPaper from 'vue-html-to-paper';
 import Store from './js/DataManagement/Store';
+import router from './js/DataManagement/Router';
 import '@fortawesome/fontawesome-free/css/all.css'
-//import VueGtag from "vue-gtag";
-import vuetify from 'vuetify';
+import { createVuetify } from 'vuetify';
 import axios from "axios";
-import Vuetify from 'vuetify/lib';
-import $ from "jquery";
+import { setOrientation, getOrientation } from './js/helpers/orientationHelpers.js';
+import 'vuetify/styles'
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
 
-//import AsyncComputed from 'vue-async-computed'
-let getOrientation = Vue.prototype.getOrientation = function () {
-  if (Math.max(
-    document.documentElement["clientWidth"],
-    document.body["scrollWidth"],
-    document.documentElement["scrollWidth"],
-    document.body["offsetWidth"],
-    document.documentElement["offsetWidth"]
-  ) > Math.max(
-    document.documentElement["clientHeight"],
-    document.body["scrollHeight"],
-    document.documentElement["scrollHeight"],
-    document.body["offsetHeight"],
-    document.documentElement["offsetHeight"]
-  )) {
-    return 'landscape';
-  }
-  return 'portrait'
-
-}
-let setOrientation = Vue.prototype.setOrientation = function () {
-  if (getOrientation() === 'portrait') {
-    document.querySelector('body').classList.remove("landscape");
-    document.querySelector('body').classList.add("portrait");
-  } else {
-    document.querySelector('body').classList.remove("portrait");
-    document.querySelector('body').classList.add("landscape");
-  }
-}
-
+const vuetify = createVuetify({
+  components,
+  directives
+})
 
 if (window.location !== window.parent.location) {
   if (getOrientation() === 'landscape') {
@@ -50,60 +25,14 @@ if (window.location !== window.parent.location) {
 } else {
   setOrientation();
 }
+window.addEventListener('resize', () => {setOrientation()})
 
-window.addEventListener('resize', () => {
-  setOrientation()
-})
-
-Vue.config.productionTip = false;
-
+const app = createApp(App)
+app.use(Store)
+app.use(router)
+app.use(vuetify)
 //Commonly used imports:
-Vue.prototype.$axios = axios;
-
-Vue.use(VueHtmlToPaper);
-
-//Vue.use(AsyncComputed);
-Vue.use(vuetify);
-const setConfigs = (configs) => {
-  configs.forEach((_config) => {
-    if (_config.data.name) {
-      Vue.prototype[`$${_config.data.name}`] = _config.data;
-      if (_config.data.baseurl) Vue.prototype.$baseurl = _config.data.baseurl;
-    }
-  });
-};
-
-const configs = [
-  axios.get('./data/MainConfig.json'),
-  axios.get('./data/StyleConfig.json'),
-];
-
-Promise.all(configs).then((_configs) => {
-  //$("body > #loading").hide();
-  new Vue({
-    icons: {
-      iconfont: 'fa',
-    },
-    vuetify: new Vuetify(),
-    store: Store,
-    created: () => {
-      setConfigs(_configs);
-    },
-    mounted: () => { },
-    render: h => h(App)
-  }).$mount('#app');
-
-
-}).catch((err) => {
-  $("body > #loading").hide();
-  $("body > #error").show();
-  $("body > #error-message").show();
-  $("body > #error-message").html(err.response.config.url + " : " + err + ("<br/>MESSAGE: " + err.response.data.message || ""));
-
-  console.error(err.response.data);
-  console.error(err.response.status);
-  console.error(err.response.headers);
-  $("body > #error-message").show();
-});
-
+app.config.globalProperties.$axios = axios;
+app.config.globalProperties.$baseurl = "https://stories.workingclasshistory.com"
+app.mount('#app')
 

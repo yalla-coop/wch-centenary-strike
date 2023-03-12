@@ -14,35 +14,20 @@
       <div @click="selectDat(null)" class="close-btn">
         <v-icon dark class="close-btn">mdi-close</v-icon>
       </div>
-      <v-card class="mx-auto" max-width="300" tile v-if="dat.length > 1">
-        <h3
-          :style="{
-            'text-align': 'center',
-            'font-family': 'ZillaSlab',
-            background: this.$styleConfig.colors.yellow.primary,
-            padding: '5px',
-          }"
-        >
-          Events near here
-        </h3>
-
+      <v-card id="near-here" class="mx-auto" max-width="300" tile v-if="dat.length > 1">
+        <h3> Events near here </h3>
         <v-list style="font-family: 'Roboto'" dense>
           <span style="padding: 10px">Select one:</span>
           <v-divider></v-divider>
-          <v-list-item-group color="primary">
-            <v-list-item v-for="(d, i) in dat" :key="i">
-              <v-list-item-content @click="selectDat(d.name)">
-                <v-list-item-title style="font-weight: bold" v-text="formatTitleYear(d)">
-                </v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list-item-group>
+          <v-item-group color="primary">
+            <v-list-item v-for="(d, i) in dat" :title="formatTitleYear(d)" @click="selectDat(d.name)" density="compact" :key="i" />
+          </v-item-group>
         </v-list>
       </v-card>
       <div v-if="selectedDat.length > 0 && dat.length === 1">
         <h3 class="info-title popup-title">{{ selectedDat[0].title }}</h3>
         <br />
-        <v-divider></v-divider>
+        <v-divider class="border-opacity-0"></v-divider>
         <br />
         <p class="info-description" v-html="selectedDat[0].description"></p>
 
@@ -60,7 +45,7 @@
           <p class="img-caption">{{ selectedDat[0].media_credit }}</p>
         </div>
         <!-- //HC -->
-        <v-divider></v-divider>
+        <v-divider class="border-opacity-0"></v-divider>
         <div>
           {{ selectedDat[0].geotag_info }}:
           {{ selectedDat[0].geotag_description }}
@@ -68,7 +53,7 @@
         <div v-show="selectedDat[0].visitor_info.length > 0">
           {{ selectedDat[0].visitor_info }}
         </div>
-        <v-divider></v-divider>
+        <v-divider class="border-opacity-0"></v-divider>
         <ul class="info-list">
           <li
             class="info-author"
@@ -148,6 +133,8 @@
 import axios from "axios";
 import { EventBus } from "../js/DataManagement/EventBus";
 import { formatTitleYear } from '../js/helpers/stringHelpers.js';
+import { getOrientation } from '../js/helpers/orientationHelpers.js';
+import mainConfig from '../config/mainConfig.json'
 export default {
   name: "InfoPanel",
   data: function () {
@@ -164,13 +151,12 @@ export default {
     EventBus.$on("select-from-url", (datId) => {
       axios({
         method: "GET",
-        url: `https://api.baserow.io/api/database/rows/table/${self.$mainConfig.api.baserow.tables.main}/${datId}/?user_field_names=true`,
+        url: `https://api.baserow.io/api/database/rows/table/${mainConfig.api.baserow.tables.main}/${datId}/?user_field_names=true`,
         headers: {
-          Authorization: `Token ${self.$mainConfig.api.keys.baserow}`,
+          Authorization: `Token ${mainConfig.api.keys.baserow}`,
         },
       })
         .then((resp) => {
-          // console.log(resp.data);
           self.selectedDat = [resp.data];
           self.dat = [resp.data];
           self.loading = false;
@@ -195,12 +181,14 @@ export default {
         EventBus.$emit("force-info-open");
       }
     },
+    getOrientation,
     selectDat(_name) {
       let self = this;
       if (!_name) {
         this.selectedDat = [];
         this.dat = [];
         this.$store.commit("setSelectedEventId", -1);
+        this.$router.replace({path: this.$route.path, query: {}, hash: location.hash})
         this.$layerManager.styleCircleSelection();
         if (this.getOrientation() === "portrait") {
           EventBus.$emit("force-info-close");
@@ -211,14 +199,15 @@ export default {
       this.loading = true;
       const datId = this.dat.filter((d) => d.name === _name)[0].name;
       this.$store.commit("setSelectedEventId", datId);
+      this.$router.replace({path: this.$route.path, query: {event: datId}, hash: location.hash})
       this.$nextTick(() => {
         self.$layerManager.styleCircleSelection();
       });
       axios({
         method: "GET",
-        url: `https://api.baserow.io/api/database/rows/table/${this.$mainConfig.api.baserow.tables.main}/${datId}/?user_field_names=true`,
+        url: `https://api.baserow.io/api/database/rows/table/${mainConfig.api.baserow.tables.main}/${datId}/?user_field_names=true`,
         headers: {
-          Authorization: `Token ${this.$mainConfig.api.keys.baserow}`,
+          Authorization: `Token ${mainConfig.api.keys.baserow}`,
         },
       })
         .then((resp) => {
@@ -258,7 +247,7 @@ export default {
   text-align: right;
   clear: both;
 }
-#info-panel .v-list-item__content {
+#info-panel .v-list-item {
   border-bottom: 1px solid #d1d0d0;
 }
 #info-panel {
@@ -318,6 +307,10 @@ export default {
   margin-left: 0;
 }
 
+#info-panel p {
+  margin-bottom: 16px;
+}
+
 #info-panel .zoom-to {
   display: block;
   font-size: 15px;
@@ -356,5 +349,22 @@ export default {
 
 #info-panel .info-list {
   margin-top: 15px;
+  padding-left: 24px;
+}
+
+#near-here {
+  border-radius: 0;
+}
+
+#near-here h3 {
+  background: #FAD40A;
+  text-align: center;
+  padding: 5px;
+  font-family: "ZillaSlab";
+}
+
+#near-here .v-list-item-title {
+  font-size: .8125rem;
+  font-weight: bold;
 }
 </style>

@@ -1,8 +1,8 @@
-import Vue from 'vue';
 import { EventBus } from './DataManagement/EventBus';
+import mainConfig from '../config/mainConfig.json'
 export default class BasemapControl {
-    constructor() {
-        this._vue = new Vue();
+    constructor(map) {
+        this._vue = map;
     }
     onAdd(map) {
         this._map = map;
@@ -27,9 +27,8 @@ export default class BasemapControl {
         const inputs = this._container.getElementsByTagName('input');
 
         for (const input of inputs) {
-            input.onclick = (layer) => {    
-                const newStyle = this._vue.$mainConfig[layer.target.id];
-                //console.log(newStyle)
+            input.onclick = (layer) => {
+                const newStyle = mainConfig[layer.target.id];
                 this._vue.$map.setStyle(newStyle);
                 EventBus.$emit("switch-base");
             };

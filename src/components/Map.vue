@@ -4,16 +4,6 @@
       id="main-map"
       :class="{ expanded: this.mapExpanded, 'mapboxgl-map': true }"
     >
-      <!-- <div class="mapboxgl-ctrl-bottom-right third-party-container">
-        <a
-          v-for="logo in $mainConfig['map-logos']"
-          :key="logo.link"
-          :href="logo.link"
-          target="_blank"
-        >
-          <img class="third-party-logo" :src="logo['img-src']" />
-        </a>
-      </div> -->
     </div>
   </div>
 </template>
@@ -21,29 +11,32 @@
 import mapboxgl from "mapbox-gl";
 import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css";
-import axios from "axios";
-
+import mainConfig from '../config/mainConfig.json'
+import styleConfig from '../config/styleConfig.json'
 import BasemapControl from "../js/BasemapControl";
 import LegendControl from "../js/LegendControl";
 
-import Vue from "vue";
 import { EventBus } from "../js/DataManagement/EventBus";
-import EventManager from "../js/DataManagement/EventMangager";
-
 import $ from "jquery";
 export default {
+  // eslint-disable-next-line
   name: "Map",
   components: {},
+  props: {
+    startLocation: {
+      center: Array,
+      zoom: Number
+    }
+  },
   data: function () {
     return {
       mapExpanded: false,
     };
   },
   mounted: function () {
-    mapboxgl.accessToken = this.$mainConfig.api.keys["mb-key"];
-    this.map = new mapboxgl.Map(this.$mainConfig.mapConfig);
-    let map = (Vue.prototype.$map = this.map);
-    Vue.prototype.$eventManager = new EventManager();
+    mapboxgl.accessToken = mainConfig.api.keys["mb-key"];
+    this.map = new mapboxgl.Map({...mainConfig.mapConfig, ...this.startLocation});
+    let map = (this.$.appContext.app.config.globalProperties.$map = this.map);
     let self = this;
     EventBus.$on("toggle-panel", (panelExpanded) => {
       self.mapExpanded = !panelExpanded;
@@ -70,7 +63,7 @@ export default {
         showUserHeading: true,
       })
     );
-    this.map.addControl(new BasemapControl(), "top-left");
+    this.map.addControl(new BasemapControl(this), "top-left");
     map.addControl(new mapboxgl.ScaleControl(), "bottom-right");
     map.addControl(new mapboxgl.NavigationControl(), "bottom-right");
     map.once("idle", () => {
@@ -100,6 +93,7 @@ export default {
 
       if (features.length === 0) {
         self.$store.commit("setSelectedEventId", -1);
+        this.$router.replace({path: this.$route.path, query: {}, hash: location.hash})
         self.$layerManager.styleCircleSelection();
         EventBus.$emit("clear-event");
         return;
@@ -116,7 +110,11 @@ export default {
         "setSelectedEventId",
         eventFeatures.length === 1 ? eventFeatures[0].name : -1
       );
-      // }
+      if (eventFeatures.length === 1) {
+        this.$router.replace({path: this.$route.path, query: {event: eventFeatures[0].name}, hash: location.hash})
+      } else{
+        this.$router.replace({path: this.$route.path, query: {}, hash: location.hash})
+      }
       self.$nextTick(() => {
         self.$layerManager.styleCircleSelection();
       });
@@ -138,19 +136,17 @@ export default {
         type: "baserow",
         map: this.map,
         filter: "filter__field_177157__contains=published", // TODO: Abstract filter options to object
-        //numPages: this.$mainConfig.api.baserow.tables["num-pages"],//Don't need this anymore
         sizeLimit: 150,
-        tableid: this.$mainConfig.api.baserow.tables.main,
-        style: this.$styleConfig["baserow-markers"],
+        tableid: mainConfig.api.baserow.tables.main,
+        style: styleConfig["baserow-markers"],
       });
 
       this.$layerManager.initToggledLayersFromUrl(this.map);
       let self = this;
+
       if (!this.legendControl) {
-        this.legendControl = new LegendControl();
-        //this.map.once("styledata", () => {
-        self.map.addControl(new LegendControl(), "bottom-left");
-        //});
+        this.legendControl = new LegendControl(this.$.appContext.app.config.globalProperties);
+        self.map.addControl(this.legendControl, "bottom-left");
       }
     },
     zoomTo: function () {
@@ -161,29 +157,9 @@ export default {
       if (self.marker) {
         self.marker.remove();
       }
-
-      self.$querystringManager.addQueryParam(
-        "selected",
-        [e.lngLat.lng.toFixed(3), e.lngLat.lat.toFixed(3)].join(",")
-      );
-
-      // self.marker = new mapboxgl.Marker({
-      //   color: self.$styleConfig.styles["marker-color"],
-      //   draggable: false,
-      // }).setLngLat(e.lngLat);
-
-      // self.marker.addTo(self.$map);
     },
   },
-  watch: {
-    // toggledLayer: function (val) {
-    //   if (this.legendLayers.length > 0) {
-    //     // if(val){
-    //     // }
-    //     console.log(this.legendLayers[val]["layer-id"]);
-    //   }
-    // },
-  },
+  watch: {},
 };
 </script>
 <style scoped>

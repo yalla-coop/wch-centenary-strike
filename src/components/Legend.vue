@@ -1,7 +1,7 @@
 <template>
   <v-card
     dense
-    dark
+    theme="dark"
     elevation="2"
     rounded="false"
     v-show="legendVisible"
@@ -12,7 +12,7 @@
     <ul class="legend-list">
       <li
         class="list-item"
-        v-for="item in this.$mainConfig['legend-items']"
+        v-for="item in legendItems"
         :key="item.display"
       >
         <span class="legend-item" :style="item.css"></span>{{ item.text }}
@@ -45,8 +45,11 @@
 </template>
 
 <script>
+import mainConfig from '../config/mainConfig.json';
 export default {
+  // eslint-disable-next-line
   name: "Legend",
+  props: ['layerManager', 'store'],
   data: function () {
     return {
       toggledLayer: "",
@@ -56,25 +59,22 @@ export default {
     this.mobileOnMounted = window.innerHeight > window.innerWidth;
   },
   computed: {
+    legendItems: function () {
+      return mainConfig['legend-items']
+    },
     legendLayers: function () {
-      return this.$mainConfig["toggleable-layers"];
+      return mainConfig["toggleable-layers"];
     },
     legendVisible() {
-      if (
-        window.innerHeight > window.innerWidth &&
-        this.$store.getters.getInfoPanelExpanded
-      ) {
-        return false;
-      }
-      return true;
+      return !(window.innerHeight > window.innerWidth && this.store.getters.getInfoPanelExpanded);
     },
   },
   methods: {
     toggleLayer: function (_layer) {
       if (_layer) {
-        this.$layerManager.toggleLayer(_layer["layer-id"]);
+        this.layerManager.toggleLayer(_layer["layer-id"]);
         if (_layer.labels) {
-          this.$layerManager.toggleLayer(_layer["layer-id"] + "-labels");
+          this.layerManager.toggleLayer(_layer["layer-id"] + "-labels");
         }
       }
     },
@@ -107,16 +107,24 @@ export default {
   border-radius: 0 !important;
 }
 
-.legend-container .v-card__title {
+.legend-container .v-card-title {
   background: #fad40a;
   color: black;
   padding: 0 5%;
   padding-left: 12px;
   font-weight: bold;
-  margin-bottom: 5px;
   text-align: left;
   display: inline-block;
   width: 100%;
+}
+
+.legend-container .v-chip.v-theme--dark:not(.v-chip--selected) {
+  background: #555;
+}
+
+.legend-container .v-chip.v-theme--dark.v-chip--selected {
+  background-color: #2962ff;
+  border-color: #2962ff;
 }
 
 .mapboxgl-ctrl-bottom-left .mapboxgl-ctrl {

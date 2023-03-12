@@ -1,34 +1,29 @@
-import Vue from 'vue'
-import {
-    EventBus
-} from './DataManagement/EventBus';
+import { EventBus } from './DataManagement/EventBus';
 import axios from 'axios';
-import mapboxgl from "mapbox-gl";
 import turfCentroid from '@turf/centroid'
-//var turfCentroid = require('turf-centroid');
-import Store from './DataManagement/Store';
+import styleConfig from '../config/styleConfig.json'
+import mainConfig from '../config/mainConfig.json'
 export default class LayerManager {
-    constructor() {
-        this._vue = new Vue({ store: Store });
+    constructor(app) {
+        this._vue = app
         this.layers = [];
         this.sources = [];
         this.eventsLoaded = 0;
+        this.exactLocationColorName = styleConfig.styles["marker-varying"]["color"]["exact-location"];
+        this.exactLocationColor = styleConfig.colors[this.exactLocationColorName];
 
-        this.exactLocationColorName = this._vue.$styleConfig.styles["marker-varying"]["color"]["exact-location"];
-        this.exactLocationColor = this._vue.$styleConfig.colors[this.exactLocationColorName];
+        this.nearLocationColorName = styleConfig.styles["marker-varying"]["color"]["near-here"];
+        this.nearLocationColor = styleConfig.colors[this.nearLocationColorName];
 
-        this.nearLocationColorName = this._vue.$styleConfig.styles["marker-varying"]["color"]["near-here"];
-        this.nearLocationColor = this._vue.$styleConfig.colors[this.nearLocationColorName];
+        this.cityColorName = styleConfig.styles["marker-varying"]["color"]["in_this_town_city"];
+        this.cityColor = styleConfig.colors[this.cityColorName];
 
-        this.cityColorName = this._vue.$styleConfig.styles["marker-varying"]["color"]["in_this_town_city"];
-        this.cityColor = this._vue.$styleConfig.colors[this.cityColorName];
-
-        this.countryColorName = this._vue.$styleConfig.styles["marker-varying"]["color"]["in_this_country"];
-        this.countryColor = this._vue.$styleConfig.colors[this.countryColorName];
+        this.countryColorName = styleConfig.styles["marker-varying"]["color"]["in_this_country"];
+        this.countryColor = styleConfig.colors[this.countryColorName];
 
     }
     initToggledLayersFromUrl(_map) {
-        const toggledLayers = this._vue.$mainConfig["toggleable-layers"];
+        const toggledLayers = mainConfig["toggleable-layers"];
         toggledLayers.forEach(layer => {
             this.addLayerToMap(layer);
         })
@@ -46,19 +41,19 @@ export default class LayerManager {
     }
 
     toggleLayer(layerid) {
-        if (!this._vue.$map || !this._vue.$map.getLayer(layerid)) return;
-        const visibility = this._vue.$map.getLayoutProperty(
+        if (!this._vue.$.appContext.config.globalProperties.$map || !this._vue.$.appContext.config.globalProperties.$map.getLayer(layerid)) return;
+        const visibility = this._vue.$.appContext.config.globalProperties.$map.getLayoutProperty(
             layerid,
             'visibility'
         );
 
         // Toggle layer visibility by changing the layout object's visibility property.
         if (visibility === 'visible') {
-            this._vue.$map.setLayoutProperty(layerid, 'visibility', 'none');
+            this._vue.$.appContext.config.globalProperties.$map.setLayoutProperty(layerid, 'visibility', 'none');
             this.className = '';
         } else {
             this.className = 'active';
-            this._vue.$map.setLayoutProperty(
+            this._vue.$.appContext.config.globalProperties.$map.setLayoutProperty(
                 layerid,
                 'visibility',
                 'visible'
@@ -66,8 +61,7 @@ export default class LayerManager {
         }
     }
     addGeoJSONRemoteToMap(_options) {
-        //let self = this;
-        const beforeLayer = this._vue.$styleConfig["layer-placement"]["geojson"];
+        const beforeLayer = styleConfig["layer-placement"]["geojson"];
 
         axios.get(_options.url).then(resp => {
             const _geojson = {
@@ -76,7 +70,7 @@ export default class LayerManager {
             };
             const srcID = _options["layer-id"] + '-source';
             //console.log(srcID)
-            this._vue.$map.addSource(srcID, {
+            this._vue.$.appContext.config.globalProperties.$map.addSource(srcID, {
                 'type': 'geojson',
                 'data': _geojson
             });
@@ -97,9 +91,9 @@ export default class LayerManager {
                 }
             }
             if (beforeLayer) {
-                this._vue.$map.addLayer(layer, beforeLayer);
+                this._vue.$.appContext.config.globalProperties.$map.addLayer(layer, beforeLayer);
             } else {
-                this._vue.$map.addLayer(layer);
+                this._vue.$.appContext.config.globalProperties.$map.addLayer(layer);
             }
 
             if (_options.labels) {
@@ -118,12 +112,12 @@ export default class LayerManager {
                     );
                 }
 
-                this._vue.$map.addSource(_options["layer-id"] + '-labels-source', {
+                this._vue.$.appContext.config.globalProperties.$map.addSource(_options["layer-id"] + '-labels-source', {
                     'type': 'geojson',
                     'data': result
                 });
 
-                this._vue.$map.addLayer({
+                this._vue.$.appContext.config.globalProperties.$map.addLayer({
                     'id': _options["layer-id"] + '-labels',
                     'type': 'symbol',
                     'source': _options["layer-id"] + '-labels-source',
@@ -155,7 +149,7 @@ export default class LayerManager {
             method: "GET",
             url: `https://api.baserow.io/api/database/rows/table/${_options.tableid}/?user_field_names=true&page=1&size=1${_options.filter ? '&' + _options.filter : ''}`,
             headers: {
-                Authorization: `Token ${this._vue.$mainConfig.api.keys.baserow}`
+                Authorization: `Token ${mainConfig.api.keys.baserow}`
             }
         })
     }
@@ -166,19 +160,19 @@ export default class LayerManager {
             method: "GET",
             url: _url,
             headers: {
-                Authorization: `Token ${this._vue.$mainConfig.api.keys.baserow}`
+                Authorization: `Token ${mainConfig.api.keys.baserow}`
             }
         })
     }
 
     addBaserowToMap(_options, _page) {
-        const beforeLayer = this._vue.$styleConfig["layer-placement"]["events"];
+        const beforeLayer = styleConfig["layer-placement"]["events"];
 
         //If there's a selected event load it first on its own before loading all the rest
         if (this._vue.$store.getters.getSelectedEventId > 0) {
             this.getURLEvent(this._vue.$store.getters.getSelectedEventId).then((resp) => {
                 const entries = [resp.data];
-                if (!this._vue.$map.getSource('events-source')) {
+                if (!this._vue.$.appContext.config.globalProperties.$map.getSource('events-source')) {
                     this.addCircleLayer(beforeLayer, entries, true);
                 } else {
                     this.updateCircleLayer(entries, true);
@@ -197,12 +191,12 @@ export default class LayerManager {
                     method: "GET",
                     url: `https://api.baserow.io/api/database/rows/table/${_options.tableid}/?user_field_names=true&page=${reqNum + 1}${_options.sizeLimit ? '&size=' : ''}${_options.sizeLimit || ''}${_options.filter ? '&' + _options.filter : ''}`,
                     headers: {
-                        Authorization: `Token ${this._vue.$mainConfig.api.keys.baserow}`
+                        Authorization: `Token ${mainConfig.api.keys.baserow}`
                     }
                 }).then((resp) => {
                     const entries = resp.data.results;
 
-                    if (!this._vue.$map.getSource('events-source')) {
+                    if (!this._vue.$.appContext.config.globalProperties.$map.getSource('events-source')) {
                         this.addCircleLayer(beforeLayer, entries, false);
 
                     } else {
@@ -223,8 +217,8 @@ export default class LayerManager {
     }
 
     updateCircleLayer(entries, addedFromURL) {
-        let eventsSource = this._vue.$map.getSource('events-source');
-        let existingData = this._vue.$dataManager.eventData;
+        let eventsSource = this._vue.$.appContext.config.globalProperties.$map.getSource('events-source');
+        let existingData = this._vue.$.appContext.app.config.globalProperties.$dataManager.eventData;
 
         for (var i = 0; i < entries.length; i++) {
 
@@ -257,11 +251,10 @@ export default class LayerManager {
     }
 
     styleCircleSelection() {
-        //console.log()
         let self = this;
-        const map = this._vue.$map;
+        const map = this._vue.$.appContext.config.globalProperties.$map;
 
-        const highlightProps = this._vue.$styleConfig.styles["marker-varying"]["highlightable-props"]
+        const highlightProps = styleConfig.styles["marker-varying"]["highlightable-props"]
 
         if (this._vue.$store.getters.getSelectedEventId === -1) {
             highlightProps.forEach((prop) => {
@@ -368,13 +361,12 @@ export default class LayerManager {
             }
         }
 
-        this._vue.$dataManager.eventData = result;
+        this._vue.$.appContext.app.config.globalProperties.$dataManager.eventData = result;
         //HC
-        this._vue.$map.addSource('events-source', {
+        this._vue.$.appContext.config.globalProperties.$map.addSource('events-source', {
             'type': 'geojson',
             'data': result
         });
-        // console.log(this._vue.$styleConfig.colors["yellow.primary"])
 
         const layer = {
             'id': 'events-circles',
@@ -408,15 +400,15 @@ export default class LayerManager {
             'paint': {
                 'circle-color': 'white',
                 'circle-opacity': 0,
-                'circle-radius': this._vue.$styleConfig.styles["marker-varying"]["hit-radius"]
+                'circle-radius': styleConfig.styles["marker-varying"]["hit-radius"]
             }
         }
         if (beforeLayer) {
-            this._vue.$map.addLayer(layer, beforeLayer);
-            this._vue.$map.addLayer(hitLayer, beforeLayer);
+            this._vue.$.appContext.config.globalProperties.$map.addLayer(layer, beforeLayer);
+            this._vue.$.appContext.config.globalProperties.$map.addLayer(hitLayer, beforeLayer);
         } else {
-            this._vue.$map.addLayer(layer);
-            this._vue.$map.addLayer(hitLayer);
+            this._vue.$.appContext.config.globalProperties.$map.addLayer(layer);
+            this._vue.$.appContext.config.globalProperties.$map.addLayer(hitLayer);
         }
 
     }

@@ -21,7 +21,7 @@
 			0
 		],
 		"zoom": 2,
-		"hash": "&map",
+		"hash": "map",
 		"logoPosition": "bottom-right",
 		"attributionControl": true,
 		"preserveDrawingBuffer": true,

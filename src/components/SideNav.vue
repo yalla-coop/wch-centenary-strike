@@ -1,6 +1,6 @@
 <template>
   <div class="ma-0 pa-0 side-nav-container">
-    <v-navigation-drawer v-show="showMenu" dark class="nav-drawer" permanent>
+    <v-navigation-drawer v-if="showMenu" dark class="nav-drawer" permanent absolute>
       <a class="wch-menu-logo outer lower" @click="resetView()"
         ><svg
           width="86"
@@ -171,6 +171,7 @@
 </template>
 <script>
 import { EventBus } from "../js/DataManagement/EventBus";
+import { getOrientation } from '../js/helpers/orientationHelpers.js';
 export default {
   name: "SideNav",
   data() {
@@ -180,10 +181,10 @@ export default {
     };
   },
   mounted() {
-    this.orientation = this.getOrientation();
+    this.orientation = getOrientation();
     let self = this;
     window.addEventListener("resize", () => {
-      self.orientation = self.getOrientation();
+      self.orientation = getOrientation();
     });
     EventBus.$on("open-main-menu", () => {
       self.expanded = true;
@@ -201,10 +202,10 @@ export default {
       this.$map.flyTo({
         center: [0,0],
         zoom: 2,
-        essential: true,
+        essential: true
       });
       EventBus.$emit("clear-event");
-      this.hideMobileMenu()
+      this.hideMobileMenu();
     }
   },
   computed: {
@@ -241,7 +242,7 @@ export default {
   max-width: 15%;
 }
 
-.side-nav-container aside {
+.side-nav-container nav {
   min-width: 160px;
 }
 

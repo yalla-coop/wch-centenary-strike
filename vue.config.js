@@ -3,18 +3,18 @@ module.exports = {
     hot: false,
     liveReload: false
   },
-  "configureWebpack": {
-    "optimization": {
-      "splitChunks": {
-        "minSize": 10000,
-        "maxSize": 250000
+  configureWebpack: {
+    optimization: {
+      splitChunks: {
+        minSize: 10000,
+        maxSize: 250000
       }
     }
   },
-  "transpileDependencies": [
+  transpileDependencies: [
     "vuetify"
   ],
-  "publicPath": "./",
+  publicPath: "./",
   //publicPath: '\.\/',
   outputDir: 'build',
   chainWebpack: config => {

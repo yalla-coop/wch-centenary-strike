@@ -17,26 +17,28 @@
         style="cursor: pointer"
       >
         <path d="M1 0.5H21" stroke="white" stroke-linecap="round"></path>
-        <path d="M1 5.5H21" :stroke="this.$styleConfig.colors.purple.primary" stroke-linecap="round"></path>
-        <path d="M1 10.5H21" :stroke="this.$styleConfig.colors.yellow.primary" stroke-linecap="round"></path>
+        <path d="M1 5.5H21" :stroke="styleConfig().colors.purple.primary" stroke-linecap="round"></path>
+        <path d="M1 10.5H21" :stroke="styleConfig().colors.yellow.primary" stroke-linecap="round"></path>
       </svg>
     </div>
     <SideNav />
     <v-container fluid class="pa-0 blue lighten-5">
       <v-row class="ma-0">
         <v-col cols="1" sm="12" class="pa-0">
-          <Map />
+          <Map :start-location="{center: this.startLocation.center, zoom: this.startLocation.zoom}"/>
         </v-col>
       </v-row>
       <v-icon
         @click="toggleExpand()"
-        dark
+        color="white"
+        size="x-large"
         :class="{ retract: true, 'panel-toggle': true, hidden: panelExpanded || this.$store.getters.getNavMenuExpanded}"
         >mdi-chevron-double-left</v-icon
       >
       <v-icon
         @click="toggleExpand()"
-        dark
+        color="white"
+        size="x-large"
         :class="{ expand: true, 'panel-toggle': true, hidden: !panelExpanded || this.$store.getters.getNavMenuExpanded}"
         >mdi-chevron-double-right</v-icon
       >
@@ -51,30 +53,24 @@ import Map from "./components/Map.vue";
 import InfoPanel from "./components/InfoPanel.vue";
 import MainFooter from "./components/MainFooter.vue";
 import SideNav from "./components/SideNav.vue";
-//import MainTopBar from "./components/MainTopBar.vue";
-import Vue from "vue";
-
-import { EventBus } from "./js/DataManagement/EventBus";
-
+import styleConfig from './config/styleConfig.json';
+import mainConfig from './config/mainConfig.json';
 import DataManager from "./js/DataManagement/DataManager.js";
-import QuerystringManager from "./js/DataManagement/QuerystringManager";
 import LayerManager from "./js/LayerManager.js";
-
-import Store from "./js/DataManagement/Store.js";
+import { EventBus } from "./js/DataManagement/EventBus";
 
 export default {
   name: "App",
   components: {
+    // eslint-disable-next-line
     Map,
     InfoPanel,
     SideNav,
-    //MainTopBar,
     MainFooter,
   },
   beforeCreate: function () {
-    Vue.prototype.$dataManager = new DataManager();
-    Vue.prototype.$layerManager = new LayerManager();
-    Vue.prototype.$querystringManager = new QuerystringManager();
+    this.$.appContext.app.config.globalProperties.$dataManager = new DataManager();
+    this.$.appContext.app.config.globalProperties.$layerManager = new LayerManager(this);
 
     //Initialize from defaults or url
     window.addEventListener(
@@ -85,11 +81,32 @@ export default {
       true
     );
   },
+  // Support and transform saved encoded hash urls
+  created() {
+    if( location.hash.includes("#%26map=") ) {
+      let eventQuery = +location.search.split("?event=")[1]
+      let mapHash = location.hash.split("#%26map=")[1]
+      let locationParam = mapHash.split("/")
+      this.startLocation = {
+        center: [+locationParam[2], +locationParam[1]],
+        zoom: [+locationParam[0]]
+      }
+      if (eventQuery) {
+        this.$router.replace({path: this.$route.path, query: {event: eventQuery}})
+      } else {
+        this.$router.replace({path: this.$route.path})
+      }
+    }
+  },
   data() {
     return {
       sideInstance: null,
       panelExpanded: true,
       menuOpen: false,
+      startLocation: {
+        center: mainConfig.mapConfig.center,
+        zoom: mainConfig.mapConfig.zoom
+      }
     };
   },
   methods: {
@@ -103,6 +120,9 @@ export default {
       this.$store.commit('setNavMenuExpanded', true);
       EventBus.$emit("open-main-menu");
     },
+    styleConfig: function () {
+      return styleConfig
+    },
   },
   watch: {},
   mounted: function () {
@@ -113,6 +133,7 @@ export default {
 		const eId = params.get("event");
 		if(eId){
 			this.$store.commit("setSelectedEventId", +eId);
+			EventBus.$emit('select-from-url', +eId)
 		}
 
     EventBus.$emit("toggle-panel", this.panelExpanded);
@@ -142,7 +163,7 @@ export default {
       document.querySelector("html").classList.add("in-iframe");
     }
     const selectedLngLat = (
-      this.$querystringManager.route.query.selected || ""
+      this.$route.query.selected || ""
     ).split(",");
 
     if (selectedLngLat.length > 0) {
@@ -315,6 +336,8 @@ a.wch-menu-logo.outer.lower {
   bottom: 240px;
   right: 25%;
   padding: 8px;
+  height: auto;
+  width: auto;
   font-size: 30px;
   cursor: pointer;
   display: block;

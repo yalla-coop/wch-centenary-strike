@@ -1,12 +1,6 @@
-import axios from 'axios';
-import Vue from 'vue';
-import {
-    EventBus
-} from './EventBus';
-//import StateList from './StateList';
+import { createApp } from 'vue';
 export default class DataManager {
     constructor() {
-        this._vue = new Vue();
+        this._vue = createApp;
     }
-    
 }

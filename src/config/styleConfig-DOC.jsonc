@@ -1,0 +1,62 @@
+{
+    "name": "styleConfig",
+    "styles": {
+        "marker-varying": { //Used for styling the pins on the map itself
+            "color": {
+                "exact-location": "yellow", //References the color name in "colors" below
+                "near-here": "purple"
+            },
+            "hit-radius":16, //Radius of circles as rendered is too small to register clicks, esp. on mobile. This is an extra invisible layer that JUST receives clicks/taps
+            "highlightable-props": [ //Styling options for the pins when a selection is made or cleared
+                //https://docs.mapbox.com/mapbox-gl-js/style-spec/layers/#circle
+                {
+                    "prop-name": "circle-radius",
+                    "active": 7,
+                    "inactive": 5,
+                    "default": 6
+                },
+                {
+                    "prop-name": "circle-stroke-width",
+                    "active": 2,
+                    "inactive": 1,
+                    "default": 2
+                },
+                {
+                    "prop-name": "circle-stroke-color",
+                    "active": "white",
+                    "inactive": "lightgray",
+                    "default": "white"
+                }
+            ]
+        },
+        //No longer used! This is left over from popup pins rendered as html elements.
+        "marker(HTML MARKERS DEPRICATED)": {
+            "backgroundColor": "grey",
+            "opacity": ".8",
+            "width": "12px",
+            "height": "12px",
+            "border-radius": "50%",
+            "border": "2px solid white",
+            "cursor": "pointer"
+        }
+    },
+    //Where each layer type should be placed in the stack specified in the mapbox style
+    "layer-placement": {
+        "events": "event-placeholder",
+        "geojson": "additional-layer-placeholder"
+    },
+    "colors": {
+        "yellow": {
+            "primary": "#FAD40A",
+            "inactive": "#d5d26f",
+            "mid": "#FEF6CE",
+            "light": "#FEFAE8"
+        },
+        "purple": {
+            "primary": "#6013FB",
+            "inactive": "#d2befa",
+            "mid": "#120232",
+            "light": "#FCFBFF"
+        }
+    }
+}
