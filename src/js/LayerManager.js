@@ -202,7 +202,7 @@ export default class LayerManager {
                     } else {
                         this.updateCircleLayer(entries, false);
                     }
-
+                    this._vue.$.appContext.config.globalProperties.$layerManager.styleCircleSelection();
                     this.eventsLoaded += resp.data.results.length;
 
                     if (reqNum >= requestsNeeded) {
