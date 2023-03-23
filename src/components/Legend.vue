@@ -30,7 +30,7 @@
         column
       >
         <span v-for="layer in legendLayers" :key="layer['layer-id']">
-          <v-chip style="margin: 0 auto" filter @click="toggleLayer(layer)">
+          <v-chip style="margin: 0 auto" :disabled="toggleDisabled" filter @click="toggleLayer(layer)">
             {{ layer["legend-display"] }}
           </v-chip>
           <div
@@ -46,6 +46,7 @@
 
 <script>
 import mainConfig from '../config/mainConfig.json';
+import { EventBus } from '../js/DataManagement/EventBus.js';
 export default {
   // eslint-disable-next-line
   name: "Legend",
@@ -53,10 +54,12 @@ export default {
   data: function () {
     return {
       toggledLayer: "",
+      toggleDisabled: true
     };
   },
   mounted() {
     this.mobileOnMounted = window.innerHeight > window.innerWidth;
+    EventBus.$on('enable-toggled-layers', () => { this.toggleDisabled = false })
   },
   computed: {
     legendItems: function () {
@@ -82,7 +85,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .legend-item {
   display: inline-block;
   margin: 0 5px;
@@ -92,43 +95,38 @@ export default {
   margin-bottom: 5px;
 }
 .legend-container {
-  /* width: 8%; */
-  /* margin: 10px; */
   z-index: 9;
   border: none;
+  border-radius: 0 !important;
+  .v-card-title {
+    background: #fad40a;
+    color: black;
+    padding: 0 5%;
+    padding-left: 12px;
+    font-weight: bold;
+    text-align: left;
+    display: inline-block;
+    width: 100%;
+  }
+  .v-chip.v-theme--dark {
+    &:not(.v-chip--selected) {
+      background: #555;
+    }
+  }
+  .v-chip.v-theme--dark.v-chip--selected {
+    background-color: #2962ff;
+    border-color: #2962ff;
+  }
 }
 .legend-list {
   list-style: none;
   padding: 0 5px;
   padding-left: 0px !important;
 }
-
-.legend-container {
-  border-radius: 0 !important;
-}
-
-.legend-container .v-card-title {
-  background: #fad40a;
-  color: black;
-  padding: 0 5%;
-  padding-left: 12px;
-  font-weight: bold;
-  text-align: left;
-  display: inline-block;
-  width: 100%;
-}
-
-.legend-container .v-chip.v-theme--dark:not(.v-chip--selected) {
-  background: #555;
-}
-
-.legend-container .v-chip.v-theme--dark.v-chip--selected {
-  background-color: #2962ff;
-  border-color: #2962ff;
-}
-
-.mapboxgl-ctrl-bottom-left .mapboxgl-ctrl {
-  margin: 0 0 10px 5px;
+.mapboxgl-ctrl-bottom-left {
+  .mapboxgl-ctrl {
+    margin: 0 0 10px 5px;
+  }
 }
 .legend-title {
   font-family: "ZillaSlab";

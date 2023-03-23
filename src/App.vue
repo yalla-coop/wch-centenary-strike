@@ -1,6 +1,13 @@
 <template>
-  <v-app id="app">
-    <!-- <MainTopBar /> -->
+  <v-app>
+    <div id="loading" class="shown">
+      <div style=" overflow: hidden; background-color: #000; color:white; font-family: 'Roboto', sans-serif !important; position: fixed; top: 0; bottom: 0; right: 0; left: 0;">
+        <div style="position: fixed; top: 0; width: 100%; z-index: 9; color: white; margin: 20px 0;">
+          Loading...
+        </div>
+        <img style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 25%;" src="assets/wch_logo.webp" alt="">
+      </div>
+    </div>
     <div
       class="open-menu"
       v-show="!menuOpen"
@@ -25,7 +32,7 @@
     <v-container fluid class="pa-0 blue lighten-5">
       <v-row class="ma-0">
         <v-col cols="1" sm="12" class="pa-0">
-          <Map :start-location="{center: this.startLocation.center, zoom: this.startLocation.zoom}"/>
+          <Map :start-location="{center: this.startLocation.center, zoom: this.startLocation.zoom}" :showApp="showApp"/>
         </v-col>
       </v-row>
       <v-icon
@@ -55,9 +62,9 @@ import MainFooter from "./components/MainFooter.vue";
 import SideNav from "./components/SideNav.vue";
 import styleConfig from './config/styleConfig.json';
 import mainConfig from './config/mainConfig.json';
-import DataManager from "./js/DataManagement/DataManager.js";
 import LayerManager from "./js/LayerManager.js";
 import { EventBus } from "./js/DataManagement/EventBus";
+import $ from "jquery";
 
 export default {
   name: "App",
@@ -69,7 +76,6 @@ export default {
     MainFooter,
   },
   beforeCreate: function () {
-    this.$.appContext.app.config.globalProperties.$dataManager = new DataManager();
     this.$.appContext.app.config.globalProperties.$layerManager = new LayerManager(this);
 
     //Initialize from defaults or url
@@ -123,6 +129,9 @@ export default {
     styleConfig: function () {
       return styleConfig
     },
+    showApp: function(){
+      $("#loading").fadeOut()
+    }
   },
   watch: {},
   mounted: function () {
@@ -178,10 +187,6 @@ export default {
         );
       });
     }
-    // let self = this;
-    EventBus.$on("new-panel", (dat) => {
-      self.$refs.infoPanel.setData(dat);
-    });
 
     if (
       this.$store.getters.isMobile &&
@@ -193,144 +198,155 @@ export default {
   },
 };
 </script>
-<style>
-*{
+<style lang="scss">
+* {
   font-family: 'Roboto', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
-.portrait #main-map {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
+.portrait {
+  #main-map {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .side-nav-container {
+    max-width: 100%;
+    width: 100%;
+    pointer-events: none;
+    aside {
+      max-width: 100%;
+      width: 100% !important;
+    }
+  }
+  #info-panel {
+    width: 85%;
+    z-index: 3;
+  }
+  .ant-layout-sider-children {
+    padding: 10% 0 0;
+    text-align: left;
+    margin-left: 10%;
+    font-size: 1.25em;
+    a {
+      color: white;
+      display: block;
+      margin: 8px 0;
+      min-width: max-content;
+    }
+  }
+  .v-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+  .wch-menu-logo.upper {
+    display: none;
+  }
+  a.wch-menu-logo.outer.lower {
+    display: inline-block;
+  }
+  .open-menu {
+    display: inline-block;
+    position: absolute;
+    z-index: 9;
+    margin: 4%;
+  }
+  .nav-drawer {
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      right: 0px;
+      height: 4px;
+      background: rgb(250, 212, 10);
+    }
+  }
+  .menu-mobile-close-btn {
+    display: inline-block;
+    cursor: pointer;
+    margin-bottom: 25px;
+    top: 25px;
+  }
+  a.wch-menu-logo.upper {
+    display: none;
+  }
 }
-.portrait .side-nav-container {
-  max-width: 100%;
-  width: 100%;
-  pointer-events: none;
-}
-
-.portrait #info-panel {
-  width: 85%;
-  z-index: 3;
-}
-
-.portrait .side-nav-container aside {
-  max-width: 100%;
-  width: 100% !important;
-}
-
-.portrait .ant-layout-sider-children {
-  padding: 10% 0 0;
-  text-align: left;
-  margin-left: 10%;
-  font-size: 1.25em;
-}
-.portrait .ant-layout-sider-children a {
-  color: white;
-  display: block;
-  margin: 8px 0;
-  min-width: max-content;
-}
-.portrait .v-footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-
-}
-
-
-a.wch-menu-logo.outer.lower,
-.portrait .wch-menu-logo.upper,
-.open-menu,
-.menu-mobile-close-btn {
-  display: none;
-}
-
-.portrait a.wch-menu-logo.outer.lower{
-  display: inline-block;
-}
-
-.portrait .open-menu {
-  display: inline-block;
-  position: absolute;
-  z-index: 9;
-  /* font-size: 2em; */
-  margin: 4%;
-}
-
-.portrait .nav-drawer::before {
-  content: "";
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  height: 4px;
-  background: rgb(250, 212, 10);
-}
-.portrait .menu-mobile-close-btn {
-  display: inline-block;
-  cursor: pointer;
-  margin-bottom: 25px;
-  top: 25px;
-}
-.portrait a.wch-menu-logo.upper,
-a.wch-menu-logo.outer.upper {
-  display: none;
-}
-
 a.wch-menu-logo.outer.lower {
+  display: none;
   position: absolute;
   bottom: 5%;
   right: 5%;
 }
-.embed .side-nav-container,
-.embed .info-book,
-.embed .info-podcast,
-.embed .info-merch,
-.embed .info-author,
-.embed .info-photo,
-.embed .info-description,
-.embed .info-title,
-.embed .mapboxgl-ctrl-top-left,
-.embed .mapboxgl-ctrl-top-right,
-.embed .v-footer,
-.embed .legend-title,
-.embed .legend-list,
-.mobile-embed footer{
+.open-menu {
   display: none;
 }
-
-.mobile-embed .legend-list .list-item{
+.menu-mobile-close-btn {
+  display: none;
+}
+a.wch-menu-logo.outer.upper {
+  display: none;
+}
+.embed {
+  #searchControl,
+  .side-nav-container,
+  .info-book,
+  .info-podcast,
+  .info-merch,
+  .info-author,
+  .info-photo,
+  .info-description,
+  .info-title,
+  .mapboxgl-ctrl-top-left,
+  .mapboxgl-ctrl-top-right,
+  .v-footer,
+  .legend-title,
+  .legend-list {
+    display: none;
+  }
+  .container {
+    height: 100%;
+    overflow-x: hidden;
+  }
+  #info-panel {
+    height: 100%;
+    overflow-x: hidden;
+  }
+  #main-map {
+    height: 100vh;
+  }
+  .list-item {
+    padding: 0px;
+    margin-bottom: 0px;
+  }
+  .legend-container {
+    .v-card__text {
+      padding: 10px;
+    }
+  }
+}
+.mobile-embed {
+  footer {
+    display: none;
+  }
+  .legend-list {
+    .list-item {
       margin: 0;
-    line-height: .67em;
-}
-.mobile-embed .legend-container .v-card__text{
-    padding-bottom: 5px;
-    padding-top: 5px;
-}
-.embed .container,
-.embed #info-panel {
-  height: 100%;
-  overflow-x: hidden;
-}
-
-.embed #main-map {
-  height: 100vh;
-}
-
-.embed .list-item {
-  padding: 0px;
-  margin-bottom: 0px;
-}
-
-.embed .legend-container .v-card__text {
-  padding: 10px;
+      line-height: .67em;
+    }
+  }
+  .legend-container {
+    .v-card__text {
+      padding-bottom: 5px;
+      padding-top: 5px;
+    }
+  }
 }
 </style>
-<style scoped>
+<style lang="scss" scoped>
 .panel-toggle {
   position: absolute;
   bottom: 240px;
@@ -347,31 +363,29 @@ a.wch-menu-logo.outer.lower {
   border-top: 1px solid #ffffff45;
   border-bottom: 1px solid #ffffff45;
 }
-
 .hidden {
   display: none !important;
 }
-
 .retract {
   right: 0;
 }
-
-.portrait .panel-toggle {
-  right: 85%;
+.portrait {
+  .panel-toggle {
+    right: 85%;
     z-index: 3;
-  bottom: 50%;
+    bottom: 50%;
+  }
+  .panel-toggle.retract {
+    right: 0;
+  }
 }
 
-.portrait .panel-toggle.retract {
-  right: 0;
-}
 </style>
-<style>
+<style lang="scss">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* text-align: center; */
   color: #2c3e50;
   overflow: hidden;
 }
@@ -381,7 +395,6 @@ a.wch-menu-logo.outer.lower {
   --orange-yellow-crayola: #e9c46aff;
   --sandy-brown: #f4a261ff;
   --burnt-sienna: #e76f51ff;
-
   --cg-blue: #0081a7ff;
   --verdigris: #00afb9ff;
   --light-yellow: #fdfcdcff;
@@ -389,62 +402,74 @@ a.wch-menu-logo.outer.lower {
   --light-peach-puff: #fff4e9;
   --tan: #eebe8f;
   --bittersweet: #f07167ff;
-
   --imperial-red: #ec0021;
   --honeydew: rgb(232, 242, 255);
   --powder-blue: rgb(192, 215, 228);
   --celadon-blue: rgb(146, 188, 214);
   --prussian-blue: #1d3557ff;
 }
-
 html {
   overflow-y: hidden;
 }
-
+#loading {
+  margin: 10% auto;
+  text-align: center;
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  opacity: 1;
+}
 html.in-iframe {
   overflow-y: scroll;
 }
-
 .rotate-mobile {
   transform: rotate(90deg);
 }
-
 .extra-zoom {
   zoom: 0.75;
 }
-
 .toolbar-title {
-  font-family: "Cooper Hewitt Medium", "Helvetica Neue", Helvetica, Arial,
-    sans-serif;
+  font-family: "Cooper Hewitt Medium", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: bold;
   text-transform: uppercase;
   display: inline-block;
 }
-
-.menu-social-menu,
-.main-navigation {
+.menu-social-menu {
   list-style: square;
   display: inline-block;
 }
-
-.main-navigation a {
-  color: #505050 !important;
-}
-
-.main-navigation li,
-.jetpack-social-navigation li {
+.main-navigation {
+  list-style: square;
   display: inline-block;
-  margin: 0;
-  margin-left: 0px;
-  line-height: 1;
+  a {
+    color: #505050 !important;
+  }
+  li {
+    display: inline-block;
+    margin: 0;
+    margin-left: 0px;
+    line-height: 1;
+    a {
+      text-decoration: none;
+      margin: 0 5px;
+    }
+  }
 }
-
-.main-navigation li a,
-.jetpack-social-navigation li a {
-  text-decoration: none;
-  margin: 0 5px;
+.jetpack-social-navigation {
+  li {
+    display: inline-block;
+    margin: 0;
+    margin-left: 0px;
+    line-height: 1;
+    a {
+      text-decoration: none;
+      margin: 0 5px;
+    }
+  }
 }
-
 .mapboxgl-popup-close-button {
   font-size: 32px;
 }

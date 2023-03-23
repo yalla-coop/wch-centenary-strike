@@ -169,23 +169,23 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .v-footer {
   z-index: 9;
   background-color: rgb(18, 2, 50);
   border-color: rgb(18, 2, 50);
 }
-
-#wijfi,
-#wijfi a {
+#wijfi {
   color: lightgray;
   text-decoration: none;
   padding: 2px;
-}
-
-#wijfi {
   right: 5px;
   position: absolute;
   font-size: 0.75em;
+  a {
+    color: lightgray;
+    text-decoration: none;
+    padding: 2px;
+  }
 }
 </style>

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "set VUE_APP_ENV=DEV&&vue-cli-service serve",
+    "serve": "VUE_APP_ENV=DEV vue-cli-service serve",
     "serve-prod": "VUE_APP_ENV=PROD&&vue-cli-service serve",
     "serve-https": "vue-cli-service serve --https",
     "build": "VUE_APP_ENV=PROD&&vue-cli-service build",
@@ -30,6 +30,7 @@
     "core-js": "^3.19.0",
     "cors": "^2.8.5",
     "d3": "^6.7.0",
+    "dart-sass": "^1.25.0",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^9.9.0",
     "execa": "latest",
@@ -38,7 +39,7 @@
     "mobile-detect": "^1.4.5",
     "node-fetch": "^2.6.5",
     "sass": "^1.43.4",
-    "sass-loader": "^8.0.0",
+    "sass-loader": "^8.0.2",
     "vue": "^3.1.0",
     "vue-cli-plugin-vuetify": "~2.5.8",
     "vue-html-to-paper": "^1.4.3",
@@ -48,22 +49,6 @@
     "webpack": "5.1.0",
     "worker-loader": "^3.0.8",
     "worker-plugin": "^5.0.1"
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "parser": "babel-eslint"
-    },
-    "rules": {
-      "no-unused-vars": "off"
-    }
   },
   "browserslist": [
     "> 1%",

@@ -9,6 +9,10 @@ const Store = createStore({
       selectedEventId: -1,
       infoPanelExpanded: false,
       navMenuExpanded: false,
+      featureCollection: {
+        'type': 'FeatureCollection',
+        'features': []
+      }
     }
   },
   mutations: {
@@ -31,6 +35,9 @@ const Store = createStore({
     },
     setNavMenuExpanded(state, val) {
       state.navMenuExpanded = val;
+    },
+    pushFeatureToCollection(state, val) {
+      state.featureCollection.features.push(val);
     }
   },
   getters: {
@@ -48,6 +55,9 @@ const Store = createStore({
     },
     isMobile: function (state) {
       return state.mobile;
+    },
+    getFeatureCollection(state) {
+      return state.featureCollection;
     }
   },
   modules: {}

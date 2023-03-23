@@ -1,7 +1,7 @@
 {
   "name": "styleConfig",
   "styles": {
-    "marker-varying": {
+    "markerVarying": {
       "color": {
         "exact-location": "yellow",
         "near-here": "purple",
@@ -9,35 +9,24 @@
         "in_this_town_city":"pink"
       },
       "hit-radius":16,
-      "highlightable-props": [
-        {
-          "prop-name": "circle-radius",
+      "highlightableProps": {
+        "circle-radius": {
           "active": 7,
           "inactive": 5,
-          "default": 6
+          "default": 6,
+          "searchHighlight": 9
         },
-        {
-          "prop-name": "circle-stroke-width",
+        "circle-stroke-width": {
           "active": 2,
           "inactive": 1,
           "default": 2
         },
-        {
-          "prop-name": "circle-stroke-color",
+        "circle-stroke-color": {
           "active": "white",
           "inactive": "lightgray",
           "default": "white"
         }
-      ]
-    },
-    "marker(HTML MARKERS DEPRICATED)": {
-      "backgroundColor": "grey",
-      "opacity": ".8",
-      "width": "12px",
-      "height": "12px",
-      "border-radius": "50%",
-      "border": "2px solid white",
-      "cursor": "pointer"
+      }
     }
   },
   "layer-placement": {

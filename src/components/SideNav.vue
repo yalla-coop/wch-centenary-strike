@@ -204,7 +204,7 @@ export default {
         zoom: 2,
         essential: true
       });
-      EventBus.$emit("clear-event");
+      EventBus.$emit("reset-info-panel");
       this.hideMobileMenu();
     }
   },
@@ -218,19 +218,24 @@ export default {
   },
 };
 </script>
-<style>
+<style lang="scss">
 .nav-drawer {
   max-height: fit-content;
   background-color: black !important;
   position: absolute;
 }
-.list-container a,
-.list-container .ant-typography {
-  font-family: Roboto, sans-serif;
-  text-decoration: none;
-  color: white;
+.list-container {
+  a {
+    font-family: Roboto, sans-serif;
+    text-decoration: none;
+    color: white;
+  }
+  .ant-typography {
+    font-family: Roboto, sans-serif;
+    text-decoration: none;
+    color: white;
+  }
 }
-
 .side-nav-container {
   position: absolute;
   display: flex;
@@ -240,19 +245,17 @@ export default {
   font-family: "ZillaSlab";
   width: 160px;
   max-width: 15%;
+  nav {
+    min-width: 160px;
+  }
 }
-
-.side-nav-container nav {
-  min-width: 160px;
-}
-
 .ant-typography {
   font-family: "ZillaSlab";
 }
-.ant-layout-sider-children a {
-  color: white;
-}
 .ant-layout-sider-children {
+  a {
+    color: white;
+  }
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   --antd-wave-shadow-color: #1890ff;
   --scroll-bar: 0;
