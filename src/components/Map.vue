@@ -116,12 +116,6 @@ export default {
       }
     });
 
-    EventBus.$on("clear-selected", () => {
-      if (self.marker) {
-        self.marker.remove();
-        self.marker = null;
-      }
-    });
     EventBus.$on("switch-base", () => {
       // Set timeout due to known mapbox issue where style load event not reliable
       // https://github.com/mapbox/mapbox-gl-js/issues/8691
@@ -132,7 +126,6 @@ export default {
         }
       }, 1000);
     });
-    EventBus.$on("zoom-to", this.zoomTo);
   },
   methods: {
     initLayers(reinitialize = false) {
@@ -152,16 +145,7 @@ export default {
         this.legendControl = new LegendControl(this.$.appContext.app.config.globalProperties);
         self.map.addControl(this.legendControl, "bottom-left");
       }
-    },
-    zoomTo: function () {
-      let self = this;
-    },
-    addMarker(e) {
-      let self = this;
-      if (self.marker) {
-        self.marker.remove();
-      }
-    },
+    }
   },
   watch: {},
 };

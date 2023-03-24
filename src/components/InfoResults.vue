@@ -1,6 +1,6 @@
 <template>
   <div id="info-results">
-    <v-card id="search-results" class="mx-auto" max-width="300" tile v-if="results.length > 1">
+    <v-card id="search-results" class="mx-auto" max-width="300" tile>
       <h3> {{title}} </h3>
       <v-list style="font-family: 'Roboto'" dense>
         <span style="padding: 10px">Select one:</span>

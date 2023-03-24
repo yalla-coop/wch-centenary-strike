@@ -300,6 +300,7 @@ a.wch-menu-logo.outer.upper {
   .info-photo,
   .info-description,
   .info-title,
+  .mapboxgl-ctrl-bottom-left,
   .mapboxgl-ctrl-top-left,
   .mapboxgl-ctrl-top-right,
   .v-footer,
@@ -329,6 +330,23 @@ a.wch-menu-logo.outer.upper {
   }
 }
 .mobile-embed {
+  #searchControl,
+  .side-nav-container,
+  .info-book,
+  .info-podcast,
+  .info-merch,
+  .info-author,
+  .info-photo,
+  .info-description,
+  .info-title,
+  .mapboxgl-ctrl-bottom-left,
+  .mapboxgl-ctrl-top-left,
+  .mapboxgl-ctrl-top-right,
+  .v-footer,
+  .legend-title,
+  .legend-list {
+    display: none;
+  }
   footer {
     display: none;
   }

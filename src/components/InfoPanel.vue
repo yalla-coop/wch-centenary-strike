@@ -37,7 +37,7 @@
               :results="searchResults"
               :select-result="selectResult"
               title="Search Results"
-              v-if="searchResults.length > 1"
+              v-if="searchResults.length > 0"
           />
           <div v-if="loading" class="side-loading">
             <v-progress-circular indeterminate color="white" />
@@ -163,15 +163,11 @@ export default {
         this.results = []
         this.resultsType = 'search'
         this.setData(resp.data.results)
-        if(this.searchResults.length === 1) {
-          this.$layerManager.clearCircleFeatureStyling()
-          EventBus.$emit('setSearchInputColor', 'white')
-          this.selectResult(this.searchResults[0].id)
-        } else if(this.searchResults.length > 1) {
+        if(this.searchResults.length > 0) {
           EventBus.$emit('setSearchInputColor', 'white')
           this.$layerManager.clearCircleFeatureStyling()
           this.$layerManager.filterResults(this.searchResults.map((r) => {return r.id;}))
-          this.zoomToResults()
+          this.zoomToSearchResults()
         } else {
           this.$layerManager.clearCircleFeatureStyling()
           EventBus.$emit('setSearchInputColor', 'red')
@@ -201,11 +197,11 @@ export default {
         this.searchResults = (dat.length > 1) ? dat.sort((a, b) => (b.year - a.year || b.month - a.month || b.day - a.day)) : dat
       } else {
         this.results = (dat.length > 1) ? dat.sort((a, b) => (b.year - a.year || b.month - a.month || b.day - a.day)) : dat
+        if (dat.length === 1) {
+          this.selectResult(dat[0].id);
+        }
       }
       this.loading = false;
-      if (dat.length === 1) {
-        this.selectResult(dat[0].id);
-      }
       if (dat.length > 0) {
         EventBus.$emit("force-info-open");
       }
@@ -217,15 +213,23 @@ export default {
         essential: true,
       });
     },
-    zoomToResults() {
-      let lons = this.searchResults.map((result) => { return +(result.longitude.substring(0,15)) })
+    zoomToSearchResults() {
+      let lngs = this.searchResults.map((result) => { return +(result.longitude.substring(0,15)) })
       let lats = this.searchResults.map((result) => { return +(result.latitude.substring(0,15)) })
-      let bounds = [[Math.min(...lons), Math.min(...lats)], [Math.max(...lons), Math.max(...lats)]]
+      let bounds = [[Math.min(...lngs), Math.min(...lats)], [Math.max(...lngs), Math.max(...lats)]]
 
-      this.$map.fitBounds(bounds, {
-        padding: { top: 75, bottom: 75, left: 200, right: 75 },
-        linear: true
-      })
+      if(lngs.length === 1 && lats.length === 1) {
+        this.$map.flyTo({
+          center: [lngs[0], lats[0]],
+          zoom: 7,
+          essential: true,
+        });
+      } else {
+        this.$map.fitBounds(bounds, {
+          padding: { top: 75, bottom: 75, left: 200, right: 75 },
+          linear: true
+        })
+      }
     },
   },
 };
