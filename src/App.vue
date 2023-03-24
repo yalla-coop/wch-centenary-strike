@@ -328,6 +328,11 @@ a.wch-menu-logo.outer.upper {
       padding: 10px;
     }
   }
+  .portrait {
+    .open-menu {
+      display: none;
+    }
+  }
 }
 .mobile-embed {
   #searchControl,
@@ -344,6 +349,7 @@ a.wch-menu-logo.outer.upper {
   .mapboxgl-ctrl-top-right,
   .v-footer,
   .legend-title,
+  .open-menu,
   .legend-list {
     display: none;
   }
