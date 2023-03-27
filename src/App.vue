@@ -293,13 +293,6 @@ a.wch-menu-logo.outer.upper {
 .embed {
   #searchControl,
   .side-nav-container,
-  .info-book,
-  .info-podcast,
-  .info-merch,
-  .info-author,
-  .info-photo,
-  .info-description,
-  .info-title,
   .mapboxgl-ctrl-bottom-left,
   .mapboxgl-ctrl-top-left,
   .mapboxgl-ctrl-top-right,
@@ -337,13 +330,6 @@ a.wch-menu-logo.outer.upper {
 .mobile-embed {
   #searchControl,
   .side-nav-container,
-  .info-book,
-  .info-podcast,
-  .info-merch,
-  .info-author,
-  .info-photo,
-  .info-description,
-  .info-title,
   .mapboxgl-ctrl-bottom-left,
   .mapboxgl-ctrl-top-left,
   .mapboxgl-ctrl-top-right,
@@ -355,6 +341,10 @@ a.wch-menu-logo.outer.upper {
   }
   footer {
     display: none;
+  }
+  #info-panel {
+    height: 100%;
+    overflow-x: hidden;
   }
   .legend-list {
     .list-item {

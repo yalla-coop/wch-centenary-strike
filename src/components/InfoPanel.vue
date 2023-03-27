@@ -1,6 +1,6 @@
 <template>
   <div id="info-panel">
-    <div id="column">
+    <div>
       <div id="results">
         <div v-if="panelDisplay() === 'intro'">
           <h3 style="font-family: 'ZillaSlab'; font-size: 24px">
