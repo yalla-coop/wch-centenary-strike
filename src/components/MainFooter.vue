@@ -148,24 +148,17 @@
         </ul>
       </div>
     </nav>
-    <div
-      id="wijfi"
-      class="
-        menu-item menu-item-type-custom menu-item-object-custom menu-item-1297
-      "
-    >
-      <a
-        href="https://github.com/Willjfield"
-        onclick="javascript:window.open('https://github.com/Willjfield'); return false;"
-        >map by will field <v-icon dark small class="icon-class">mdi-github</v-icon></a
-      >
+    <div id="aboutIcon" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1297">
+      <AboutMap />
     </div>
   </v-footer>
 </template>
 
 <script>
+import AboutMap from './AboutMap.vue';
 export default {
   name: "MainFooter",
+  components: {AboutMap}
 };
 </script>
 
@@ -175,7 +168,7 @@ export default {
   background-color: rgb(18, 2, 50);
   border-color: rgb(18, 2, 50);
 }
-#wijfi {
+#aboutIcon {
   color: lightgray;
   text-decoration: none;
   padding: 2px;

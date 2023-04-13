@@ -7,10 +7,11 @@
             Working Class History | Map
           </h3>
           <br>
-          <p>History isn't made by kings and politicians, it is made by us: billions of ordinary people. This is a map containing our historical stories of our collective struggles to build a better world.</p>
-          <p>Welcome to the new WCH Map! On this map you can browse our historical stories geographically, and you can click "Learn more" at the bottom of each story to be taken to our new <a href="https://stories.workingclasshistory.com/">Stories app</a> to see more information like sources for each story and&nbsp;links to more information.&nbsp;</p>
-          <p>We have been able to develop this Map and Stories app thanks to generous support from our <a href="https://patreon.com/workingclasshistory">backers on patreon</a>, and some fantastic people who contributed to a GoFundMe campaign. With our GoFundMe we attempted to raise $8000 to cover the cost of the development of these apps. We were able to raise approximately $3000, and so there remains a significant shortfall. We also would like to develop improved functionality for the map, including a search, and filters by topic and year. So if you can, please consider <a href="https://patreon.com/workingclasshistory">supporting us on patreon</a> or giving us a <a href="https://workingclasshistory.com/support">one-off donation</a> to help cover our costs.</p>
-          <p>If you are interested in collaborating with us and contributing data for the map,&nbsp;or if you spot any errors, please email us at info@workingclasshistory.com</p>
+          <p>History isn't made by kings and politicians, it is made by us: billions of ordinary people.</p>
+          <p>This is a map containing our always-growing archive of Stories of our collective struggles to build a better world. To see more information about any of the stories, like Sources, click the "Learn more" link at the bottom of each entry.</p>
+          <p>Use the search box to search by key word or phrase, and click the filter button for an advanced search to browse by category and year.</p>
+          <!-- TODO: After #23 -->
+          <p><a href="#" onclick="document.querySelector('#aboutIcon > i').click();event.preventDefault();">Learn More</a></p>
         </div>
         <div v-if="panelDisplay() === 'results'">
           <div @click="clearResults" class="close-btn">
