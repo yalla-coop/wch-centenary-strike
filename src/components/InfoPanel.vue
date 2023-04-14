@@ -11,7 +11,7 @@
           <p>This is a map containing our always-growing archive of Stories of our collective struggles to build a better world. To see more information about any of the stories, like Sources, click the "Learn more" link at the bottom of each entry.</p>
           <p>Use the search box to search by key word or phrase, and click the filter button for an advanced search to browse by category and year.</p>
           <!-- TODO: After #23 -->
-          <p><a href="#" onclick="document.querySelector('#aboutIcon > i').click();event.preventDefault();">Learn More</a></p>
+          <p><a href="#" onclick="document.querySelector('#aboutIcon > i').click();event.preventDefault();">Learn more</a></p>
         </div>
         <div v-if="panelDisplay() === 'results'">
           <div @click="clearResults" class="close-btn">

@@ -20,9 +20,7 @@
     </ul>
     <v-divider></v-divider>
     <v-card-text>
-      Additional Layers
-      <br />
-      (click to activate):
+      Additional layers
       <v-divider></v-divider>
       <v-chip-group
         v-model="toggledLayer"
@@ -30,11 +28,10 @@
         column
       >
         <span v-for="layer in legendLayers" :key="layer['layer-id']">
-          <v-chip style="margin: 0 auto" :disabled="toggleDisabled" filter @click="toggleLayer(layer)">
+          <v-chip style="margin: 0 auto" :disabled="toggleDisabled" @click="toggleLayer(layer)">
             {{ layer["legend-display"] }}
           </v-chip>
-          <div
-            style="text-align: center; margin: 0 auto"
+          <div class="legend-note"
             v-if="layer['legend-note']"
             v-html="layer['legend-note']"
           ></div>
@@ -131,5 +128,13 @@ export default {
 .legend-title {
   font-family: "ZillaSlab";
   text-transform: initial;
+}
+.legend-note {
+  text-align: center;
+  margin: 0 auto;
+  font-size: 12px;
+  a {
+    color: gray;
+  }
 }
 </style>
