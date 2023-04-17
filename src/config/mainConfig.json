@@ -46,7 +46,7 @@
   "legend-items":[
     {
       "display":"exact-location",
-      "text": "Exact Location",
+      "text": "Exact location",
       "css":{
         "backgroundColor": "#FAD40A",
         "width": "12px",
@@ -58,7 +58,7 @@
     },
     {
       "display":"near-here",
-      "text": "Near This Location",
+      "text": "Near here",
       "css":{
         "backgroundColor": "#6013FB",
         "width": "12px",
@@ -70,7 +70,7 @@
     },
     {
       "display":"in-this-town-city",
-      "text": "In This Town/City",
+      "text": "In this town/city",
       "css":{
         "backgroundColor": "#CC0066",
         "width": "12px",
@@ -82,7 +82,7 @@
     },
     {
       "display":"in-this-country",
-      "text": "In This Country",
+      "text": "In this country",
       "css":{
         "backgroundColor": "#999",
         "width": "12px",
