@@ -224,6 +224,9 @@ export default {
   background-color: black !important;
   position: absolute;
 }
+.wch-menu-logo {
+  cursor: pointer;
+}
 .list-container {
   a {
     font-family: Roboto, sans-serif;
