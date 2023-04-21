@@ -148,6 +148,7 @@ export default class LayerManager {
                     console.error(e);
                 });
             }
+            EventBus.$emit('events-load-enqueued')
         });
     }
 
@@ -223,7 +224,8 @@ export default class LayerManager {
                           "geotag": event.geotag_info.toLowerCase().replaceAll(' ', '_').replaceAll('/', '_'),
                           "year": event.year,
                           "month": event.month,
-                          "day": event.day
+                          "day": event.day,
+                          "tags": event.tags
                       },
                       "geometry": {
                           "type": "Point",

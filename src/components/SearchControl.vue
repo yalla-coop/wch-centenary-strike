@@ -1,62 +1,62 @@
 <template>
   <span id="searchControl" class="mapboxgl-ctrl">
-    <v-form id="searchControlForm" @submit.prevent>
-       <v-text-field
-           density="compact"
-           label="Search events"
-           variant="outlined"
-           bg-color="white"
-           theme="light"
-           append-inner-icon="mdi-map-search-outline"
-           single-line
-           clearable
-           hide-details
-           :color="this.searchInputColor"
-           v-model="searchText"
-           @click:append-inner="this.search(this.searchText)"
-           @click:clear="clearPanel"
-           @keyup.enter="this.search(this.searchText)"
-           @update:modelValue="resetStyling"
-       >
-         <template v-slot:loader>
-          <v-progress-linear
-              :active="this.searchLoading"
-              color="#FAD40A"
-              indeterminate
-          ></v-progress-linear>
-         </template>
-       </v-text-field>
-    </v-form>
+      <div class="d-flex">
+        <v-form id="searchControlForm" @submit.prevent>
+          <v-text-field
+             density="compact"
+             label="Search events"
+             variant="outlined"
+             bg-color="white"
+             theme="light"
+             append-inner-icon="mdi-map-search-outline"
+             single-line
+             :disabled="this.$store.getters.getFiltersActive"
+             clearable
+             hide-details
+             :color="this.$store.getters.getSearchInputColor"
+             v-model="searchText"
+             @click:append-inner="this.search(this.searchText)"
+             @click:clear="clearPanel"
+             @keyup.enter="this.search(this.searchText)"
+             @update:modelValue="resetStyling"
+          >
+          <template v-slot:loader>
+            <v-progress-linear
+                :active="this.$store.getters.getSearchLoading"
+                color="#FAD40A"
+                indeterminate
+            />
+          </template>
+        </v-text-field>
+      </v-form>
+      <v-btn
+        size="x-small"
+        @click="this.$store.dispatch('toggleAdvancedSearchExpanded')"
+        id="searchFilters"
+        :class="this.$store.getters.getFiltersActive ? 'active rounded-s-0' : 'rounded-s-0'"
+      >
+        <v-icon icon="mdi-filter" size="x-large"/>
+      </v-btn>
+    </div>
   </span>
 </template>
 <script>
-  import {EventBus} from '../js/DataManagement/EventBus.js';
-
   export default {
     props: ['search', 'clearSearch', 'clearResults'],
-    data: () => ({
-      searchText: '',
-      searchLoading: false,
-      searchInputColor: 'white'
-    }),
-    mounted: function () {
-      EventBus.$on('setSearchLoading', (searchLoading) => {
-        this.searchLoading = searchLoading
-      })
-      EventBus.$on('setSearchText', (searchText) => {
-        this.searchText = searchText
-      })
-      EventBus.$on('setSearchInputColor', (searchInputColor) => {
-        this.searchInputColor = searchInputColor
-      })
+    computed: {
+      searchText: {
+        get() { return this.$store.getters.getSearchText },
+        set(val) { this.$store.commit('setSearchText', val) }
+      }
     },
+    mounted() {},
     methods: {
       clearPanel(){
         this.clearResults()
         this.clearSearch()
       },
       resetStyling(){
-        this.searchInputColor = 'white';
+        this.$store.commit('setSearchInputColor', 'white');
         if(this.$map.getFilter('events-circles')) {
           this.$layerManager.clearCircleFeatureStyling()
         }
@@ -67,7 +67,30 @@
 </script>
 
 <style lang="scss">
-#searchControlForm {
-  width: 20em;
+#searchControl {
+  #searchFilters {
+    height: unset;
+    min-width: 4em;
+    background-color: white;
+    &.active {
+      color: #6013FB;
+      border-color: #6013FB;
+      border-radius: 5px;
+      border-width: 2px;
+      border-style: solid;
+    }
+  }
+  #searchControlForm {
+    width: 20em;
+    .v-field {
+      border-radius: 4px 0 0 4px;
+    }
+    .v-field__outline {
+      border-radius: 4px 0 0 4px;
+    }
+    .v-field__outline__end {
+      border-radius: 0;
+    }
+  }
 }
 </style>

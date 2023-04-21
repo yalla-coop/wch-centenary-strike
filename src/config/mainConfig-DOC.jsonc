@@ -5,8 +5,15 @@
 	"api": {
 		"baserow": {
 			"tables":{
-				"main": "33215" //ID of the main baserow table
-			}
+				"articles": "33215", // Id of the articles baserow table
+				"tags": "33217" // Id of the tags baserow table
+			},
+            "categoryIds": { // Ids of baserow multiselect field "category"
+                "people": "17946",
+                "organisations": "17947",
+                "countries": "17949",
+                "topics": "17950"
+            }
 		},
 		"keys": { //API Keys
 			"mb-key": "pk.eyJ1Ijoid29ya2luZ2NsYXNzaGlzdG9yeSIsImEiOiJjbDBpbTVuYTYwM2NwM2pxZjZ5aHh0dWE5In0.90jdrAehYtpBlP1u0cxnaw",

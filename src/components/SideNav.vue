@@ -205,6 +205,7 @@ export default {
         essential: true
       });
       EventBus.$emit("reset-info-panel");
+      EventBus.$emit('clear-filters')
       this.hideMobileMenu();
     }
   },

@@ -7,3 +7,7 @@ export function formatTitleYear(eventData) {
     return `${eventData.title}, ${eventData.year}`
   }
 }
+
+export function dateString(date) {
+  return date.toLocaleDateString(navigator.language, {month: 'long', day: 'numeric'})
+}

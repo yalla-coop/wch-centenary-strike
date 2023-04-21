@@ -91,13 +91,19 @@ export default {
       this.clearSearch()
     });
     EventBus.$on("select-from-url", (datId) => { this.loadEvent(datId) });
+    EventBus.$on('clear-results-and-search', () => {
+      // TODO: Post-MVP: issue when search is active and clicking applying filters, multiselect floats?
+      // this.clearResults()
+      this.clearSearch()
+    })
 
     // Mount search control to mapbox
     let el = document.querySelector('.mapboxgl-ctrl-top-right')
     let vNode = h(SearchControl, {
-      search: this.search,
-      clearSearch: this.clearSearch,
-      clearResults: this.clearResults}, {}
+        search: this.search,
+        clearSearch: this.clearSearch,
+        clearResults: this.clearResults
+      }, {},
     )
     vNode.appContext = this.$.appContext
     if (el) render(vNode, el)
@@ -114,7 +120,7 @@ export default {
   methods: {
     clearResults() {
       this.selectedDat = []
-      EventBus.$emit('setSearchInputColor', 'white')
+      this.$store.commit('setSearchInputColor', 'white')
       this.results = []
       this.resultsType = 'nearby'
       this.$store.commit("setSelectedEventId", -1)
@@ -130,7 +136,7 @@ export default {
     },
     clearSearch() {
       this.searchResults = []
-      EventBus.$emit('setSearchText', '')
+      this.$store.commit('setSearchText', '')
       this.$layerManager.clearCircleFeatureStyling()
     },
     getOrientation,
@@ -159,26 +165,26 @@ export default {
     },
     search(text) {
       if (!text) return;
-      EventBus.$emit('setSearchLoading', true)
+      this.$store.commit('setSearchLoading', true)
       baserowApi.searchEvents(text).then((resp) => {
         this.results = []
         this.resultsType = 'search'
         this.setData(resp.data.results)
         if(this.searchResults.length > 0) {
-          EventBus.$emit('setSearchInputColor', 'white')
+          this.$store.commit('setSearchInputColor', 'white')
           this.$layerManager.clearCircleFeatureStyling()
           this.$layerManager.filterResults(this.searchResults.map((r) => {return r.id;}))
           this.zoomToSearchResults()
         } else {
           this.$layerManager.clearCircleFeatureStyling()
-          EventBus.$emit('setSearchInputColor', 'red')
+          this.$store.commit('setSearchInputColor', 'red')
         }
-        EventBus.$emit('setSearchLoading', false)
+        this.$store.commit('setSearchLoading', false)
       }).catch((err) => {
         console.error(err);
         this.selectedDat = [];
         this.results = [];
-        EventBus.$emit('setSearchLoading', false)
+        this.$store.commit('setSearchLoading', false)
       });
     },
     selectResult(_id) {

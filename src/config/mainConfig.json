@@ -5,7 +5,14 @@
   "api": {
     "baserow": {
       "tables":{
-        "main": "33215"
+        "articles": "33215",
+        "tags": "33217"
+      },
+      "categoryIds": {
+        "people": "17946",
+        "organisations": "17947",
+        "countries": "17949",
+        "topics": "17950"
       }
     },
     "keys": {

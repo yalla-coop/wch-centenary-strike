@@ -28,6 +28,7 @@
         <path d="M1 10.5H21" :stroke="styleConfig().colors.yellow.primary" stroke-linecap="round"></path>
       </svg>
     </div>
+    <AdvancedSearch />
     <SideNav />
     <v-container fluid class="pa-0 blue lighten-5">
       <v-row class="ma-0">
@@ -60,15 +61,18 @@ import Map from "./components/Map.vue";
 import InfoPanel from "./components/InfoPanel.vue";
 import MainFooter from "./components/MainFooter.vue";
 import SideNav from "./components/SideNav.vue";
+import AdvancedSearch from './components/AdvancedSearch.vue';
 import styleConfig from './config/styleConfig.json';
 import mainConfig from './config/mainConfig.json';
 import LayerManager from "./js/LayerManager.js";
 import { EventBus } from "./js/DataManagement/EventBus";
 import $ from "jquery";
+import { getAllTagsForCategory } from './js/baserow/api.js';
 
 export default {
   name: "App",
   components: {
+    AdvancedSearch,
     // eslint-disable-next-line
     Map,
     InfoPanel,
@@ -150,6 +154,14 @@ export default {
     EventBus.$on("close-main-menu", () => {
       self.menuOpen = false;
     });
+
+    EventBus.$on('events-load-enqueued', () => {
+      ['people', 'organisations', 'topics', 'countries'].forEach(category => {
+        getAllTagsForCategory(category, (tags) => {
+          this.$store.commit("pushTagsToCategory", { category, tags })
+        })
+      })
+    })
 
     EventBus.$on("force-info-open", () => {
       if (this.panelExpanded) return;
@@ -435,6 +447,9 @@ html {
   right: 0;
   left: 0;
   opacity: 1;
+}
+#advancedSearchNav {
+  background: black;
 }
 html.in-iframe {
   overflow-y: scroll;
