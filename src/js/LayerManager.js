@@ -98,8 +98,9 @@ export default class LayerManager {
         const beforeLayer = styleConfig["layer-placement"]["events"];
         const map = this._vue.$map;
 
+
         if(_options.reinitialize) {
-            this.addCircleLayer(beforeLayer)
+            this.addCircleLayer(beforeLayer, _options.appliedFilter)
             return
         }
 
@@ -119,7 +120,7 @@ export default class LayerManager {
             });
         }
 
-        baserowApi.getEventCount().then((resp) => {
+        baserowApi.getEventCount({}).then((resp) => {
             const totalResponsesExpected = resp.data.count;
             const requestsNeeded = Math.ceil(totalResponsesExpected / _options.sizeLimit);
 
@@ -193,9 +194,11 @@ export default class LayerManager {
         map.setFilter('event-hit-layer', null)
     }
 
-    addCircleLayer(beforeLayer) {
+    addCircleLayer(beforeLayer, appliedFilter = null) {
         let result = this._vue.$store.getters.getFeatureCollection
         const map = this._vue.$map;
+        let day = this._vue.$store.getters.getDay
+        let month = this._vue.$store.getters.getMonth
 
         map.addSource('events-source', {
             'type': 'geojson',
@@ -208,6 +211,16 @@ export default class LayerManager {
         } else {
             map.addLayer(layers.eventLayer);
             map.addLayer(layers.eventHitLayer);
+        }
+        if(appliedFilter){
+            map.setFilter('events-circles', appliedFilter)
+        } else if(day > 0 && month > 0) {
+            map.setFilter('events-circles', [
+                  "all",
+                  ["==", ["get", "month"], `${month}`],
+                  ["==", ["get", "day"], `${day}`]
+              ]
+            )
         }
     }
 

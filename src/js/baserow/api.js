@@ -62,10 +62,13 @@ export const getEvents = (options) => {
  *
  * @return {Promise<CacheAxiosResponse<any, any>>}
  */
-export const getEventCount = () => {
+export const getEventCount = (options) => {
+  let url = `${articlesTable}/?page=1&size=1${defaultFilters}`
+  url += options.filter ? `&${options.filter}` : ''
+
   return axios({
     method: "GET",
-    url: `${articlesTable}/?page=1&size=1${defaultFilters}`,
+    url: url,
     headers: { Authorization: `Token ${mainConfig.api.keys.baserow}` }
   })
 }

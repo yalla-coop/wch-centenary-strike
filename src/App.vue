@@ -93,6 +93,17 @@ export default {
   },
   // Support and transform saved encoded hash urls
   created() {
+    const params = new URLSearchParams(location.search);
+    const day = params.get("day");
+    const month = params.get("month");
+
+    if(day && month){
+      this.$store.commit("setDay", +day);
+      this.$store.commit("setMonth", +month);
+      this.$store.commit('setFiltersActive', true)
+      this.$store.commit('setAdvancedSearchExpanded', true)
+      this.$store.commit('setAdvancedSearchExpandedOnLoad', true)
+    }
     if( location.hash.includes("#%26map=") ) {
       let eventQuery = +location.search.split("?event=")[1]
       let mapHash = location.hash.split("#%26map=")[1]
@@ -144,6 +155,7 @@ export default {
 
     const params = new URLSearchParams(location.search);
 		const eId = params.get("event");
+
 		if(eId){
 			this.$store.commit("setSelectedEventId", +eId);
 			EventBus.$emit('select-from-url', +eId)
@@ -215,6 +227,9 @@ export default {
   font-family: 'Roboto', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 .portrait {
+  #advancedSearchNav {
+    width: 80% !important;
+  }
   #main-map {
     position: absolute;
     left: 0;
@@ -287,6 +302,9 @@ export default {
     display: none;
   }
 }
+#advancedSearchNav {
+  width: 30% !important;
+}
 a.wch-menu-logo.outer.lower {
   display: none;
   position: absolute;
@@ -303,6 +321,7 @@ a.wch-menu-logo.outer.upper {
   display: none;
 }
 .embed {
+  #advancedSearchNav,
   #searchControl,
   .side-nav-container,
   .mapboxgl-ctrl-bottom-left,
@@ -340,6 +359,7 @@ a.wch-menu-logo.outer.upper {
   }
 }
 .mobile-embed {
+  #advancedSearchNav,
   #searchControl,
   .side-nav-container,
   .mapboxgl-ctrl-bottom-left,

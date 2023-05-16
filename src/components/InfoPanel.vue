@@ -91,11 +91,7 @@ export default {
       this.clearSearch()
     });
     EventBus.$on("select-from-url", (datId) => { this.loadEvent(datId) });
-    EventBus.$on('clear-results-and-search', () => {
-      // TODO: Post-MVP: issue when search is active and clicking applying filters, multiselect floats?
-      // this.clearResults()
-      this.clearSearch()
-    })
+    EventBus.$on('clear-results-and-search', () => { this.clearSearch() })
 
     // Mount search control to mapbox
     let el = document.querySelector('.mapboxgl-ctrl-top-right')

@@ -5,19 +5,13 @@
       theme="dark"
       temporary
       @update:modelValue="(val) => { if(!val) {this.clearSelectFocused()}}"
-      :width="this.filterNavWidth()"
   >
     <v-col id="advancedSearchForm">
-      <v-switch
-          v-model="onThisDay"
-          @update:modelValue="applySearchFilters"
-          inset
-          :ripple=false
-          hide-details
-          color="#FAD40A"
-          :label="`Show stories on this day, ${dateString(new Date)}`"
-      ></v-switch>
+      <v-btn @click="setDateToday" :ripple="false" color="#FAD40A" class="mb-2 text-left pl-0" variant="plain">
+        On this day
+      </v-btn>
       <h3>Filter results by:</h3>
+      <v-divider class="mb-2" />
       <v-row v-for="category in categories" :key="category">
         <v-autocomplete
             :ref="`${category}Select`"
@@ -38,7 +32,32 @@
             return-object
         ></v-autocomplete>
       </v-row>
-      <v-row justify="space-around" align="center">
+      <v-divider class="mb-2" />
+      <v-row align="center">
+        <v-select
+            class="month-input"
+            label="Month"
+            ref="month"
+            clearable
+            v-model="month"
+            @update:modelValue="applySearchFilters"
+            :items="getMonthOptions()"
+            item-title="title"
+            item-value="value"
+        ></v-select>
+        <v-icon class="mb-5 v-label" icon="mdi-minus"></v-icon>
+        <v-select
+            class="day-input"
+            label="Day"
+            ref="day"
+            clearable
+            :disabled="!this.month"
+            v-model="day"
+            @update:modelValue="applySearchFilters"
+            :items="dayOptions"
+        ></v-select>
+      </v-row>
+      <v-row align="center" justify="space-between">
         <v-text-field
           class="year-input"
           ref="startYear"
@@ -56,7 +75,7 @@
           @update:modelValue="applySearchFilters"
           label="End year"
         ></v-text-field>
-      </v-row>
+        </v-row>
       <v-row justify="end">
         <v-btn @click="clearSearchFilters" variant="plain">
           Clear All
@@ -69,7 +88,7 @@
 <script>
 import {EventBus} from '../js/DataManagement/EventBus.js';
 import {dateString} from '../js/helpers/stringHelpers.js';
-import {getOrientation} from '../js/helpers/orientationHelpers.js';
+import {getMonthOptions} from '../js/helpers/dateHelpers.js';
 
 const categories = ['topics', 'people', 'organisations', 'countries']
 
@@ -83,8 +102,17 @@ export default {
       get() {return this.$store.getters.getAdvancedSearchExpanded},
       set(val) {this.$store.commit('setAdvancedSearchExpanded', val)}
     },
-    navTouchless: function () {
-      return this.advancedSearchExpanded && this.anySelectFocused()
+    day: {
+      get() {return this.$store.getters.getDay},
+      set(val) {this.$store.commit('setDay', val)}
+    },
+    month: {
+      get() {return this.$store.getters.getMonth},
+      set(val) {this.$store.commit('setMonth', val)}
+    },
+    dayOptions: function () {
+      let date = new Date(2020, this.month, 0).getDate()
+      return Array(date).fill(0).map((v,i)=>++i)
     }
   },
   data() {
@@ -92,7 +120,6 @@ export default {
       items:  Object.fromEntries(categories.map(category => [category, []])),
       search: Object.fromEntries(categories.map(category => [category, null])),
       select: Object.fromEntries(categories.map(category => [category, []])),
-      onThisDay: false,
       startYear: '',
       endYear: '',
       rules: {
@@ -112,6 +139,14 @@ export default {
   mounted() {
     EventBus.$on('clear-filters', () => { this.clearSearchFilters() })
   },
+  updated() {
+    const showOnLoad = this.$store.getters.getAdvancedSearchExpandedOnLoad
+
+    if(showOnLoad){
+      this.advancedSearchExpanded = true
+      this.$store.commit('setAdvancedSearchExpandedOnLoad', false)
+    }
+  },
   watch: {
     startYear() {
       this.$nextTick(() => {this.$refs.endYear.validate();});
@@ -128,17 +163,19 @@ export default {
       return categories.some(category => { return this.$refs[`${category}Select`][0].isFocused })
     },
     anyFilterApplied() {
-      return Object.values(this.select).some(arr => arr.length > 0) || this.onThisDay || this.startYear || this.endYear
+      return Object.values(this.select).some(arr => arr.length > 0) || this.startYear || this.endYear || this.day || this.month
     },
     validRange() {
       return !(this.startYear && this.endYear &&
         (+this.startYear > +this.endYear || +this.endYear < +this.startYear));
     },
     dateString,
-    filterNavWidth() {
-      return getOrientation() === 'portrait'
-          ? `${document.documentElement["clientWidth"] * 0.8 }`
-          : '400px';
+    getMonthOptions,
+    setDateToday () {
+      let date = new Date
+      this.day = date.getDate()
+      this.month = date.getMonth() + 1
+      this.applySearchFilters()
     },
     querySelections(val, category) {
       // Debounce for v-overlay location issues
@@ -150,6 +187,7 @@ export default {
       }, 200)
     },
     applySearchFilters() {
+      if(this.month == null) {this.day = null}
       if(this.anyFilterApplied()) {
         this.$store.commit('setFiltersActive', true)
         EventBus.$emit('clear-results-and-search')
@@ -163,9 +201,10 @@ export default {
     },
     clearSearchFilters() {
       categories.forEach(category => { this.select[category] = [] });
-      this.onThisDay = false;
       this.startYear = '';
       this.endYear = '';
+      this.day = null;
+      this.month = null;
       this.applySearchFilters()
     },
     // Returns feature ids with AT LEAST ONE tag in EACH of the filtered categories
@@ -185,10 +224,14 @@ export default {
           (featureTags.some(t => topicsIds.includes(t)) || topicsIds.length === 0) &&
           (featureTags.some(t => countriesIds.includes(t)) || countriesIds.length === 0)
       })
-      if(this.onThisDay) {
+      if(this.month) {
         filteredFeatures = filteredFeatures.filter((feature) => {
-          return +feature.properties.month === (currentDate.getMonth() + 1) &&
-                 +feature.properties.day === currentDate.getDate()
+          return +feature.properties.month === this.month
+        })
+      }
+      if (this.day) {
+        filteredFeatures = filteredFeatures.filter((feature) => {
+          return +feature.properties.day === this.day
         })
       }
       if(this.startYear.length > 0) {
@@ -207,14 +250,29 @@ export default {
   },
 }
 </script>
-
+<style lang="scss">
+#advancedSearchForm {
+  .year-input {
+    input {
+      text-align: center;
+    }
+  }
+}
+</style>
 <style lang="scss" scoped>
 #advancedSearchForm {
   padding: 1em;
   .v-row {
-    padding-top: 1.5em;
+    margin-top: 0;
+    margin-bottom: .5em;
     .year-input {
-      max-width: 7em;
+      max-width: 10em;
+    }
+    .month-input {
+      width: 10em;
+    }
+    .day-input {
+      width: 6em
     }
   }
   h3 {

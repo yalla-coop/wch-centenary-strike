@@ -28,9 +28,10 @@ export default class BasemapControl {
 
         for (const input of inputs) {
             input.onclick = (layer) => {
+                let appliedFilter = this._vue.$map.getLayer('events-circles').filter // Get filters for re-init
                 const newStyle = mainConfig[layer.target.id];
                 this._vue.$map.setStyle(newStyle);
-                EventBus.$emit("switch-base");
+                EventBus.$emit("switch-base", appliedFilter);
             };
         }
         return this._container;

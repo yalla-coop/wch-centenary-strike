@@ -116,11 +116,11 @@ export default {
       }
     });
 
-    EventBus.$on("switch-base", () => {
+    EventBus.$on("switch-base", (appliedFilter) => {
       // Set timeout due to known mapbox issue where style load event not reliable
       // https://github.com/mapbox/mapbox-gl-js/issues/8691
       setTimeout( () => {
-        this.initLayers(true)
+        this.initLayers(true, appliedFilter)
         if(this.$store.getters.getSelectedEventId > 0){
           this.$layerManager.styleCircleSelection([this.$store.getters.getSelectedEventId]);
         }
@@ -128,14 +128,15 @@ export default {
     });
   },
   methods: {
-    initLayers(reinitialize = false) {
+    initLayers(reinitialize = false, appliedFilter = null) {
       //HC
       this.$layerManager.addLayerToMap({
         type: "baserow",
         map: this.map,
         sizeLimit: 150,
         style: styleConfig["baserow-markers"],
-        reinitialize: reinitialize
+        reinitialize: reinitialize,
+        appliedFilter: appliedFilter
       });
 
       this.$layerManager.initToggledLayers(this.map);
