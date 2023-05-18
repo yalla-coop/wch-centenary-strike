@@ -55,6 +55,8 @@
             v-model="day"
             @update:modelValue="applySearchFilters"
             :items="dayOptions"
+            item-title="label"
+            item-value="value"
         ></v-select>
       </v-row>
       <v-row align="center" justify="space-between">
@@ -112,7 +114,11 @@ export default {
     },
     dayOptions: function () {
       let date = new Date(2020, this.month, 0).getDate()
-      return Array(date).fill(0).map((v,i)=>++i)
+      let options = Array(date).fill(0).map((v,i)=>++i).map((d) => {
+        return { value: d, label: d}
+      })
+      options.push({value: 0, label: 'n/a'})
+      return options
     }
   },
   data() {
@@ -159,11 +165,8 @@ export default {
     clearSelectFocused() {
       categories.forEach(category => { this.$refs[`${category}Select`][0].isFocused = false})
     },
-    anySelectFocused() {
-      return categories.some(category => { return this.$refs[`${category}Select`][0].isFocused })
-    },
     anyFilterApplied() {
-      return Object.values(this.select).some(arr => arr.length > 0) || this.startYear || this.endYear || this.day || this.month
+      return Object.values(this.select).some(arr => arr.length > 0) || this.startYear || this.endYear || this.month || this.day != null
     },
     validRange() {
       return !(this.startYear && this.endYear &&
@@ -214,7 +217,6 @@ export default {
       let topicsIds = [...this.select.topics.map(t => t.id)]
       let countriesIds = [...this.select.countries.map(t => t.id)]
       let allFeatures = this.$store.getters.getFeatureCollection.features
-      let currentDate = new Date()
 
       let filteredFeatures = allFeatures.filter((feature) => {
         let featureTags = feature.properties.tags.map(tag => tag.id)
@@ -229,8 +231,9 @@ export default {
           return +feature.properties.month === this.month
         })
       }
-      if (this.day) {
+      if (this.day != null) {
         filteredFeatures = filteredFeatures.filter((feature) => {
+          // Will cast null values to 0 (undated)
           return +feature.properties.day === this.day
         })
       }

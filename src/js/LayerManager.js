@@ -221,6 +221,13 @@ export default class LayerManager {
                   ["==", ["get", "day"], `${day}`]
               ]
             )
+        } else if(month > 0 && day === 0) {
+            map.setFilter('events-circles', [
+                  "all",
+                  ["==", ["get", "month"], `${month}`],
+                  ["==", ["get", "day"], null]
+              ]
+            )
         }
     }
 
