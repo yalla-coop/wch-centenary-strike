@@ -121,7 +121,7 @@
             ><a
               target="_blank"
               class="css-1xqwpqk"
-              href="https://workingclasshistory.com/sign-up/"
+              href="https://shop.workingclasshistory.com/pages/sign-up"
               ><div
                 class="ant-typography css-107d6n4"
                 weight="regular"
