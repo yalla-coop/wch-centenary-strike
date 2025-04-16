@@ -40,7 +40,7 @@
   "toggleable-layers": [
     {
       "type":"geojson-remote",
-      "url":"https://native-land.ca/wp-json/nativeland/v1/api/index.php?maps=territories",
+      "url":"https://native-land.ca/wp-json/nativeland/v1/api/index.php?maps=territories&key=vKXC7iYzXKBSWdad0fLbY",
       "layer-id": "native-lands",
       "legend-display": "Native Lands",
       "legend-note":"<a target='_blank' href='https://native-land.ca/'>Learn more</a",

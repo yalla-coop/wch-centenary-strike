@@ -46,15 +46,13 @@ export default class LayerManager {
             map.setLayoutProperty(layerid, 'visibility', 'visible');
         }
     }
+
     addGeoJSONRemoteToMap(_options) {
         const beforeLayer = styleConfig["layer-placement"]["geojson"];
         const map = this._vue.$map;
 
         axios.get(_options.url).then(resp => {
-            const _geojson = {
-                type: "FeatureCollection",
-                features: resp.data
-            };
+            const _geojson = resp.data;
             const srcID = _options["layer-id"] + '-source';
             map.addSource(srcID, {
                 'type': 'geojson',

@@ -40,7 +40,7 @@
 	"toggleable-layers": [ //Layers that can be toggled on/off from the legend
 		{
 			"type":"geojson-remote",
-			"url":"https://native-land.ca/wp-json/nativeland/v1/api/index.php?maps=territories",
+			"url":"https://native-land.ca/wp-json/nativeland/v1/api/index.php?maps=territories&key=vKXC7iYzXKBSWdad0fLbY",
 			"layer-id": "native-lands",
 			"legend-display": "Native Lands",
 			"legend-note":"<a style='color:gray;' href='https://native-land.ca/'>Learn More</a>",

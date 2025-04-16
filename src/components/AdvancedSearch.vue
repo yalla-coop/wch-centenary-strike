@@ -4,6 +4,7 @@
       v-model="advancedSearchExpanded"
       theme="dark"
       temporary
+      :style="{'transform': 'translateX(' + translateX + ')'}"
       @update:modelValue="(val) => { if(!val) {this.clearSelectFocused()}}"
   >
     <v-col id="advancedSearchForm">
@@ -119,6 +120,9 @@ export default {
       })
       options.push({value: 0, label: 'n/a'})
       return options
+    },
+    translateX: function () {
+      return this.advancedSearchExpanded ? '0px' : '-110%'
     }
   },
   data() {
