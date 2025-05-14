@@ -34,22 +34,9 @@
 		"preserveDrawingBuffer": true,
 		"antialias": true
 	},
-	"satellite-style":"mapbox://styles/workingclasshistory/cl1551xsr000q15o12t1ssc39", //URI for Satellite basemap stored on mapbox
-	"street-style":"mapbox://styles/workingclasshistory/cl0im7k3c000y14lrxp7s82oi", //URI for street map style stored on mapbox
+	"WCH_Sat":"mapbox://styles/workingclasshistory/cl1551xsr000q15o12t1ssc39", //URI for Satellite basemap stored on mapbox, key is name
+	"WCH_MAIN_BASE":"mapbox://styles/workingclasshistory/cl0im7k3c000y14lrxp7s82oi", //URI for street map style stored on mapbox, key is name
 	"map-logos": [], //Empty, could add logos to the map itself
-	"toggleable-layers": [ //Layers that can be toggled on/off from the legend
-		{
-			"type":"geojson-remote",
-			"url":"https://native-land.ca/wp-json/nativeland/v1/api/index.php?maps=territories&key=vKXC7iYzXKBSWdad0fLbY",
-			"layer-id": "native-lands",
-			"legend-display": "Native Lands",
-			"legend-note":"<a style='color:gray;' href='https://native-land.ca/'>Learn More</a>",
-			"on-load-event": null,
-			"tag": "native-lands",
-			"labels": true,
-			"active": true //Inactive removes any reference to the layer in the app
-		}
-	],
 	"legend-items":[ //Styling and text for how things appear in the legend
 		{
 			"display":"exact-location",

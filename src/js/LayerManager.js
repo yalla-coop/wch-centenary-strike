@@ -1,8 +1,5 @@
 import { EventBus } from './DataManagement/EventBus';
-import axios from 'axios';
-import turfCentroid from '@turf/centroid'
 import styleConfig from '../config/styleConfig.json'
-import mainConfig from '../config/mainConfig.json'
 import * as palettes from './mapbox/propertyPalettes.js'
 import * as baserowApi from './baserow/api.js'
 import * as layers from './mapbox/layers.js'
@@ -13,117 +10,85 @@ export default class LayerManager {
         this.layers = [];
         this.sources = [];
     }
-    initToggledLayers(_map) {
-        const toggledLayers = mainConfig["toggleable-layers"];
-        toggledLayers.forEach(layer => {
-            this.addLayerToMap(layer);
-        })
-    }
-    addLayerToMap(_options) {
-        switch (_options.type) {
-            case 'geojson-remote':
-                this.addGeoJSONRemoteToMap(_options);
-                break;
-            case 'baserow':
-                this.addBaserowToMap(_options);
-                break;
-            default: break;
-        }
-    }
-
-    toggleLayer(layerid) {
+    addNativeLandsLayer() {
         const map = this._vue.$map;
 
-        if (!map || !map.getLayer(layerid)) return;
-        const visibility = map.getLayoutProperty(layerid, 'visibility');
-
-        // Toggle layer visibility by changing the layout object's visibility property.
-        if (visibility === 'visible') {
-            map.setLayoutProperty(layerid, 'visibility', 'none');
-            this.className = '';
-        } else {
-            this.className = 'active';
-            map.setLayoutProperty(layerid, 'visibility', 'visible');
-        }
-    }
-
-    addGeoJSONRemoteToMap(_options) {
-        const beforeLayer = styleConfig["layer-placement"]["geojson"];
-        const map = this._vue.$map;
-
-        axios.get(_options.url).then(resp => {
-            const _geojson = resp.data;
-            const srcID = _options["layer-id"] + '-source';
-            map.addSource(srcID, {
-                'type': 'geojson',
-                'data': _geojson
+        if (!map.getSource('native-lands')) {
+            map.addSource('native-lands', {
+                "url": "mapbox://nativeland.4pgB_next_nld_terr_prod_layer",
+                "type": "vector"
             });
-            const layer = layers.geoJsonLayer(_options["layer-id"], srcID)
-            if (beforeLayer) {
-                map.addLayer(layer, beforeLayer);
-            } else {
-                map.addLayer(layer);
-            }
+        }
 
-            if (_options.labels) {
-                let result = {
-                    'type': 'FeatureCollection',
-                    'features': []
-                };
+        if (!map.getLayer(layers.nativeLandsTerritories.id)) {
+            map.addLayer(layers.nativeLandsTerritories, styleConfig["layer-placement"]["geojson"]);
+        }
 
-                for (let i = 0; i < _geojson.features.length; i++) {
-                    result.features.push(
-                        {
-                            "type": "Feature",
-                            "properties": { "name": _geojson.features[i].properties.Name },
-                            "geometry": turfCentroid(_geojson.features[i]).geometry
-                        }
-                    );
-                }
+        if (!map.getLayer(layers.nativeLandsTerritoriesText.id)) {
+            map.addLayer(layers.nativeLandsTerritoriesText, styleConfig["layer-placement"]["geojson"])
+        }
 
-                map.addSource(_options["layer-id"] + '-labels-source', {
-                    'type': 'geojson',
-                    'data': result
-                });
+        if (this._vue.$store.getters.getNativeLandsLayerVisible) {
+            map.setLayoutProperty('native-lands-territories', 'visibility', 'visible');
+            map.setLayoutProperty('native-lands-territories-text', 'visibility', 'visible');
+        }
 
-                map.addLayer(layers.geoJsonLabelLayer(_options["layer-id"]));
-            }
-            EventBus.$emit('enable-toggled-layers')
-        })
+        if (map.getSource('native-lands').tiles) { // Check if tiles available
+            this._vue.$store.commit('setNativeLandsLayerAvailable', true)
+        }
     }
 
-    addBaserowToMap(_options) {
+    toggleNativeLands() {
+        const map = this._vue.$map;
+
+        if (!map || !map.getSource('native-lands')) return;
+        const visibility = map.getLayoutProperty('native-lands-territories', 'visibility');
+
+        if (visibility === 'visible') {
+            map.setLayoutProperty('native-lands-territories', 'visibility', 'none');
+            map.setLayoutProperty('native-lands-territories-text', 'visibility', 'none');
+        } else {
+            map.setLayoutProperty('native-lands-territories', 'visibility', 'visible');
+            map.setLayoutProperty('native-lands-territories-text', 'visibility', 'visible');
+        }
+        this._vue.$store.dispatch('toggleNativeLandsLayerVisible')
+    }
+
+    addBaserowToMap() {
         const beforeLayer = styleConfig["layer-placement"]["events"];
         const map = this._vue.$map;
+        const store = this._vue.$store;
+        const baserowSizeLimit = 150;
 
-
-        if(_options.reinitialize) {
-            this.addCircleLayer(beforeLayer, _options.appliedFilter)
+        if(store.getters.getEventFilters) {
+            this.addCircleLayer(beforeLayer, store.getters.getEventFilters)
             return
         }
 
-        //If there's a selected event load it first on its own before loading all the rest
-        if (this._vue.$store.getters.getSelectedEventId > 0) {
-            baserowApi.getEvent(this._vue.$store.getters.getSelectedEventId).then((resp) => {
+        if (!map.getSource('events-source')) {
+            this.addCircleLayer(beforeLayer);
+        } else {
+            map.getSource('events-source').setData(store.getters.getFeatureCollection)
+        }
+
+        if(store.getters.getFeatureCollection.features.length > 0) { return; }
+
+        // Initial load of data:
+        // If there's a selected event load it first on its own before loading all the rest
+        if (store.getters.getSelectedEventId > 0) {
+            baserowApi.getEvent(store.getters.getSelectedEventId).then((resp) => {
                 const event = [resp.data];
                 this.addEventsToFeatureCollection(event, true)
-                if (!map.getSource('events-source')) {
-                    this.addCircleLayer(beforeLayer);
-                } else {
-                    map.getSource('events-source').setData(this._vue.$store.getters.getFeatureCollection)
-                }
-            this.styleCircleSelection([this._vue.$store.getters.getSelectedEventId]);
-            }).then(()=>{
-                EventBus.$emit('select-url-event');
-            });
+                this.styleCircleSelection([store.getters.getSelectedEventId]);
+            })
         }
 
         baserowApi.getEventCount({}).then((resp) => {
             const totalResponsesExpected = resp.data.count;
-            const requestsNeeded = Math.ceil(totalResponsesExpected / _options.sizeLimit);
+            const requestsNeeded = Math.ceil(totalResponsesExpected / baserowSizeLimit);
 
             for (let reqNum = 0; reqNum < requestsNeeded; reqNum++) {
-                baserowApi.getEvents({pageNumber: reqNum + 1, sizeLimit: _options.sizeLimit, filter: _options.filter}).then((resp) => {
+                baserowApi.getEvents({pageNumber: reqNum + 1, sizeLimit: baserowSizeLimit}).then((resp) => {
                     const events = resp.data.results;
                     this.addEventsToFeatureCollection(events, false)
 
@@ -131,10 +96,10 @@ export default class LayerManager {
                         this.addCircleLayer(beforeLayer);
 
                     } else {
-                        map.getSource('events-source').setData(this._vue.$store.getters.getFeatureCollection)
+                        map.getSource('events-source').setData(store.getters.getFeatureCollection)
                     }
-                    if(this._vue.$store.getters.getSelectedEventId > 0){
-                        this.styleCircleSelection([this._vue.$store.getters.getSelectedEventId]);
+                    if(store.getters.getSelectedEventId > 0){
+                        this.styleCircleSelection([store.getters.getSelectedEventId]);
                     }
 
                     this.eventsLoaded += resp.data.results.length;
@@ -169,6 +134,8 @@ export default class LayerManager {
         const map = this._vue.$map;
         const highlightProps = styleConfig.styles.markerVarying.highlightableProps
 
+        if(!map.getLayer('events-circles')) { return }
+
         map.setPaintProperty("events-circles", "circle-color", palettes.highlightedColorsForFeatures(features));
         map.setLayoutProperty("events-circles", "circle-sort-key", palettes.highlightSortForResults(features));
         for(let prop in highlightProps) {
@@ -180,14 +147,20 @@ export default class LayerManager {
         }
     }
 
-    filterResults(features = []) {
-        const map = this._vue.$map;
-        map.setFilter('events-circles', ["in", ["get", "id"], ["literal", features]])
-        map.setFilter('event-hit-layer', ["in", ["get", "id"], ["literal", features]])
+    filterResultsById(features = []) {
+        const eventFilter = ["in", ["get", "id"], ["literal", features]]
+        this.filterEvents(eventFilter)
+    }
+
+    filterEvents(filter) {
+        this._vue.$store.commit('setEventFilters', filter)
+        this._vue.$map.setFilter('events-circles', filter)
+        this._vue.$map.setFilter('event-hit-layer', filter)
     }
 
     clearFilter() {
         const map = this._vue.$map
+        this._vue.$store.commit('setEventFilters', null)
         map.setFilter('events-circles', null)
         map.setFilter('event-hit-layer', null)
     }
@@ -198,10 +171,12 @@ export default class LayerManager {
         let day = this._vue.$store.getters.getDay
         let month = this._vue.$store.getters.getMonth
 
-        map.addSource('events-source', {
-            'type': 'geojson',
-            'data': result
-        });
+        if (!map.getSource('events-source')) {
+            map.addSource('events-source', {
+                'type': 'geojson',
+                'data': result
+            });
+        }
 
         if (beforeLayer) {
             map.addLayer(layers.eventLayer, beforeLayer);

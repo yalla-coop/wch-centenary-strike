@@ -169,7 +169,7 @@ export default {
         if(this.searchResults.length > 0) {
           this.$store.commit('setSearchInputColor', 'white')
           this.$layerManager.clearCircleFeatureStyling()
-          this.$layerManager.filterResults(this.searchResults.map((r) => {return r.id;}))
+          this.$layerManager.filterResultsById(this.searchResults.map((r) => {return r.id;}))
           this.zoomToSearchResults()
         } else {
           this.$layerManager.clearCircleFeatureStyling()

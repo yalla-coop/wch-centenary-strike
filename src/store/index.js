@@ -10,11 +10,14 @@ export default createStore({
     day: null,
     month: null,
     infoPanelExpanded: false,
+    nativeLandsLayerAvailable: false,
+    nativeLandsLayerVisible: false,
     searchInputColor: 'white',
     searchLoading: false,
     searchText: '',
     advancedSearchExpanded: false,
     advancedSearchExpandedOnLoad: false,
+    eventFilters: null,
     filtersActive: false,
     navMenuExpanded: false,
     featureCollection: {
@@ -30,7 +33,10 @@ export default createStore({
   },
   mutations: {
     resetSelection(state) { state.selectedLngLat = [] },
+    setEventFilters(state, val) { state.eventFilters = val },
     setFiltersActive(state, val) { state.filtersActive = val },
+    setNativeLandsLayerVisible(state, val) { state.nativeLandsLayerVisible = val },
+    setNativeLandsLayerAvailable(state, val) { state.nativeLandsLayerAvailable = val },
     setSearchInputColor(state, val) { state.searchInputColor = val },
     setSearchLoading(state, val) { state.searchLoading = val },
     setSearchText(state, val) { state.searchText = val },
@@ -58,10 +64,16 @@ export default createStore({
   actions: {
     toggleAdvancedSearchExpanded({commit, state}) {
       commit('setAdvancedSearchExpanded', !state.advancedSearchExpanded)
+    },
+    toggleNativeLandsLayerVisible({commit, state}) {
+      commit('setNativeLandsLayerVisible', !state.nativeLandsLayerVisible)
     }
   },
   getters: {
     getFiltersActive(state) { return state.filtersActive },
+    getEventFilters(state) { return state.eventFilters },
+    getNativeLandsLayerVisible(state) { return state.nativeLandsLayerVisible },
+    getNativeLandsLayerAvailable(state) { return state.nativeLandsLayerAvailable },
     getSearchInputColor(state) { return state.searchInputColor },
     getSearchLoading(state) { return state.searchLoading },
     getSearchText(state) { return state.searchText },

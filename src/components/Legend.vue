@@ -19,7 +19,7 @@
       </li>
     </ul>
     <v-divider></v-divider>
-    <v-card-text>
+    <v-card-text v-show="this.store.getters.getNativeLandsLayerAvailable">
       Additional layers
       <v-divider></v-divider>
       <v-chip-group
@@ -27,15 +27,12 @@
         active-class="blue accent-4 white--text"
         column
       >
-        <span v-for="layer in legendLayers" :key="layer['layer-id']">
-          <v-chip style="margin: 0 auto" :disabled="toggleDisabled" @click="toggleLayer(layer)">
-            {{ layer["legend-display"] }}
-          </v-chip>
-          <div class="legend-note"
-            v-if="layer['legend-note']"
-            v-html="layer['legend-note']"
-          ></div>
-        </span>
+        <v-chip style="margin: 0 auto" @click="toggleNativeLands()">
+          Native Lands
+        </v-chip>
+        <div class="legend-note">
+             <a target='_blank' href='https://native-land.ca/'>Learn more</a
+        ></div>
       </v-chip-group>
     </v-card-text>
   </v-card>
@@ -43,7 +40,6 @@
 
 <script>
 import mainConfig from '../config/mainConfig.json';
-import { EventBus } from '../js/DataManagement/EventBus.js';
 export default {
   // eslint-disable-next-line
   name: "Legend",
@@ -51,33 +47,18 @@ export default {
   data: function () {
     return {
       toggledLayer: "",
-      toggleDisabled: true
     };
-  },
-  mounted() {
-    this.mobileOnMounted = window.innerHeight > window.innerWidth;
-    EventBus.$on('enable-toggled-layers', () => { this.toggleDisabled = false })
   },
   computed: {
     legendItems: function () {
       return mainConfig['legend-items']
-    },
-    legendLayers: function () {
-      return mainConfig["toggleable-layers"];
     },
     legendVisible() {
       return !(window.innerHeight > window.innerWidth && this.store.getters.getInfoPanelExpanded);
     },
   },
   methods: {
-    toggleLayer: function (_layer) {
-      if (_layer) {
-        this.layerManager.toggleLayer(_layer["layer-id"]);
-        if (_layer.labels) {
-          this.layerManager.toggleLayer(_layer["layer-id"] + "-labels");
-        }
-      }
-    },
+    toggleNativeLands: function() { this.layerManager.toggleNativeLands() },
   },
 };
 </script>

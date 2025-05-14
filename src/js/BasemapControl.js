@@ -13,11 +13,11 @@ export default class BasemapControl {
             <b>Choose a basemap:</b> 
             <ul class="list-unstyled">
                 <li><span class="radio">
-                    <label class="basemap"><input type="radio" id="street-style" checked name="basemap" value="StreetMap"> Street Map </label>
+                    <label class="basemap"><input type="radio" id="WCH_MAIN_BASE" checked name="basemap" value="StreetMap"> Street Map </label>
                     </span>
                 </li>
                 <li><span class="radio">
-                    <label class="basemap"><input type="radio" id="satellite-style" name="basemap" value="SatelliteImagery"> Satellite </label>
+                    <label class="basemap"><input type="radio" id="WCH_Sat" name="basemap" value="SatelliteImagery"> Satellite </label>
                     </span>
                 </li>
             </ul>
@@ -28,10 +28,9 @@ export default class BasemapControl {
 
         for (const input of inputs) {
             input.onclick = (layer) => {
-                let appliedFilter = this._vue.$map.getLayer('events-circles').filter // Get filters for re-init
+                if(layer.target.id === this._vue.$map.getStyle().name) { return }
                 const newStyle = mainConfig[layer.target.id];
                 this._vue.$map.setStyle(newStyle);
-                EventBus.$emit("switch-base", appliedFilter);
             };
         }
         return this._container;

@@ -49,25 +49,11 @@ export default {
     map.addControl(new mapboxgl.NavigationControl(), "bottom-right");
     map.once("idle", () => {
       this.showApp()
-      self.initLayers();
+      this.$layerManager.addNativeLandsLayer()
     });
 
-    map.on("moveend", () => {
-      const url = new URL(location.href);
-     // console.log(navigator.userAgent.includes('safari'));
-      if (url.hash.includes("##") && !navigator.userAgent.includes('safari')) {
-      //  const newHref = location.href.replace(/(?<=#).*?(?=&)/g, "");
-       // window.history.replaceState({}, "", newHref.replace("##","#"));
-      }
-    });
-
-    map.on("mousemove", () => {
-      map.getCanvas().style.cursor = "crosshair";
-    });
-
-    map.on("mouseout", () => {
-      map.getCanvas().style.cursor = "";
-    });
+    map.on("mousemove", () => map.getCanvas().style.cursor = "crosshair");
+    map.on("mouseout", () => map.getCanvas().style.cursor = "");
 
     map.on("click", (e) => {
       const features = map.queryRenderedFeatures(e.point, {
@@ -116,35 +102,22 @@ export default {
       }
     });
 
-    EventBus.$on("switch-base", (appliedFilter) => {
-      // Set timeout due to known mapbox issue where style load event not reliable
-      // https://github.com/mapbox/mapbox-gl-js/issues/8691
-      setTimeout( () => {
-        this.initLayers(true, appliedFilter)
-        if(this.$store.getters.getSelectedEventId > 0){
-          this.$layerManager.styleCircleSelection([this.$store.getters.getSelectedEventId]);
-        }
-      }, 1000);
+    map.on('style.load', () => {
+      this.initLayers()
+      if(this.$store.getters.getSelectedEventId > 0){
+        this.$layerManager.styleCircleSelection([this.$store.getters.getSelectedEventId]);
+      }
     });
   },
   methods: {
-    initLayers(reinitialize = false, appliedFilter = null) {
+    initLayers() {
       //HC
-      this.$layerManager.addLayerToMap({
-        type: "baserow",
-        map: this.map,
-        sizeLimit: 150,
-        style: styleConfig["baserow-markers"],
-        reinitialize: reinitialize,
-        appliedFilter: appliedFilter
-      });
-
-      this.$layerManager.initToggledLayers(this.map);
-      let self = this;
+      this.$layerManager.addBaserowToMap()
+      this.$layerManager.addNativeLandsLayer();
 
       if (!this.legendControl) {
         this.legendControl = new LegendControl(this.$.appContext.app.config.globalProperties);
-        self.map.addControl(this.legendControl, "bottom-left");
+        this.map.addControl(this.legendControl, "bottom-left");
       }
     }
   },

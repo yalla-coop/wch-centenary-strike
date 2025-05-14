@@ -37,45 +37,53 @@ export const eventHitLayer = {
   }
 }
 
-export const geoJsonLayer = (id, sourceId) => {
-  return {
-    'id': id,
-    'type': 'fill',
-    'source': sourceId, // reference the data source
-    'layout': {
-      'visibility': 'none'
+export const nativeLandsTerritories = {
+    id: 'native-lands-territories',
+    type: 'fill',
+    source: 'native-lands',
+    'source-layer': '4pgB_next_nld_terr_prod_source_layer',
+    layout: {
+      visibility: 'none'
     },
-    'paint': {
-      'fill-color': ["case",
-        ['==', ["length", ['get', 'color']], 7],
-        ['get', 'color'],
-        '#00ffff'],
-      'fill-opacity': 0.25
+    paint: {
+      'fill-opacity': 0.25,
+      'fill-outline-color': "hsla(0, 0%, 0%, 0.44)",
+      'fill-color': ['get', 'color'],
     }
-  }
 }
 
-export const geoJsonLabelLayer = (id) => {
-  return {
-    'id': id + '-labels',
-    'type': 'symbol',
-    'source': id + '-labels-source',
-    'layout': {
-      // get the title name from the source's "title" property
-      'text-field': ['get', 'name'],
-      'text-font': [
-        'Open Sans Semibold',
-        'Arial Unicode MS Bold'
+export const nativeLandsTerritoriesText = {
+    id: 'native-lands-territories-text',
+    type: 'symbol',
+    source: 'native-lands',
+    "source-layer": '4pgB_next_nld_terr_prod_source_layer',
+    layout: {
+      visibility: 'none',
+      'text-field': [
+        "case",
+        [
+          "in",
+          "Osage",
+          ["to-string", ["get", "Name"]]
+        ],
+        "Osage",
+        ["to-string", ["get", "Name"]]
       ],
-      'text-offset': [0, 1.25],
-      'text-anchor': 'top',
-      'text-size': 10,
-      'visibility': 'none'
+      'text-size': [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        0, 10, 22, 18
+      ]
     },
-    'paint': {
-      'text-halo-width': .5,
-      'text-halo-color': 'black',
-      'text-color': 'white'
+    paint: {
+      "text-opacity": [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        0, 0, 1, 1
+      ],
+      'text-halo-color': 'white',
+      'text-color': '#e3e3e3',
     }
-  }
 }

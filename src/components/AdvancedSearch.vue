@@ -199,7 +199,7 @@ export default {
         this.$store.commit('setFiltersActive', true)
         EventBus.$emit('clear-results-and-search')
         let featureIdsToFilter = this.getFeatureIdsMatchingFilters()
-        this.$layerManager.filterResults(featureIdsToFilter)
+        this.$layerManager.filterResultsById(featureIdsToFilter)
       } else {
         this.$store.commit('setFiltersActive', false)
         this.$layerManager.clearFilter()

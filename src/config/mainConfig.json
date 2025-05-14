@@ -34,22 +34,9 @@
     "preserveDrawingBuffer": true,
     "antialias": true
   },
-  "satellite-style":"mapbox://styles/workingclasshistory/cl1551xsr000q15o12t1ssc39",
-  "street-style":"mapbox://styles/workingclasshistory/cl0im7k3c000y14lrxp7s82oi",
+  "WCH_Sat":"mapbox://styles/workingclasshistory/cl1551xsr000q15o12t1ssc39",
+  "WCH_MAIN_BASE":"mapbox://styles/workingclasshistory/cl0im7k3c000y14lrxp7s82oi",
   "map-logos": [],
-  "toggleable-layers": [
-    {
-      "type":"geojson-remote",
-      "url":"https://native-land.ca/wp-json/nativeland/v1/api/index.php?maps=territories&key=vKXC7iYzXKBSWdad0fLbY",
-      "layer-id": "native-lands",
-      "legend-display": "Native Lands",
-      "legend-note":"<a target='_blank' href='https://native-land.ca/'>Learn more</a",
-      "on-load-event": null,
-      "tag": "native-lands",
-      "labels": true,
-      "active": true
-    }
-  ],
   "legend-items":[
     {
       "display":"exact-location",
