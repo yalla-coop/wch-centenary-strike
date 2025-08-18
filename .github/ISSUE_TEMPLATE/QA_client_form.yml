@@ -1,0 +1,78 @@
+name: "🧑‍💻 Client Quality Assurance - Report an issue"
+description: File a bug report or suggest a new idea
+labels: ["client QA"]
+assignees:
+  - egasparini
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report! 
+  - type: dropdown
+    id: device
+    attributes:
+      label: Device
+      description: What device were you using when you encountered this issue?
+      options:
+        - MacBook
+        - iPhone
+        - iPad
+        - Windows Laptop
+        - Android Phone
+    validations:
+      required: true
+  - type: dropdown
+    id: browser
+    attributes:
+      label: What browsers are you seeing the problem on?
+      multiple: true
+      options:
+        - Firefox
+        - Chrome
+        - Safari
+        - Microsoft Edge
+  - type: dropdown
+    id: issue_type
+    attributes:
+      label: What kind of issue is it?
+      multiple: true
+      options:
+        - Backlog / New idea
+        - Bug 
+        - Copy
+        - Design (e.g. Font, Images, User Flow)
+        - Email
+        - Question
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      multiple: false
+      options:
+        - High
+        - Medium
+        - Low
+  - type: dropdown
+    id: user_type
+    attributes:
+      label: User Type
+      multiple: false
+      options:
+        - Not logged in
+        - Logged in Admin
+        - Logged in Trainer
+        - Logged in Local Lead
+  - type: textarea
+    id: description
+    attributes:
+      label: "Please describe your issue & include screenshots:"
+      description: "What were you trying to do, what happened and what did you expect to happen? Make sure you include a screenshot or loom video to make it easier for us to troubleshoot. In case of a new idea or a question, what's on your mind? "
+    validations:
+      required: true
+  - type: input
+    id: URL
+    attributes:
+      label: Page URL
+      description: Please provide the relevant URL
+    validations:
+        required: false
