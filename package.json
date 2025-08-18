@@ -1,15 +1,15 @@
 {
-  "name": "wch",
+  "name": "wch-centenary-strike",
   "version": "0.1.0",
   "private": true,
-  "scripts": {
-    "serve": "VUE_APP_ENV=DEV vue-cli-service serve",
-    "serve-prod": "VUE_APP_ENV=PROD&&vue-cli-service serve",
-    "serve-https": "vue-cli-service serve --https",
-    "build": "VUE_APP_ENV=PROD&&vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "deploy": "node deploy/gh-pages-deploy.js"
-  },
+"scripts": {
+  "serve": "set VUE_APP_ENV=DEV && vue-cli-service serve",
+  "serve-prod": "set VUE_APP_ENV=PROD && vue-cli-service serve",
+  "serve-https": "vue-cli-service serve --https",
+  "build": "set VUE_APP_ENV=PROD && vue-cli-service build",
+  "lint": "vue-cli-service lint",
+  "deploy": "node deploy/gh-pages-deploy.js"
+},
   "dependencies": {
     "@mapbox/mapbox-gl-geocoder": "^5.0.0",
     "@turf/center-of-mass": "^6.5.0",
