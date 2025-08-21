@@ -15,8 +15,6 @@ export default createStore({
     searchInputColor: 'white',
     searchLoading: false,
     searchText: '',
-    advancedSearchExpanded: false,
-    advancedSearchExpandedOnLoad: false,
     eventFilters: null,
     filtersActive: false,
     navMenuExpanded: false,
@@ -46,8 +44,6 @@ export default createStore({
     setSelectedLngLat(state, val) { state.selectedLngLat = val },
     setInfoPanelExpanded(state, val) { state.infoPanelExpanded = val },
     setNavMenuExpanded(state, val) { state.navMenuExpanded = val },
-    setAdvancedSearchExpanded(state, val) { state.advancedSearchExpanded = val },
-    setAdvancedSearchExpandedOnLoad(state, val) { state.advancedSearchExpandedOnLoad = val },
 
     setMobile(state) {
       let md = new MobileDetect(window.navigator.userAgent);
@@ -62,9 +58,7 @@ export default createStore({
     }
   },
   actions: {
-    toggleAdvancedSearchExpanded({commit, state}) {
-      commit('setAdvancedSearchExpanded', !state.advancedSearchExpanded)
-    },
+ 
     toggleNativeLandsLayerVisible({commit, state}) {
       commit('setNativeLandsLayerVisible', !state.nativeLandsLayerVisible)
     }
@@ -77,8 +71,7 @@ export default createStore({
     getSearchInputColor(state) { return state.searchInputColor },
     getSearchLoading(state) { return state.searchLoading },
     getSearchText(state) { return state.searchText },
-    getAdvancedSearchExpanded(state) { return state.advancedSearchExpanded },
-    getAdvancedSearchExpandedOnLoad(state) { return state.advancedSearchExpandedOnLoad },
+  
     getInfoPanelExpanded(state) { return state.infoPanelExpanded },
     getNavMenuExpanded(state) { return state.navMenuExpanded },
     getSelectedEventId(state) { return state.selectedEventId },

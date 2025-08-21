@@ -28,7 +28,7 @@
         <path d="M1 10.5H21" :stroke="styleConfig().colors.yellow.primary" stroke-linecap="round"></path>
       </svg>
     </div>
-    <AdvancedSearch />
+
     <SideNav />
     <v-container fluid class="pa-0 blue lighten-5">
       <v-row class="ma-0">
@@ -61,7 +61,6 @@ import Map from "./components/Map.vue";
 import InfoPanel from "./components/InfoPanel.vue";
 import MainFooter from "./components/MainFooter.vue";
 import SideNav from "./components/SideNav.vue";
-import AdvancedSearch from './components/AdvancedSearch.vue';
 import styleConfig from './config/styleConfig.json';
 import mainConfig from './config/mainConfig.json';
 import LayerManager from "./js/LayerManager.js";
@@ -72,7 +71,7 @@ import { getAllTagsForCategory } from './js/baserow/api.js';
 export default {
   name: "App",
   components: {
-    AdvancedSearch,
+    
     // eslint-disable-next-line
     Map,
     InfoPanel,
@@ -101,8 +100,7 @@ export default {
       this.$store.commit("setDay", +day);
       this.$store.commit("setMonth", +month);
       this.$store.commit('setFiltersActive', true)
-      this.$store.commit('setAdvancedSearchExpanded', true)
-      this.$store.commit('setAdvancedSearchExpandedOnLoad', true)
+
     }
     if( location.hash.includes("#%26map=") ) {
       let eventQuery = +location.search.split("?event=")[1]
@@ -227,9 +225,7 @@ export default {
   font-family: 'Roboto', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 .portrait {
-  #advancedSearchNav {
-    width: 80% !important;
-  }
+
   #main-map {
     position: absolute;
     left: 0;
@@ -302,9 +298,7 @@ export default {
     display: none;
   }
 }
-#advancedSearchNav {
-  width: 30% !important;
-}
+
 a.wch-menu-logo.outer.lower {
   display: none;
   position: absolute;
@@ -321,7 +315,7 @@ a.wch-menu-logo.outer.upper {
   display: none;
 }
 .embed {
-  #advancedSearchNav,
+
   #searchControl,
   .side-nav-container,
   .mapboxgl-ctrl-bottom-left,
@@ -359,7 +353,7 @@ a.wch-menu-logo.outer.upper {
   }
 }
 .mobile-embed {
-  #advancedSearchNav,
+
   #searchControl,
   .side-nav-container,
   .mapboxgl-ctrl-bottom-left,
@@ -391,6 +385,7 @@ a.wch-menu-logo.outer.upper {
     }
   }
 }
+
 </style>
 <style lang="scss" scoped>
 .panel-toggle {
@@ -468,9 +463,7 @@ html {
   left: 0;
   opacity: 1;
 }
-#advancedSearchNav {
-  background: black;
-}
+
 html.in-iframe {
   overflow-y: scroll;
 }
@@ -521,5 +514,23 @@ html.in-iframe {
 }
 .mapboxgl-popup-close-button {
   font-size: 32px;
+}
+/* FINAL MOBILE LEGEND FIX - Replace the debug CSS with this */
+@media (max-width: 768px) {
+  /* Override the display:none rules */
+  .mobile-embed .mapboxgl-ctrl-bottom-left,
+  .mobile-embed .legend-title,
+  .mobile-embed .legend-list {
+    display: block !important;
+  }
+  
+  /* Fix the positioning so the legend doesn't get cut off */
+  .mapboxgl-ctrl-bottom-left {
+    bottom: 40px !important; /* Move it up above the footer */
+    max-height: none !important;
+    height: auto !important;
+  }
+  
+  
 }
 </style>

@@ -29,14 +29,7 @@
           </template>
         </v-text-field>
       </v-form>
-      <v-btn
-        size="x-small"
-        @click="this.$store.dispatch('toggleAdvancedSearchExpanded')"
-        id="searchFilters"
-        :class="this.$store.getters.getFiltersActive ? 'active rounded-s-0' : 'rounded-s-0'"
-      >
-        <v-icon icon="mdi-filter" size="x-large"/>
-      </v-btn>
+
     </div>
   </span>
 </template>
