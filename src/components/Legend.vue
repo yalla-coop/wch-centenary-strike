@@ -18,23 +18,7 @@
         <span class="legend-item" :style="item.css"></span>{{ item.text }}
       </li>
     </ul>
-    <v-divider></v-divider>
-    <v-card-text v-show="this.store.getters.getNativeLandsLayerAvailable">
-      Additional layers
-      <v-divider></v-divider>
-      <v-chip-group
-        v-model="toggledLayer"
-        active-class="blue accent-4 white--text"
-        column
-      >
-        <v-chip style="margin: 0 auto" @click="toggleNativeLands()">
-          Native Lands
-        </v-chip>
-        <div class="legend-note">
-             <a target='_blank' href='https://native-land.ca/'>Learn more</a
-        ></div>
-      </v-chip-group>
-    </v-card-text>
+    <!-- Removed Native Lands section per client requirements -->
   </v-card>
 </template>
 
@@ -58,7 +42,7 @@ export default {
     },
   },
   methods: {
-    toggleNativeLands: function() { this.layerManager.toggleNativeLands() },
+    // Removed toggleNativeLands method since Native Lands button is removed
   },
 };
 </script>
@@ -107,7 +91,7 @@ export default {
   }
 }
 .legend-title {
-  font-family: "ZillaSlab";
+  font-family: var(--font-primary, "Inter", "Helvetica Neue", Arial, sans-serif) !important;
   text-transform: initial;
 }
 .legend-note {
