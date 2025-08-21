@@ -8,16 +8,18 @@ export const eventLayer = {
   'paint': {
     'circle-color': [
       'match',
-      ['get', 'geotag'],
-      'exact_location',
-      styleConfig.colors[styleConfig.styles.markerVarying.color["exact-location"]].primary,
-      'near_here',
-      styleConfig.colors[styleConfig.styles.markerVarying.color["near-here"]].primary,
-      "in_this_town_city",
+      ['get', 'geotag'],  // Back to 'geotag' (not 'geotag_info')
+      'exact_location',  // Back to underscore format
+      styleConfig.colors[styleConfig.styles.markerVarying.color["exact_location"]].primary,
+      'near_here',  // Back to underscore format
+      styleConfig.colors[styleConfig.styles.markerVarying.color["near_here"]].primary,
+      "in_this_town_city",  // Back to underscore format
       styleConfig.colors[styleConfig.styles.markerVarying.color["in_this_town_city"]].primary,
-      "in_this_country",
+      "in_this_country",  // Back to underscore format
       styleConfig.colors[styleConfig.styles.markerVarying.color["in_this_country"]].primary,
-      /* other */ '#000000'
+      "place_to_visit",  // Add this new converted value
+      styleConfig.colors[styleConfig.styles.markerVarying.color["in_this_country"]].primary,
+      /* other */ '#000000'  // Keep green for debugging
     ],
     'circle-stroke-width': 2,
     'circle-stroke-color': 'white'

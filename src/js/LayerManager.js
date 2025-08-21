@@ -92,7 +92,7 @@ addBaserowToMap() {
     baserowApi.getCentenaryStrikeEvents({pageNumber: 1, sizeLimit: baserowSizeLimit}).then((resp) => {
         const events = resp.data.results;
         const totalEvents = resp.data.count;
-        
+        console.log('resp.data',resp.data)
         console.log(`Found ${totalEvents} total Centenary Strike events`);
         console.log(`Page 1: Loaded ${events.length} events`);
         

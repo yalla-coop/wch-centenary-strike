@@ -3,12 +3,13 @@
   "styles": {
     "markerVarying": {
       "color": {
-        "exact-location": "yellow",
-        "near-here": "purple",
-        "in_this_country":"grey",
-        "in_this_town_city":"pink"
+         "exact_location": "yellow",
+  "near_here": "purple",
+  "in_this_country": "grey",
+  "in_this_town_city": "pink",
+  "place_to_visit": "grey"
       },
-      "hit-radius":16,
+      "hit-radius": 16,
       "highlightableProps": {
         "circle-radius": {
           "active": 7,
@@ -35,24 +36,28 @@
   },
   "colors": {
     "yellow": {
-      "primary": "#FAD40A",
-      "inactive": "#d5d26f",
-      "mid": "#FEF6CE",
-      "light": "#FEFAE8"
+      "primary": "#DF6E4B",
+      "inactive": "#F4A460",
+      "mid": "#FED7AA",
+      "light": "#FFF7ED"
     },
     "purple": {
-      "primary": "#6013FB",
-      "inactive": "#d2befa",
-      "mid": "#120232",
-      "light": "#FCFBFF"
+      "primary": "#BE864A",
+      "inactive": "#D2B48C",
+      "mid": "#FAF089",
+      "light": "#FEFCBF"
     },
-    "pink":{
-      "primary": "#CC0066",
-      "inactive": "#CC9999"
+    "grey": {
+      "primary": "#EF1E35",
+      "inactive": "#F87171",
+      "mid": "#FEE2E2",
+      "light": "#FEF2F2"
     },
-    "grey":{
-      "primary": "#999",
-      "inactive": "#CCC"
+    "pink": {
+      "primary": "#EBB68E",
+      "inactive": "#F5DEB3",
+      "mid": "#FAEBD7",
+      "light": "#FFF8DC"
     }
   }
 }

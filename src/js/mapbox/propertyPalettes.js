@@ -1,22 +1,24 @@
 import styleConfig from '../../config/styleConfig.json';
 
-const exactLocationColor = styleConfig.colors[styleConfig.styles.markerVarying.color["exact-location"]];
-const nearLocationColor = styleConfig.colors[styleConfig.styles.markerVarying.color["near-here"]];
+const exactLocationColor = styleConfig.colors[styleConfig.styles.markerVarying.color["exact_location"]];
+const nearLocationColor = styleConfig.colors[styleConfig.styles.markerVarying.color["near_here"]];
 const cityColor = styleConfig.colors[styleConfig.styles.markerVarying.color["in_this_town_city"]];
 const countryColor = styleConfig.colors[styleConfig.styles.markerVarying.color["in_this_country"]];
 
 export const defaultColorsForGeotag = [
   'match',
-  ['get', 'geotag'],
-  'exact_location',
+  ['get', 'geotag'],  // Back to 'geotag'
+  'exact_location',  // Back to underscore format
   exactLocationColor.primary,
-  'near_here',
+  'near_here',  // Back to underscore format
   nearLocationColor.primary,
-  "in_this_town_city",
+  "in_this_town_city",  // Back to underscore format
   cityColor.primary,
-  "in_this_country",
+  "in_this_country",  // Back to underscore format
   countryColor.primary,
-  '#000000'
+  "place_to_visit",  // Add this converted value
+  countryColor.primary,
+  '#000000'  // Keep green for debugging
 ];
 
 /**
@@ -29,28 +31,32 @@ export const highlightedColorsForFeatures = (features = []) => {
    "case",
    ["in", ["get", "id"], ["literal", features]],
    ['match',
-     ['get', 'geotag'],
-     'exact_location',
+     ['get', 'geotag'],  // Back to 'geotag'
+     'exact_location',  // Back to underscore format
      exactLocationColor.primary,
-     'near_here',
+     'near_here',  // Back to underscore format
      nearLocationColor.primary,
-     "in_this_town_city",
+     "in_this_town_city",  // Back to underscore format
      cityColor.primary,
-     "in_this_country",
+     "in_this_country",  // Back to underscore format
      countryColor.primary,
-     '#000000'
+     "place_to_visit",  // Add this converted value
+     countryColor.primary,
+     '#00FF00'  // Green for debugging
    ],
    ['match',
-     ['get', 'geotag'],
-     'exact_location',
+     ['get', 'geotag'],  // Back to 'geotag'
+     'exact_location',  // Back to underscore format
      exactLocationColor.inactive,
-     'near_here',
+     'near_here',  // Back to underscore format
      nearLocationColor.inactive,
-     "in_this_town_city",
+     "in_this_town_city",  // Back to underscore format
      cityColor.inactive,
-     "in_this_country",
+     "in_this_country",  // Back to underscore format
      countryColor.inactive,
-     '#000000'
+     "place_to_visit",  // Add this converted value
+     countryColor.inactive,
+     '#00FF00'  // Green for debugging
    ]
  ]
 };
@@ -80,6 +86,3 @@ export const highlightSortForResults = (featureIds) => {
     0,
   ]
 }
-
-
-

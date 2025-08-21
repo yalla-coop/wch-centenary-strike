@@ -21,7 +21,7 @@ module.exports = {
     config
       .plugin('html')
       .tap(args => {
-        args[0].title = "WCH Map";
+        args[0].title = "Centenary of the 1926 British General Strike Map";
         return args;
       })
   }

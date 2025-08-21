@@ -3,7 +3,7 @@
     "styles": {
         "markerVarying": { //Used for styling the pins on the map itself
             "color": {
-                "exact-location": "yellow", //References the color name in "colors" below
+                "exact_location": "yellow", //References the color name in "colors" below
                 "near-here": "purple"
             },
             "hit-radius":16, //Radius of circles as rendered is too small to register clicks, esp. on mobile. This is an extra invisible layer that JUST receives clicks/taps

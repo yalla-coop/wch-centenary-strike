@@ -5,7 +5,7 @@
         <div style="position: fixed; top: 0; width: 100%; z-index: 9; color: white; margin: 20px 0;">
           Loading...
         </div>
-        <img style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 25%;" src="assets/wch_logo.webp" alt="">
+        <img style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 25%;" src="assets/wch-centenary-strike-logo.webp" alt="">
       </div>
     </div>
     <div

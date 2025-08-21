@@ -38,35 +38,11 @@
   "WCH_MAIN_BASE":"mapbox://styles/workingclasshistory/cl0im7k3c000y14lrxp7s82oi",
   "map-logos": [],
   "legend-items":[
-    {
-      "display":"exact-location",
+     {
+      "display":"exact_location",
       "text": "Exact location",
       "css":{
-        "backgroundColor": "#FAD40A",
-        "width": "12px",
-        "height": "12px",
-        "border-radius":"50%",
-        "border":"2px solid white",
-        "cursor":"pointer"
-      }
-    },
-    {
-      "display":"near-here",
-      "text": "Near here",
-      "css":{
-        "backgroundColor": "#6013FB",
-        "width": "12px",
-        "height": "12px",
-        "border-radius":"50%",
-        "border":"2px solid white",
-        "cursor":"pointer"
-      }
-    },
-    {
-      "display":"in-this-town-city",
-      "text": "In this town/city",
-      "css":{
-        "backgroundColor": "#CC0066",
+        "backgroundColor": "#DF6E4B",
         "width": "12px",
         "height": "12px",
         "border-radius":"50%",
@@ -78,7 +54,32 @@
       "display":"in-this-country",
       "text": "In this country",
       "css":{
-        "backgroundColor": "#999",
+        "backgroundColor": "#EF1E35",
+        "width": "12px",
+        "height": "12px",
+        "border-radius":"50%",
+        "border":"2px solid white",
+        "cursor":"pointer"
+      }
+    },
+   
+    {
+      "display":"near-here",
+      "text": "Near here",
+      "css":{
+        "backgroundColor": "#BE864A",
+        "width": "12px",
+        "height": "12px",
+        "border-radius":"50%",
+        "border":"2px solid white",
+        "cursor":"pointer"
+      }
+    },
+    {
+      "display":"in-this-town-city",
+      "text": "In this town/city",
+      "css":{
+        "backgroundColor": "#EBB68E",
         "width": "12px",
         "height": "12px",
         "border-radius":"50%",
