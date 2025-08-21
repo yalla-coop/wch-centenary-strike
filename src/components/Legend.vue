@@ -77,7 +77,7 @@ export default {
   border: none;
   border-radius: 0 !important;
   .v-card-title {
-    background: #fad40a;
+    background: #DF6E4B;
     color: black;
     padding: 0 5%;
     padding-left: 12px;

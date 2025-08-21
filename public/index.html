@@ -35,6 +35,54 @@
         text-align: center;
         font-family: 'Roboto', sans-serif !important;
     }
+    :root {
+  /* Exact Figma Brand Colors */
+  --brand-red: #EF1E35;           /* Primary Place to visit */
+  --brand-orange: #DF6E4B;        /* Exact location */
+  --brand-brown: #BE864A;         /* Near here */
+  --brand-pink: #EBB68E;          /* In this town / city */
+  --brand-black: #020202;         /* Black */
+  --brand-white: #FCFAFA;         /* White */
+  
+  /* Typography (if you want font updates) */
+  --font-headers: 'Helvetica Neue', 'Helvetica Neue Condensed', 'Helvetica', 'Arial Narrow', 'Arial', sans-serif;
+  --font-body: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
+}
+
+/* Update body background to brand white */
+body {
+  background-color: var(--brand-white) !important;
+  color: var(--brand-black);
+}
+
+/* Update error message to brand red */
+#error-message {
+  color: var(--brand-red) !important;
+}
+
+/* Typography updates (optional) */
+h1, h2, h3, h4, h5, h6, .title {
+  font-family: var(--font-primary) !important;
+  color: var(--brand-black) !important;
+}
+
+.title .year {
+  color: var(--brand-red) !important;
+}
+h1, h2, h3, h4, h5, h6,
+.title,
+.legend-title,
+.text-h1, .text-h2, .text-h3, .text-h4, .text-h5, .text-h6 {
+  font-family: var(--font-headers) !important;
+  font-weight: 500;
+}
+
+/* Body - Gill Sans Light */
+body, .v-application,
+p, div, span, li, .v-btn {
+  font-family: var(--font-body) !important;
+  font-weight: 300;
+}
   </style>
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-TEV3H4VCZW"></script>

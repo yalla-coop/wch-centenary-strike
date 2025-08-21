@@ -7,7 +7,14 @@
 .side-legend-container{
   display: none !important;
 }
-
+:root {
+  --brand-red: #EF1E35;
+  --brand-orange: #DF6E4B;
+  --brand-brown: #BE864A;
+  --brand-pink: #EBB68E;
+  --brand-black: #020202;
+  --brand-white: #FCFAFA;
+}
  #print-container .side-content-container{
    display: block !important;
  }

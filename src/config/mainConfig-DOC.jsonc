@@ -39,7 +39,7 @@
 	"map-logos": [], //Empty, could add logos to the map itself
 	"legend-items":[ //Styling and text for how things appear in the legend
 		{
-			"display":"exact-location",
+			"display":"exact_location",
 			"text": "Exact location",
 			"css":{
 				"backgroundColor": "#FAD40A",
