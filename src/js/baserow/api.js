@@ -58,6 +58,55 @@ export const getEvents = (options) => {
     headers: { Authorization: `Token ${mainConfig.api.keys.baserow}` }
   })
 }
+
+
+/**
+ * Get events specifically for the Centenary Strike Map
+ * Uses the correct tag ID (8429) for "1926 general strike"
+ * 
+ * @param options
+ * @param options.pageNumber
+ * @param options.sizeLimit
+ * @param options.filter
+ * 
+ * @return {Promise<CacheAxiosResponse<any, any>>}
+ */
+export const getCentenaryStrikeEvents = (options = {}) => {
+  let url = `${articlesTable}/?user_field_names=true${defaultFilters}`
+  
+  // Filter by the specific tag ID for "1926 general strike"
+  url += `&filter__tags__link_row_has=8429`
+  
+  url += options.pageNumber ? `&page=${options.pageNumber}` : ''
+  url += options.sizeLimit ? `&size=${options.sizeLimit}` : ''
+  url += options.filter ? `&${options.filter}` : ''
+  url += `&include=title,geotag_info,year,month,day,latitude,longitude,status,tags`
+  
+  return axios({
+    method: "GET",
+    url: url,
+    headers: { Authorization: `Token ${mainConfig.api.keys.baserow}` }
+  })
+}
+
+/**
+ * Get event count for Centenary Strike Map
+ */
+export const getCentenaryStrikeEventCount = (options = {}) => {
+  let url = `${articlesTable}/?page=1&size=1${defaultFilters}`
+  
+  // IMPORTANT: Add the SAME filter as in getCentenaryStrikeEvents
+  url += `&filter__tags__link_row_has=8429`
+  
+  url += options.filter ? `&${options.filter}` : ''
+
+  return axios({
+    method: "GET",
+    url: url,
+    headers: { Authorization: `Token ${mainConfig.api.keys.baserow}` }
+  })
+}
+
 /**
  *
  * @return {Promise<CacheAxiosResponse<any, any>>}

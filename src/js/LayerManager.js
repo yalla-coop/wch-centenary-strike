@@ -54,67 +54,96 @@ export default class LayerManager {
         this._vue.$store.dispatch('toggleNativeLandsLayerVisible')
     }
 
-    addBaserowToMap() {
-        const beforeLayer = styleConfig["layer-placement"]["events"];
-        const map = this._vue.$map;
-        const store = this._vue.$store;
-        const baserowSizeLimit = 150;
 
-        if(store.getters.getEventFilters) {
-            this.addCircleLayer(beforeLayer, store.getters.getEventFilters)
-            return
-        }
+addBaserowToMap() {
+    const beforeLayer = styleConfig["layer-placement"]["events"];
+    const map = this._vue.$map;
+    const store = this._vue.$store;
+    const baserowSizeLimit = 150;
 
+    if(store.getters.getEventFilters) {
+        this.addCircleLayer(beforeLayer, store.getters.getEventFilters)
+        return
+    }
+
+    if (!map.getSource('events-source')) {
+        this.addCircleLayer(beforeLayer);
+    } else {
+        map.getSource('events-source').setData(store.getters.getFeatureCollection)
+    }
+
+    if(store.getters.getFeatureCollection.features.length > 0) { return; }
+
+    // Initial load of data:
+    // If there's a selected event load it first on its own before loading all the rest
+    if (store.getters.getSelectedEventId > 0) {
+        baserowApi.getEvent(store.getters.getSelectedEventId).then((resp) => {
+            const event = [resp.data];
+            this.addEventsToFeatureCollection(event, true)
+            this.styleCircleSelection([store.getters.getSelectedEventId]);
+        })
+    }
+
+    // SIMPLIFIED APPROACH: Since we know there are only ~10 Centenary Strike events,
+    // we can load them all in one or two requests instead of using the count
+    console.log('Loading Centenary Strike Map events...');
+    
+    // Load first page to see how many events we actually have
+    baserowApi.getCentenaryStrikeEvents({pageNumber: 1, sizeLimit: baserowSizeLimit}).then((resp) => {
+        const events = resp.data.results;
+        const totalEvents = resp.data.count;
+        
+        console.log(`Found ${totalEvents} total Centenary Strike events`);
+        console.log(`Page 1: Loaded ${events.length} events`);
+        
+        // Add events from first page
+        this.addEventsToFeatureCollection(events, false);
+        
         if (!map.getSource('events-source')) {
             this.addCircleLayer(beforeLayer);
         } else {
             map.getSource('events-source').setData(store.getters.getFeatureCollection)
         }
-
-        if(store.getters.getFeatureCollection.features.length > 0) { return; }
-
-        // Initial load of data:
-        // If there's a selected event load it first on its own before loading all the rest
-        if (store.getters.getSelectedEventId > 0) {
-            baserowApi.getEvent(store.getters.getSelectedEventId).then((resp) => {
-                const event = [resp.data];
-                this.addEventsToFeatureCollection(event, true)
-                this.styleCircleSelection([store.getters.getSelectedEventId]);
-            })
+        
+        if(store.getters.getSelectedEventId > 0){
+            this.styleCircleSelection([store.getters.getSelectedEventId]);
         }
 
-        baserowApi.getEventCount({}).then((resp) => {
-            const totalResponsesExpected = resp.data.count;
-            const requestsNeeded = Math.ceil(totalResponsesExpected / baserowSizeLimit);
-
-            for (let reqNum = 0; reqNum < requestsNeeded; reqNum++) {
-                baserowApi.getEvents({pageNumber: reqNum + 1, sizeLimit: baserowSizeLimit}).then((resp) => {
-                    const events = resp.data.results;
-                    this.addEventsToFeatureCollection(events, false)
-
-                    if (!map.getSource('events-source')) {
-                        this.addCircleLayer(beforeLayer);
-
-                    } else {
-                        map.getSource('events-source').setData(store.getters.getFeatureCollection)
-                    }
-                    if(store.getters.getSelectedEventId > 0){
-                        this.styleCircleSelection([store.getters.getSelectedEventId]);
-                    }
-
-                    this.eventsLoaded += resp.data.results.length;
-
-                    if (reqNum >= requestsNeeded) {
-                        this.eventsLoaded = 0;
-                    }
-                }).catch(e => {
-                    this.eventsLoaded = 0;
-                    console.error(e);
-                });
+        // Only load additional pages if we have more events than the page size
+        if (totalEvents > baserowSizeLimit) {
+            const requestsNeeded = Math.ceil(totalEvents / baserowSizeLimit);
+            console.log(`Loading ${requestsNeeded - 1} additional pages...`);
+            
+            // Load remaining pages with delay to avoid rate limiting
+            for (let reqNum = 1; reqNum < requestsNeeded; reqNum++) {
+                setTimeout(() => {
+                    baserowApi.getCentenaryStrikeEvents({pageNumber: reqNum + 1, sizeLimit: baserowSizeLimit}).then((resp) => {
+                        const additionalEvents = resp.data.results;
+                        console.log(`Page ${reqNum + 1}: Loaded ${additionalEvents.length} events`);
+                        
+                        if (additionalEvents.length > 0) {
+                            this.addEventsToFeatureCollection(additionalEvents, false);
+                            map.getSource('events-source').setData(store.getters.getFeatureCollection);
+                        }
+                        
+                        if(store.getters.getSelectedEventId > 0){
+                            this.styleCircleSelection([store.getters.getSelectedEventId]);
+                        }
+                    }).catch(e => {
+                        console.error(`Error loading page ${reqNum + 1}:`, e);
+                    });
+                }, reqNum * 1000); // 1 second delay between requests
             }
-            EventBus.$emit('events-load-enqueued')
-        });
-    }
+        }
+        
+        console.log(`Finished loading Centenary Strike Map. Total events: ${store.getters.getFeatureCollection.features.length}`);
+        EventBus.$emit('events-load-enqueued');
+        
+    }).catch(e => {
+        console.error('Error loading Centenary Strike events:', e);
+    });
+}
+   
 
     clearCircleFeatureStyling() {
         const map = this._vue.$map;
