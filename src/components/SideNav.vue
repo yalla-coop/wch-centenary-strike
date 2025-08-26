@@ -1,419 +1,216 @@
 <template>
-  <div class="ma-0 pa-0 side-nav-container">
-    <v-navigation-drawer v-if="showMenu" dark class="nav-drawer" permanent absolute>
-      <a class="wch-menu-logo outer lower" @click="resetView()"
-        >
-        <svg
-  width="86"
-  height="86"
-  viewBox="0 0 86 86"
-  fill="none"
-  xmlns="http://www.w3.org/2000/svg"
-  style="margin-bottom: 5%"
->
-  <!-- Background -->
-  <rect width="86" height="86" fill="#DF6E4B"/>
-
-  <!-- Big "100" -->
-  <text
-    x="43"
-    y="50"
-    font-size="36"
-    font-weight="900"
-    text-anchor="middle"
-    fill="black"
-    font-family="Arial, Helvetica, sans-serif"
-  >
-    100
-  </text>
-
-  <!-- Red bars -->
-  <rect x="10" y="30" width="66" height="7" fill="#E10600"/>
-  <rect x="10" y="40" width="66" height="7" fill="#E10600"/>
-
-  <!-- "GENERAL" text -->
-  <text
-    x="43"
-    y="36"
-    font-size="7"
-    font-weight="600"
-    text-anchor="middle"
-    fill="white"
-    font-family="Arial, Helvetica, sans-serif"
-    letter-spacing="2"
-  >
-    GENERAL
-  </text>
-
-  <!-- "STRIKE" text -->
-  <text
-    x="43"
-    y="46"
-    font-size="7"
-    font-weight="600"
-    text-anchor="middle"
-    fill="white"
-    font-family="Arial, Helvetica, sans-serif"
-    letter-spacing="2"
-  >
-    STRIKE
-  </text>
-
-  <!-- "1926–2026" -->
-  <text
-    x="43"
-    y="72"
-    font-size="9"
-    text-anchor="middle"
-    fill="black"
-    font-family="Arial, Helvetica, sans-serif"
-    letter-spacing="1.5"
-  >
-    1926–2026
-  </text>
-</svg>
-
-</a>
-      <div class="ant-layout-sider-children">
-        <div class="css-19iid9s">
-          <a class="wch-menu-logo upper" @click="resetView()"
-            >
-           <svg
-  width="86"
-  height="86"
-  viewBox="0 0 86 86"
-  fill="none"
-  xmlns="http://www.w3.org/2000/svg"
-  style="margin-bottom: 5%"
->
-  <!-- Background -->
-  <rect width="86" height="86" fill="#DF6E4B"/>
-
-  <!-- Big "100" -->
-  <text
-    x="43"
-    y="50"
-    font-size="36"
-    font-weight="900"
-    text-anchor="middle"
-    fill="black"
-    font-family="Arial, Helvetica, sans-serif"
-  >
-    100
-  </text>
-
-  <!-- Red bars -->
-  <rect x="10" y="30" width="66" height="7" fill="#E10600"/>
-  <rect x="10" y="40" width="66" height="7" fill="#E10600"/>
-
-  <!-- "GENERAL" text -->
-  <text
-    x="43"
-    y="36"
-    font-size="7"
-    font-weight="600"
-    text-anchor="middle"
-    fill="white"
-    font-family="Arial, Helvetica, sans-serif"
-    letter-spacing="2"
-  >
-    GENERAL
-  </text>
-
-  <!-- "STRIKE" text -->
-  <text
-    x="43"
-    y="46"
-    font-size="7"
-    font-weight="600"
-    text-anchor="middle"
-    fill="white"
-    font-family="Arial, Helvetica, sans-serif"
-    letter-spacing="2"
-  >
-    STRIKE
-  </text>
-
-  <!-- "1926–2026" -->
-  <text
-    x="43"
-    y="72"
-    font-size="9"
-    text-anchor="middle"
-    fill="black"
-    font-family="Arial, Helvetica, sans-serif"
-    letter-spacing="1.5"
-  >
-    1926–2026
-  </text>
-</svg>
-
-          </a>
-          <div class="menu-mobile-close-btn" @click="hideMobileMenu()">
-            <svg
-  width="86"
-  height="86"
-  viewBox="0 0 86 86"
-  fill="none"
-  xmlns="http://www.w3.org/2000/svg"
-  style="margin-bottom: 5%"
->
-  <!-- Big "100" -->
-  <text
-    x="43"
-    y="50"
-    font-size="36"
-    font-weight="900"
-    text-anchor="middle"
-    fill="black"
-    font-family="Arial, Helvetica, sans-serif"
-  >
-    100
-  </text>
-
-  <!-- Red bars -->
-  <rect x="10" y="30" width="66" height="7" fill="#E10600"/>
-  <rect x="10" y="40" width="66" height="7" fill="#E10600"/>
-
-  <!-- "GENERAL" text -->
-  <text
-    x="43"
-    y="36"
-    font-size="7"
-    font-weight="600"
-    text-anchor="middle"
-    fill="white"
-    font-family="Arial, Helvetica, sans-serif"
-    letter-spacing="2"
-  >
-    GENERAL
-  </text>
-
-  <!-- "STRIKE" text -->
-  <text
-    x="43"
-    y="46"
-    font-size="7"
-    font-weight="600"
-    text-anchor="middle"
-    fill="white"
-    font-family="Arial, Helvetica, sans-serif"
-    letter-spacing="2"
-  >
-    STRIKE
-  </text>
-
-  <!-- "1926–2026" -->
-  <text
-    x="43"
-    y="72"
-    font-size="9"
-    text-anchor="middle"
-    fill="black"
-    font-family="Arial, Helvetica, sans-serif"
-    letter-spacing="1.5"
-  >
-    1926–2026
-  </text>
-</svg>
-
-          </div>
-          <h3 class="ant-typography css-16shlwq" weight="bold" mb="1" mt="2">
-            Menu
-          </h3>
-          <div class="list-container">
-            <a class="css-1xqwpqk" :href="`${this.$baseurl}/stories`"
-              ><div
-                class="ant-typography css-107d6n4"
-                weight="regular"
-                color="neutral"
-              >
-                Stories
-              </div></a
-            >
-            <!-- <a class="css-1xqwpqk" href="/index"
-              ><div
-                class="ant-typography css-107d6n4"
-                weight="regular"
-                color="neutral"
-              >
-                Index
-              </div></a
-            > -->
-            <a
-              target="_blank"
-              class="css-1xqwpqk"
-              href="https://workingclasshistory.com/podcast/"
-              ><div
-                class="ant-typography css-107d6n4"
-                weight="regular"
-                color="neutral"
-              >
-                Podcast
-              </div></a
-            ><a
-              target="_blank"
-              class="css-1xqwpqk"
-              href="https://shop.workingclasshistory.com/pages/sign-up"
-              ><div
-                class="ant-typography css-107d6n4"
-                weight="regular"
-                color="neutral"
-              >
-                Sign Up
-              </div></a
-            ><a
-              target="_blank"
-              class="css-1xqwpqk"
-              href="https://workingclasshistory.com/support/"
-              ><div
-                class="ant-typography css-107d6n4"
-                weight="regular"
-                color="neutral"
-              >
-                Support Us
-              </div></a
-            ><a
-              target="_blank"
-              class="css-1xqwpqk"
-              href="https://shop.workingclasshistory.com/"
-              ><div
-                class="ant-typography css-107d6n4"
-                weight="regular"
-                color="neutral"
-              >
-                Shop
-              </div></a
-            ><a
-              target="_blank"
-              class="css-1xqwpqk"
-              href="https://workingclasshistory.com/"
-              ><div
-                class="ant-typography css-107d6n4"
-                weight="regular"
-                color="neutral"
-              >
-                WCH Home
-              </div></a
-            >
-          </div>
-        </div>
-      </div>
-    </v-navigation-drawer>
+  <div class="left-controls-container">
+    <div class="logo-container">
+      <a class="logo-link" @click="resetView()">
+        <img 
+          src="/assets/wch-centenary-strike-logo.webp" 
+          alt="100 General Strike Logo" 
+          class="logo-image"
+        />
+      </a>
+    </div>
+    <!-- Basemap control will be inserted here by JavaScript -->
   </div>
 </template>
+
 <script>
 import { EventBus } from "../js/DataManagement/EventBus";
-import { getOrientation } from '../js/helpers/orientationHelpers.js';
+
 export default {
-  name: "SideNav",
-  data() {
-    return {
-      expanded: false,
-      orientation: "landscape",
-    };
-  },
-  mounted() {
-    this.orientation = getOrientation();
-    let self = this;
-    window.addEventListener("resize", () => {
-      self.orientation = getOrientation();
-    });
-    EventBus.$on("open-main-menu", () => {
-      self.expanded = true;
-      EventBus.$emit("force-info-close");
-    });
-  },
+  name: "LogoNav",
   methods: {
-    hideMobileMenu() {
-      EventBus.$emit("close-main-menu");
-      this.$store.commit('setNavMenuExpanded', false);
-      this.expanded = false;
-    },
     resetView() {
       this.$store.commit("setSelectedEventId", -1);
       this.$map.flyTo({
-        center: [0,0],
+        center: [0, 0],
         zoom: 2,
-        essential: true
+        essential: true,
       });
       EventBus.$emit("reset-info-panel");
-      EventBus.$emit('clear-filters')
-      this.hideMobileMenu();
-    }
-  },
-  computed: {
-    showMenu() {
-      return (
-        (this.expanded && this.orientation === "portrait") ||
-        this.orientation === "landscape"
-      );
+      EventBus.$emit("clear-filters");
     },
   },
 };
 </script>
+
 <style lang="scss">
-.nav-drawer {
-  max-height: fit-content;
-  background-color: black !important;
-  position: absolute;
-}
-.wch-menu-logo {
-  cursor: pointer;
-}
-.list-container {
-  a {
-    font-family: Roboto, sans-serif;
-    text-decoration: none;
-    color: white;
-  }
-  .ant-typography {
-    font-family: Roboto, sans-serif;
-    text-decoration: none;
-    color: white;
-  }
-}
-.side-nav-container {
-  position: absolute;
+/* Container for left-side controls using flexbox */
+.left-controls-container {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 1000;
   display: flex;
-  min-height: 100vh;
-  flex-direction: row;
-  z-index: 3;
-  font-family: "ZillaSlab";
-  width: 160px;
-  max-width: 15%;
-  nav {
-    min-width: 160px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px; /* Reduced from 16px to 8px */
+}
+
+/* Logo container */
+.logo-container {
+  background-color: rgba(0, 0, 0, 0.8);
+  /* border-radius: 12px; */ /* Removed border radius */
+  padding: 12px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+    transform: scale(1.05);
   }
 }
-.ant-typography {
-  font-family: "ZillaSlab";
+
+.logo-link {
+  display: block;
+  cursor: pointer;
+  text-decoration: none;
 }
-.ant-layout-sider-children {
-  a {
+
+.logo-image {
+  width: 60px;
+  height: auto;
+  object-fit: contain;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
+}
+
+/* Basemap control styling when moved to flex container */
+.basemap-control-container {
+  background-color: rgba(0, 0, 0, 0.8) !important;
+  /* border-radius: 12px !important; */ /* Removed border radius */
+  padding: 12px !important;
+  backdrop-filter: blur(10px) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+  transition: all 0.3s ease !important;
+  margin: 0 !important;
+  position: static !important;
+  
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.9) !important;
+  }
+
+  .large-control {
+    margin: 0;
+
+    b {
+      color: white;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: block;
+    }
+  }
+
+  ul {
+    margin: 8px 0 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    margin: 6px 0;
+    padding: 0;
+  }
+
+  .radio {
+    display: block;
+  }
+
+  label.basemap {
     color: white;
+    font-size: 13px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 4px 0;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #ccc;
+    }
   }
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  --antd-wave-shadow-color: #1890ff;
-  --scroll-bar: 0;
-  text-size-adjust: 100%;
-  color: white;
-  font-size: 14px;
-  font-variant: tabular-nums;
-  line-height: 1.5715;
-  font-feature-settings: "tnum", "tnum";
-  font-family: "Zilla Slab", serif;
-  overflow-wrap: break-word;
-  margin: 0 auto;
-  text-align: left;
-  padding: 25%;
-  box-sizing: inherit;
-  position: relative;
-  transition: all 0.2s;
-  background: transparent;
-  flex: 0 0 20.416vw;
-  max-width: 20.416vw;
-  min-width: 20.416vw;
-  width: 20.416vw;
+
+  input[type="radio"] {
+    margin-right: 8px;
+    margin-top: 0;
+    cursor: pointer;
+    
+    /* Custom radio button styling */
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    position: relative;
+    
+    &:checked {
+      border-color: #EF1E35;
+      background-color: #EF1E35;
+    }
+    
+    &:checked::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 6px;
+      height: 6px;
+      background-color: white;
+      border-radius: 50%;
+    }
+    
+    &:hover {
+      border-color: #EF1E35;
+    }
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .left-controls-container {
+    top: 15px;
+    left: 15px;
+    gap: 6px; /* Reduced gap for mobile */
+  }
+  
+  .logo-container {
+    padding: 10px !important;
+  }
+  
+  /* Hide basemap control on mobile */
+  .basemap-control-container {
+    display: none !important;
+  }
+  
+  .logo-image {
+    width: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  .left-controls-container {
+    top: 10px;
+    left: 10px;
+    gap: 4px; /* Even smaller gap for small mobile */
+  }
+  
+  .logo-container {
+    padding: 8px !important;
+  }
+  
+  /* Keep basemap control hidden on small mobile */
+  .basemap-control-container {
+    display: none !important;
+  }
+  
+  .logo-image {
+    width: 40px;
+  }
 }
 </style>

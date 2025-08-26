@@ -1,9 +1,11 @@
 import { EventBus } from './DataManagement/EventBus';
 import mainConfig from '../config/mainConfig.json'
+
 export default class BasemapControl {
     constructor(map) {
         this._vue = map;
     }
+    
     onAdd(map) {
         this._map = map;
         this._container = document.createElement('div');
@@ -33,6 +35,7 @@ export default class BasemapControl {
                 this._vue.$map.setStyle(newStyle);
             };
         }
+        
         return this._container;
     }
 

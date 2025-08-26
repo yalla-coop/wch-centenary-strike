@@ -1,5 +1,5 @@
 <template>
-  <v-footer color="rgb(18, 2, 50)"
+  <v-footer color=" #020202"
     ><nav
       class="jetpack-social-navigation jetpack-social-navigation-genericons"
       aria-label="Social Links Menu"
@@ -17,8 +17,8 @@
           >
             <a
               rel="noopener"
-              href="http://instagram.com/workingclasshistory"
-              onclick="javascript:window.open('http://instagram.com/workingclasshistory'); return false;"
+              href="https://www.instagram.com/generalstrike100"
+              onclick="javascript:window.open('https://www.instagram.com/generalstrike100'); return false;"
               ><v-icon dark color="white" class="icon-class">mdi-instagram</v-icon></a
             >
           </li>
@@ -33,117 +33,10 @@
           >
             <a
               rel="noopener"
-              href="https://www.facebook.com/workingclasshistory/"
-              onclick="javascript:window.open('https://www.facebook.com/workingclasshistory/'); return false;"
+              href="https://www.facebook.com/profile.php?id=61579978164935"
+              onclick="javascript:window.open('https://www.facebook.com/profile.php?id=61579978164935'); return false;"
               ><v-icon dark color="white" class="icon-class">mdi-facebook</v-icon></a
             >
-          </li>
-          <li
-            id="menu-item-26"
-            class="
-              menu-item
-              menu-item-type-custom
-              menu-item-object-custom
-              menu-item-26
-            "
-          >
-            <a
-              rel="noopener"
-              href="http://twitter.com/wrkclasshistory"
-              onclick="javascript:window.open('http://twitter.com/wrkclasshistory'); return false;"
-              ><v-icon dark color="white" class="icon-class">mdi-twitter</v-icon></a
-            >
-          </li>
-          <li
-            id="menu-item-34"
-            class="
-              menu-item
-              menu-item-type-custom
-              menu-item-object-custom
-              menu-item-34
-            "
-          >
-            <a
-              rel="noopener"
-              href="https://open.spotify.com/show/3dqQUrBAmXgoU1Q6hcUnBX"
-              onclick="javascript:window.open('https://open.spotify.com/show/3dqQUrBAmXgoU1Q6hcUnBX'); return false;"
-              ><v-icon dark color="white" class="icon-class">mdi-spotify</v-icon></a
-            >
-          </li>
-          <li
-            id="menu-item-54"
-            class="
-              menu-item
-              menu-item-type-custom
-              menu-item-object-custom
-              menu-item-54
-            "
-          >
-            <a
-              rel="noopener"
-              href="https://workingclasshistory.tumblr.com/"
-              onclick="javascript:window.open('https://workingclasshistory.tumblr.com/'); return false;"
-            >
-              <img
-                width="25px"
-                class="v-icon v-icon"
-                src="assets/icons/ico_tumblr.svg"
-                alt="tumblr"
-              />
-            </a>
-          </li>
-          <li
-            id="menu-item-28"
-            class="
-              menu-item
-              menu-item-type-custom
-              menu-item-object-custom
-              menu-item-28
-            "
-          >
-            <a
-              rel="noopener"
-              href="https://www.youtube.com/c/workingclasshistory"
-              onclick="javascript:window.open('https://www.youtube.com/c/workingclasshistory'); return false;"
-              ><v-icon dark color="white" class="icon-class">mdi-youtube</v-icon></a
-            >
-          </li>
-          <li
-            id="menu-item-1297"
-            class="
-              menu-item
-              menu-item-type-custom
-              menu-item-object-custom
-              menu-item-1297
-            "
-          >
-            <a
-              href="https://mastodon.social/@workingclasshistory"
-              onclick="javascript:window.open('https://mastodon.social/@workingclasshistory'); return false;"
-              ><v-icon dark color="white" class="icon-class">mdi-mastodon</v-icon></a
-            >
-          </li>
-          <li
-            id="menu-item-54"
-            class="
-              menu-item
-              menu-item-type-custom
-              menu-item-object-custom
-              menu-item-54
-            "
-          >
-            <a
-              rel="noopener"
-              href="https://tiktok.com/@workingclasshistory"
-              onclick="javascript:window.open('https://tiktok.com/@workingclasshistory/'); return false;"
-            >
-              <img
-                width="22px"
-                class="v-icon v-icon"
-                src="assets/icons/ico_tiktok.svg"
-                alt="tumblr"
-              />
-            </a>
           </li>
         </ul>
       </div>
@@ -165,8 +58,8 @@ export default {
 <style lang="scss">
 .v-footer {
   z-index: 9;
-  background-color: rgb(18, 2, 50);
-  border-color: rgb(18, 2, 50);
+  background-color: #020202; /* Changed from rgb(18, 2, 50) */
+  border-color: #020202;
 }
 #aboutIcon {
   color: lightgray;

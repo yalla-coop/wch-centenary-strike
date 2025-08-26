@@ -11,30 +11,31 @@
       <v-icon icon="mdi-information-slab-circle-outline" v-bind="props"></v-icon>
     </template>
     <v-card>
-      <v-toolbar dark color="#FAD40A">
+      <v-toolbar dark color="#DF6E4B">
         <v-btn icon dark @click="aboutMapExpanded = false">
           <v-icon>mdi-close</v-icon>
         </v-btn>
         <v-toolbar-title>
-          <h3 style="font-family: 'ZillaSlab'; font-size: 24px">
-            About this map
+          <h3 style="font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif; font-size: 24px">
+            General Strike 100
           </h3>
         </v-toolbar-title>
       </v-toolbar>
       <v-card-text>
         <p>
-          We have been able to develop this Map and Stories app thanks to generous support from our backers on
-          <a href="https://patreon.com/workingclasshistory">patreon</a>, and some fantastic people who contributed to a
-          GoFundMe campaign. With our GoFundMe we attempted to raise $8000 to cover the cost of the development of these
-          apps. We were able to raise approximately $3000, and so there remains a significant shortfall. We also plan to
-          continue rolling out significant improvements to the apps over time. Running and maintaining these new apps also
-          means increased costs for us every month on an ongoing basis. So if you can, please consider supporting us on
-          <a href="https://patreon.com/workingclasshistory">patreon</a> or giving us a
-          <a href="https://workingclasshistory.com/support">one-off donation</a> to help cover our costs.
+          National museums, libraries, archives, and history groups are collaborating together to celebrate the 100th anniversary of the General Strike of 1926.
         </p>
         <p>
-          If you are interested in collaborating with us and contributing data for the map, or if you spot any errors,
-          please email us at <a href="mailto: info@workingclasshistory.com">info@workingclasshistory.com</a>.
+          In partnership with the trade union and wider labour movement, our project aims to develop an interactive map of sites for public visitation throughout 2026. This may include details of a specific exhibition, an educational event, or a unique collection to explore, all part of our rich history of the General Strike.
+        </p>
+        <p>
+          Accompanying the interactive website, we plan to distribute a printed passport, encouraging public participation in visiting these sites and collecting stamps from each organisation they visit. This will provide discounts on related merchandise and foster a desire to visit as many sites as possible throughout the year.
+        </p>
+        <p>
+          We are seeking donations from organisations and individuals to help us cover costs, <a href="https://bit.ly/GeneralStrike100" target="_blank">click here</a> to support this project.
+        </p>
+        <p>
+          If you want to get involved in the partnership, please contact <a href="mailto:campaigns@gftu.org.uk">campaigns@gftu.org.uk</a>.
         </p>
       </v-card-text>
       <v-card-actions class="justify-end">
@@ -78,18 +79,26 @@ export default {
       text-align: left;
       .v-toolbar-title {
         font-weight: bold;
+        font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif !important;
       }
     }
     .v-card-text {
       p {
-        padding-bottom: 0.5em
+        padding-bottom: 0.5em;
+        font-family: 'Source Sans 3', 'Gill Sans', Calibri, sans-serif;
+        line-height: 1.5;
       }
     }
   }
   a {
-    color: darkgrey;
+    color: #BE864A; /* Updated to brand brown color */
     text-decoration: none;
     padding: 2px;
+    
+    &:hover {
+      color: #DF6E4B; /* Brand orange on hover */
+      text-decoration: underline;
+    }
   }
 }
 </style>
