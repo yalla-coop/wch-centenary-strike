@@ -44,7 +44,20 @@ export default {
       });
     });
 
+    // Add basemap control and move it to the flex container
     this.map.addControl(new BasemapControl(this), "top-left");
+    
+    // Wait a moment for the control to be added, then move it
+    this.$nextTick(() => {
+      setTimeout(() => {
+        const basemapElement = document.querySelector('.basemap-control-container');
+        const container = document.querySelector('.left-controls-container');
+        if (basemapElement && container) {
+          container.appendChild(basemapElement);
+        }
+      }, 100);
+    });
+
     map.addControl(new mapboxgl.ScaleControl(), "bottom-right");
     map.addControl(new mapboxgl.NavigationControl(), "bottom-right");
     map.once("idle", () => {
@@ -142,9 +155,6 @@ export default {
 .mapboxgl-ctrl-bottom-right {
   pointer-events: auto;
 }
-
-/* raven
-exl and touring */
 </style>
 <style lang="scss">
 .mapboxgl-ctrl-top-left {
@@ -194,14 +204,6 @@ exl and touring */
 }
 .third-party-container {
   transform: translate(-100px, -15px);
-}
-.basemap-control-container {
-  color: white;
-  padding: 5px;
-  background: black;
-  ul {
-    list-style: none;
-  }
 }
 .mapboxgl-ctrl-bottom-right {
   .mapboxgl-ctrl-attrib-inner {
