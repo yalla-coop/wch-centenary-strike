@@ -93,6 +93,7 @@ export default {
 .legend-title {
   font-family: var(--font-primary, "Inter", "Helvetica Neue", Arial, sans-serif) !important;
   text-transform: initial;
+  color: #FCFAFA !important;
 }
 .legend-note {
   text-align: center;

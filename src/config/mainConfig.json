@@ -24,10 +24,10 @@
     "container": "main-map",
     "style": "mapbox://styles/workingclasshistory/cl0im7k3c000y14lrxp7s82oi",
     "center": [
-      0,
-      0
+      -3.4,
+      54.8
     ],
-    "zoom": 2,
+    "zoom": 3,
     "hash": "map",
     "logoPosition": "bottom-right",
     "attributionControl": true,
