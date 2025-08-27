@@ -19,7 +19,7 @@
               rel="noopener"
               href="https://www.instagram.com/generalstrike100"
               onclick="javascript:window.open('https://www.instagram.com/generalstrike100'); return false;"
-              ><v-icon dark color="white" class="icon-class">mdi-instagram</v-icon></a
+              ><v-icon dark color="white" class="icon-class" size="24">mdi-instagram</v-icon></a
             >
           </li>
           <li
@@ -35,7 +35,7 @@
               rel="noopener"
               href="https://www.facebook.com/profile.php?id=61579978164935"
               onclick="javascript:window.open('https://www.facebook.com/profile.php?id=61579978164935'); return false;"
-              ><v-icon dark color="white" class="icon-class">mdi-facebook</v-icon></a
+              ><v-icon dark color="white" class="icon-class" size="24">mdi-facebook</v-icon></a
             >
           </li>
         </ul>
@@ -58,20 +58,27 @@ export default {
 <style lang="scss">
 .v-footer {
   z-index: 9;
-  background-color: #020202; /* Changed from rgb(18, 2, 50) */
-  border-color: #020202;
+  background-color: #DF6E4B; 
+  border-color: #DF6E4B;
 }
 #aboutIcon {
-  color: lightgray;
+  color: white;
   text-decoration: none;
   padding: 2px;
   right: 5px;
   position: absolute;
   font-size: 0.75em;
   a {
-    color: lightgray;
+    color: white;
     text-decoration: none;
     padding: 2px;
+  }
+  
+  // Ensure AboutMap icons are also 24x24
+  .v-icon {
+    font-size: 24px !important;
+    width: 24px;
+    height: 24px;
   }
 }
 </style>

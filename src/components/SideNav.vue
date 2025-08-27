@@ -37,28 +37,26 @@ export default {
 /* Container for left-side controls using flexbox */
 .left-controls-container {
   position: fixed;
-  top: 10px;
-  left: 10px;
+  top: 0;
+  left: 0;
+  bottom: 217px; /* Increased space for legend - adjust based on your legend height */
   z-index: 1000;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 8px; /* Reduced from 16px to 8px */
+  align-items: center; /* Center content horizontally */
+  justify-content: flex-start; /* Keep content at the top */
+  padding-top: 20px; /* Add some top padding */
+  gap: 8px;
+  width: 160px; /* Fixed width for desktop */
+  background-color: #020202; /* Desktop background */
 }
 
 /* Logo container */
 .logo-container {
-  background-color: rgba(0, 0, 0, 0.8);
-  /* border-radius: 12px; */ /* Removed border radius */
+  background-color: rgba(255, 255, 255, 1);
   padding: 12px;
   backdrop-filter: blur(10px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
-
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.9);
-    transform: scale(1.05);
-  }
 }
 
 .logo-link {
@@ -68,21 +66,14 @@ export default {
 }
 
 .logo-image {
-  width: 60px;
-  height: auto;
+  width: 90px;
+  height: 90px;
   object-fit: contain;
-  transition: all 0.3s ease;
-  
-  &:hover {
-    opacity: 0.8;
-    transform: scale(1.1);
-  }
 }
 
 /* Basemap control styling when moved to flex container */
 .basemap-control-container {
   background-color: rgba(0, 0, 0, 0.8) !important;
-  /* border-radius: 12px !important; */ /* Removed border radius */
   padding: 12px !important;
   backdrop-filter: blur(10px) !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
@@ -174,43 +165,43 @@ export default {
 /* Responsive design */
 @media (max-width: 768px) {
   .left-controls-container {
-    top: 15px;
-    left: 15px;
-    gap: 6px; /* Reduced gap for mobile */
+    /* Mobile: simple floating logo only */
+
+    bottom: auto; /* Remove bottom constraint */
+    width: auto; /* Remove fixed width */
+    background-color: transparent; /* Remove background color */
+    gap: 0; /* Remove gap */
+    padding-top: 0; /* Remove padding */
   }
   
   .logo-container {
-    padding: 10px !important;
+    padding: 8px !important;
+    background-color: rgba(255, 255, 255, 1); /* Keep white background for logo */
   }
   
-  /* Hide basemap control on mobile */
+  /* Hide basemap control on mobile completely */
   .basemap-control-container {
     display: none !important;
   }
   
   .logo-image {
-    width: 50px;
+    width: 60px; /* Smaller logo for mobile */
+    height: 60px;
   }
 }
 
 @media (max-width: 480px) {
   .left-controls-container {
-    top: 10px;
-    left: 10px;
-    gap: 4px; /* Even smaller gap for small mobile */
+    gap: 4px;
   }
   
   .logo-container {
     padding: 8px !important;
   }
   
-  /* Keep basemap control hidden on small mobile */
-  .basemap-control-container {
-    display: none !important;
-  }
-  
   .logo-image {
     width: 40px;
+    height: 40px;
   }
 }
 </style>
