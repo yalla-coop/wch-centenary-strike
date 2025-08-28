@@ -22,8 +22,11 @@ export default {
     resetView() {
       this.$store.commit("setSelectedEventId", -1);
       this.$map.flyTo({
-        center: [0, 0],
-        zoom: 2,
+        "center": [
+      -3.4,
+      54.8
+    ],
+    "zoom": 3,
         essential: true,
       });
       EventBus.$emit("reset-info-panel");

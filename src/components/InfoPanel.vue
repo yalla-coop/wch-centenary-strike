@@ -4,7 +4,7 @@
       <div id="results">
         <div v-if="panelDisplay() === 'intro'">
           <h3 style="font-family: 'ZillaSlab'; font-size: 24px">
-            Working Class History | Map
+            General Strike 100 | Map
           </h3>
           <br>
           <p>History isn't made by kings and politicians, it is made by us: billions of ordinary people.</p>

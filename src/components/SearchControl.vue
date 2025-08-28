@@ -23,7 +23,7 @@
           <template v-slot:loader>
             <v-progress-linear
                 :active="this.$store.getters.getSearchLoading"
-                color="#FAD40A"
+                color="#DF6E4B"
                 indeterminate
             />
           </template>
