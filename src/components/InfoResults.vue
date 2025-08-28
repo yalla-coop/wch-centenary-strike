@@ -54,10 +54,10 @@ export default {
 #search-results {
   border-radius: 0;
   h3 {
-    background: #FAD40A;
+    background: #DF6E4B;
     text-align: center;
     padding: 5px;
-    font-family: "ZillaSlab";
+color: #FCFAFA;
   }
   .v-list-item {
     border-bottom: 1px solid #d1d0d0;

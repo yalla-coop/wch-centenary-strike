@@ -12,14 +12,14 @@ export default class BasemapControl {
         this._container.className = 'mapboxgl-ctrl basemap-control-container';
         this._container.innerHTML = `
         <div class="large-control">
-            <b>Choose a basemap:</b> 
-            <ul class="list-unstyled">
+            <b style="font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif; color: #FCFAFA;">Choose a basemap:</b> 
+            <ul class="list-unstyled" style="font-family: 'Source Sans 3', 'Gill Sans', Calibri, sans-serif;">
                 <li><span class="radio">
-                    <label class="basemap"><input type="radio" id="WCH_MAIN_BASE" checked name="basemap" value="StreetMap"> Street Map </label>
+                    <label class="basemap" style="font-family: 'Source Sans 3', 'Gill Sans', Calibri, sans-serif; color: #FCFAFA;"><input type="radio" id="WCH_MAIN_BASE" checked name="basemap" value="StreetMap"> Street Map </label>
                     </span>
                 </li>
                 <li><span class="radio">
-                    <label class="basemap"><input type="radio" id="WCH_Sat" name="basemap" value="SatelliteImagery"> Satellite </label>
+                    <label class="basemap" style="font-family: 'Source Sans 3', 'Gill Sans', Calibri, sans-serif; color: #FCFAFA;"><input type="radio" id="WCH_Sat" name="basemap" value="SatelliteImagery"> Satellite </label>
                     </span>
                 </li>
             </ul>
