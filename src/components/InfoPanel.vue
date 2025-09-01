@@ -7,11 +7,11 @@
             General Strike 100 | Map
           </h3>
           <br>
-          <p>History isn't made by kings and politicians, it is made by us: billions of ordinary people.</p>
-          <p>This is a map containing our always-growing archive of Stories of our collective struggles to build a better world. To see more information about any of the stories, like Sources, click the "Learn more" link at the bottom of each entry.</p>
-          <p>Use the search box to search by key word or phrase, or click the filter button for advanced search options.</p>
-          <!-- TODO: After #23 -->
-          <p><a href="#" onclick="document.querySelector('#aboutIcon > i').click();event.preventDefault();">Learn more</a></p>
+          <p>National museums, libraries, archives, community groups, and individuals across the UK are marking the centenary of the 1926 General Strike.</p>
+          <p>This map brings together stories, exhibitions, and events to remember the strike and its impact on working people, as well as to highlight how these struggles connect to the present.</p>
+          <p>Use the search box to search by key word or phrase.</p>
+          <!-- Updated Learn more link to use the new method -->
+          <p><a href="#" @click.prevent="openAboutMap">Learn more</a></p>
         </div>
         <div v-if="panelDisplay() === 'results'">
           <div @click="clearResults" class="close-btn">
@@ -147,6 +147,12 @@ export default {
         this.results = [];
         this.loading = false;
       });
+    },
+    // New method to open the full AboutMap dialog
+    openAboutMap() {
+      if (window.openAboutMap) {
+        window.openAboutMap();
+      }
     },
     panelDisplay() {
       if(this.selectedDat.length > 0) {

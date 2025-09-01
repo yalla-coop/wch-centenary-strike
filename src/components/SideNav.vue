@@ -42,8 +42,8 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
-  bottom: 217px; /* Increased space for legend - adjust based on your legend height */
-  z-index: 1000;
+  bottom:50px; /* Increased space for legend - adjust based on your legend height */
+  z-index:1;
   display: flex;
   flex-direction: column;
   align-items: center; /* Center content horizontally */
@@ -56,7 +56,7 @@ export default {
 
 /* Logo container */
 .logo-container {
-  background-color: rgba(255, 255, 255, 1);
+  background-color: black;
   padding: 12px;
   backdrop-filter: blur(10px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
@@ -179,7 +179,7 @@ export default {
   
   .logo-container {
     padding: 8px !important;
-    background-color: rgba(255, 255, 255, 1); /* Keep white background for logo */
+    background-color: black; /* Keep white background for logo */
   }
   
   /* Hide basemap control on mobile completely */

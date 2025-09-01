@@ -36,6 +36,8 @@ export default {
     mapboxgl.accessToken = mainConfig.api.keys["mb-key"];
     this.map = new mapboxgl.Map({...mainConfig.mapConfig, ...this.startLocation});
     let map = (this.$.appContext.app.config.globalProperties.$map = this.map);
+      window.$map = this.map;
+
     let self = this;
     EventBus.$on("toggle-panel", (panelExpanded) => {
       self.mapExpanded = !panelExpanded;
@@ -122,18 +124,43 @@ export default {
       }
     });
   },
-  methods: {
-    initLayers() {
-      //HC
-      this.$layerManager.addBaserowToMap()
-      this.$layerManager.addNativeLandsLayer();
+// In your Map.vue component, replace the debug code with this:
+// In your Map.vue component:
+// In your Map.vue component:
+methods: {
+  initLayers() {
+    this.$layerManager.addBaserowToMap();
+    this.$layerManager.addNativeLandsLayer();
 
-      if (!this.legendControl) {
-        this.legendControl = new LegendControl(this.$.appContext.app.config.globalProperties);
-        this.map.addControl(this.legendControl, "bottom-left");
-      }
+    // Listen for the LayerManager's completion and emit immediately
+    EventBus.$on('events-loaded', () => {
+      this.emitDataToLegend();
+    });
+
+    // Also try multiple times at shorter intervals as backup
+    setTimeout(() => this.emitDataToLegend(), 2000);
+    setTimeout(() => this.emitDataToLegend(), 4000);
+    setTimeout(() => this.emitDataToLegend(), 6000);
+
+    if (!this.legendControl) {
+      this.legendControl = new LegendControl(this.$.appContext.app.config.globalProperties);
+      this.map.addControl(this.legendControl, "bottom-left");
     }
   },
+
+  emitDataToLegend() {
+    const eventsSource = this.map.getSource('events-source');
+    if (eventsSource && eventsSource._data && eventsSource._data.features) {
+      const data = eventsSource._data.features.map(f => f.properties);
+      if (data.length > 0) {
+        console.log('Emitting data to legend immediately:', data.length, 'events');
+        EventBus.$emit('map-data-updated', data);
+        return true; // Successfully emitted
+      }
+    }
+    return false; // No data to emit yet
+  }
+},
   watch: {},
 };
 </script>

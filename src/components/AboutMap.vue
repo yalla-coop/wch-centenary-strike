@@ -91,12 +91,12 @@ export default {
     }
   }
   a {
-    color: #BE864A; /* Updated to brand brown color */
+    color: #EBB68E; /* Updated to brand brown color */
     text-decoration: none;
     padding: 2px;
     
     &:hover {
-      color: #DF6E4B; /* Brand orange on hover */
+      color: #BE864A; /* Brand orange on hover */
       text-decoration: underline;
     }
   }
