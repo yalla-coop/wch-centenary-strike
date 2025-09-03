@@ -49,7 +49,8 @@
         :close-on-content-click="false"
         location="top"
         offset="8"
-        max-width="350px"
+        min-width="400px"
+        max-width="450px"
       >
         <template v-slot:activator="{ props }">
           <v-icon icon="mdi-information-slab-circle-outline" v-bind="props"></v-icon>
@@ -57,15 +58,14 @@
         <v-card color="#020202" class="info-popup-card">
           <v-card-text class="pa-4">
             <div class="d-flex justify-space-between align-start mb-2">
-              <p class="mb-0 text-white flex-grow-1">
+              <p class="mb-0 text-white flex-grow-1 no-wrap-text">
                 Map by 
-              <a href="https://workingclasshistory.com" target="_blank" onclick="javascript:window.open('https://workingclasshistory.com'); return false;">
+                <a href="https://workingclasshistory.com" target="_blank" onclick="javascript:window.open('https://workingclasshistory.com'); return false;">
                   Working Class History
                 </a>
                 and
-               
-                   <a href="https://yalla.coop" target="_blank" onclick="javascript:window.open('https://yalla.coop'); return false;">
-                  Yalla
+                <a href="https://yallacooperative.com" target="_blank" onclick="javascript:window.open('https://yallacooperative.com'); return false;">
+                  Yalla Cooperative
                 </a>
               </p>
               <v-btn 
@@ -79,7 +79,7 @@
                 <v-icon size="14">mdi-close</v-icon>
               </v-btn>
             </div>
-            <p class="mb-0 text-white text-caption">
+            <p class="mb-0 text-white text-caption no-wrap-text">
               with
               <a href="https://github.com/Willjfield"
                  onclick="javascript:window.open('https://github.com/Willjfield'); return false;"
@@ -177,6 +177,20 @@ export default {
       color: #DF6E4B; /* Yellow primary - your main brand orange */
       text-decoration: underline;
     }
+  }
+}
+
+// Responsive text handling
+.responsive-text {
+  // On larger screens, prevent wrapping to keep text on one line
+  @media (min-width: 768px) {
+    white-space: nowrap;
+  }
+  
+  // On small screens, allow normal wrapping
+  @media (max-width: 767px) {
+    white-space: normal;
+    word-wrap: break-word;
   }
 }
 </style>

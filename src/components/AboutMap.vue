@@ -38,18 +38,7 @@
           If you want to get involved in the partnership, please contact <a href="mailto:campaigns@gftu.org.uk">campaigns@gftu.org.uk</a>.
         </p>
       </v-card-text>
-      <v-card-actions class="justify-end">
-        <p>
-          Map by
-          <a href="https://github.com/Willjfield"
-             onclick="javascript:window.open('https://github.com/Willjfield'); return false;"
-          >will field <v-icon dark small class="icon-class">mdi-github</v-icon></a>
-          and
-          <a href="https://github.com/todtb"
-             onclick="javascript:window.open('https://github.com/todtb'); return false;"
-          >brian todt <v-icon dark small class="icon-class">mdi-github</v-icon></a>
-        </p>
-      </v-card-actions>
+   
     </v-card>
   </v-dialog>
 </template>
