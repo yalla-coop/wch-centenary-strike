@@ -57,7 +57,7 @@
         </template>
         <v-card color="#020202" class="info-popup-card">
           <v-card-text class="pa-4">
-            <div class="d-flex justify-space-between align-start mb-2">
+            <div class="d-flex justify-space-between align-start mb-2 responsive-text">
               <p class="mb-0 text-white flex-grow-1 no-wrap-text">
                 Map by 
                 <a href="https://workingclasshistory.com" target="_blank" onclick="javascript:window.open('https://workingclasshistory.com'); return false;">
@@ -160,7 +160,6 @@ export default {
 // Styles for the small info popup
 .info-popup-card {
   .v-card-text {
-    font-family: 'Source Sans 3', 'Gill Sans', Calibri, sans-serif;
     
     p {
       margin-bottom: 8px;

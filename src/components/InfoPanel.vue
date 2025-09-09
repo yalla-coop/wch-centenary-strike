@@ -4,14 +4,25 @@
       <div id="results">
         <div v-if="panelDisplay() === 'intro'">
           <h3 style="font-family: 'ZillaSlab'; font-size: 24px">
-            General Strike 100 | Map
+            General Strike 100
           </h3>
           <br>
           <p>National museums, libraries, archives, community groups, and individuals across the UK are marking the centenary of the 1926 General Strike.</p>
           <p>This map brings together stories, exhibitions, and events to remember the strike and its impact on working people, as well as to highlight how these struggles connect to the present.</p>
-          <p>Use the search box to search by key word or phrase.</p>
-          <!-- Updated Learn more link to use the new method -->
-          <p><a href="#" @click.prevent="openAboutMap">Learn more</a></p>
+          
+          <!-- Static content replacing the popup -->
+          <div class="about-content">
+            
+            <p>In partnership with the trade union and wider labour movement, our project aims to develop an interactive map of sites for public visitation throughout 2026. This may include details of a specific exhibition, an educational event, or a unique collection to explore, all part of our rich history of the General Strike.</p>
+            
+            <p>Accompanying the interactive website, we plan to distribute a printed passport, encouraging public participation in visiting these sites and collecting stamps from each organisation they visit. This will provide discounts on related merchandise and foster a desire to visit as many sites as possible throughout the year.</p>
+            
+            <p>We are seeking donations from organisations and individuals to help us cover costs, <a href="https://bit.ly/GeneralStrike100" target="_blank" class="donate-link">click here </a>to support this project.</p>
+            
+            <p>If you want to get involved in the partnership, please contact <a href="mailto:campaigns@gftu.org.uk" class="contact-link">campaigns@gftu.org.uk</a>.</p>
+          </div>
+                    <p>Use the search box to search by key word or phrase.</p>
+
         </div>
         <div v-if="panelDisplay() === 'results'">
           <div @click="clearResults" class="close-btn">
@@ -148,12 +159,6 @@ export default {
         this.loading = false;
       });
     },
-    // New method to open the full AboutMap dialog
-    openAboutMap() {
-      if (window.openAboutMap) {
-        window.openAboutMap();
-      }
-    },
     panelDisplay() {
       if(this.selectedDat.length > 0) {
         return 'event'
@@ -282,6 +287,42 @@ export default {
   }
   a {
     color: white;
+
+    text-decoration: underline;
+  }
+  .about-content {
+    margin-top: 16px;
+
+  
+    
+    h4 {
+      color: white;
+      font-weight: bold;
+    }
+    
+    .donate-link {
+      color: #EBB68E;
+      font-family: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
+  
+      text-decoration: underline;
+      padding: 2px;
+      
+      &:hover {
+        color: #BE864A;
+      }
+    }
+    
+    .contact-link {
+      color: #EBB68E;
+      font-family: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
+   
+      text-decoration: underline;
+      padding: 2px;
+      
+      &:hover {
+        color: #BE864A;
+      }
+    }
   }
   .hidden {
     display: none;

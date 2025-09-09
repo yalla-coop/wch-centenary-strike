@@ -123,6 +123,8 @@ export const getEventCount = (options) => {
 }
 
 /**
+ * Search events restricted to "1926 general strike" tag only
+ * Excludes global WCH baserow results unless they carry this tag
  *
  * @param searchTerm string
  *
@@ -131,7 +133,7 @@ export const getEventCount = (options) => {
 export const searchEvents = (searchTerm) => {
   return axios({
     method: "GET",
-    url: `${articlesTable}/?user_field_names=true${defaultFilters}&search=${searchTerm}`,
+    url: `${articlesTable}/?user_field_names=true${defaultFilters}&filter__tags__link_row_has=8429&search=${searchTerm}`,
     headers: { Authorization: `Token ${mainConfig.api.keys.baserow}` }
   })
 }

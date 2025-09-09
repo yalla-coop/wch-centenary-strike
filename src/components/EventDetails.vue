@@ -49,7 +49,7 @@
       </li>
     </ul>
     <div class="zoom-to">
-      <a @click=" zoomTo({ lat: event.latitude, lng: event.longitude, })" href="#">
+      <a @click.prevent="zoomTo({ lat: event.latitude, lng: event.longitude, })" href="#">
         <v-icon dark>mdi-magnify</v-icon>
         <span class="list-title">Zoom To</span>
       </a>
@@ -61,8 +61,42 @@
 export default {
   name: 'EventDetails',
   props: ['event', 'zoomTo'],
+  mounted() {
+    // Force apply styles to all links after component mounts
+    this.applyLinkStyles();
+  },
+  updated() {
+    // Reapply styles when content updates (like v-html changes)
+    this.applyLinkStyles();
+  },
   methods: {
-
+    applyLinkStyles() {
+      this.$nextTick(() => {
+        const container = this.$el;
+        if (container) {
+          const links = container.querySelectorAll('a');
+          links.forEach(link => {
+            // Force apply styles directly to each link element
+            link.style.setProperty('font-family', "'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif", 'important');
+            link.style.setProperty('font-weight', '300', 'important');
+            link.style.setProperty('font-size', window.innerWidth >= 768 ? '18px' : '14px', 'important');
+            link.style.setProperty('text-decoration', 'underline', 'important');
+            link.style.setProperty('color', '#EBB68E', 'important');
+            link.style.setProperty('outline', 'none', 'important');
+            link.style.setProperty('background-color', 'transparent', 'important');
+            link.style.setProperty('border', 'none', 'important');
+            
+            // Add hover listeners
+            link.addEventListener('mouseenter', () => {
+              link.style.setProperty('color', '#DF6E4B', 'important');
+            });
+            link.addEventListener('mouseleave', () => {
+              link.style.setProperty('color', '#EBB68E', 'important');
+            });
+          });
+        }
+      });
+    }
   }
 }
 </script>
@@ -102,7 +136,53 @@ export default {
       pointer-events: all;
       text-decoration: none;
       margin-top: 20px;
+      outline: none;
+      
+      &:focus {
+        outline: none;
+      }
+      
+      &:active {
+        outline: none;
+      }
+    }
+  }
+  
+  .info-title.popup-title {
+    font-family: 'Helvetica Neue', 'Helvetica Neue Condensed', 'Helvetica', 'Arial Narrow', 'Arial', sans-serif !important;
+    font-weight: 500 !important;
+    font-size: 24px !important; /* Same as h1/title */
+    line-height: 1.3 !important;
+  }
+  
+  /* Apply consistent hyperlink styling to ALL links */
+  a, a:link, a:visited {
+    font-family: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif !important;
+    font-weight: 300 !important;
+    font-size: 14px !important; /* Mobile base size */
+    text-decoration: underline !important;
+    color: #EBB68E; /* Pink primary - warm, readable color */
+    outline: none !important;
+    
+    &:hover, &:focus {
+            color: #DF6E4B; /* Yellow primary - your main brand orange */
+
+      text-decoration: underline !important;
+      outline: none !important;
+    }
+    
+    &:active {
+      outline: none !important;
     }
   }
 }
+
+/* Responsive typography to match global styles */
+@media (min-width: 768px) {
+  #event-details {
+    /* All text including links scale up on desktop */
+    a, a:link, a:visited {
+      font-size: 18px !important; /* Desktop size */
+    }
+  }}
 </style>

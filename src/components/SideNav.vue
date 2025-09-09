@@ -1,7 +1,13 @@
 <template>
   <div class="left-controls-container">
     <div class="logo-container">
-      <a class="logo-link" @click="resetView()">
+      <a 
+        href="#" 
+        class="logo-link" 
+        @click.prevent="resetView()"
+        role="button"
+        aria-label="Return to homepage and reset map view"
+      >
         <img 
           src="/assets/wch-centenary-strike-logo.webp" 
           alt="100 General Strike Logo" 
@@ -20,17 +26,24 @@ export default {
   name: "LogoNav",
   methods: {
     resetView() {
+      // Reset selected event
       this.$store.commit("setSelectedEventId", -1);
+      
+      // Reset map to original view
       this.$map.flyTo({
-        "center": [
-      -3.4,
-      54.8
-    ],
-    "zoom": 3,
+        "center": [-3.4, 54.8],
+        "zoom": 5,
         essential: true,
       });
+      
+      // Reset info panel to show main intro
       EventBus.$emit("reset-info-panel");
+      
+      // Clear any active filters
       EventBus.$emit("clear-filters");
+      
+      // Update URL to homepage state
+      this.$router.replace({ path: this.$route.path, query: {}, hash: location.hash });
     },
   },
 };
@@ -66,6 +79,15 @@ export default {
   display: block;
   cursor: pointer;
   text-decoration: none;
+  outline: none;
+  
+  &:focus {
+    outline: none;
+  }
+  
+  &:active {
+    outline: none;
+  }
 }
 
 .logo-image {
