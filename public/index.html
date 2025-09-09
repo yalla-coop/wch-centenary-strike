@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="">
-
 <head>
   <script async src="https://unpkg.com/smoothscroll-polyfill/dist/smoothscroll.min.js"></script>
   <meta charset="utf-8">
@@ -14,72 +13,106 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="assets/fonts/cooperhewitt.css">
+  
   <style>
     @font-face {
       font-family: 'ZillaSlab';
       src: url('./assets/fonts/zilla-slab/ZillaSlab-Regular.ttf');
     }
-    body {
-        background-color: black !important;
-    }
-    #error {
-        display: none;
-        margin: 10% auto;
-        text-align: center;
-        font-family: 'Roboto', sans-serif !important;
-    }
-    #error-message {
-        display: none;
-        color:red;
-        margin: 10% auto;
-        text-align: center;
-        font-family: 'Roboto', sans-serif !important;
-    }
+
     :root {
-  /* Exact Figma Brand Colors */
-  --brand-red: #EF1E35;           /* Primary Place to visit */
-  --brand-orange: #DF6E4B;        /* Exact location */
-  --brand-brown: #BE864A;         /* Near here */
-  --brand-pink: #EBB68E;          /* In this town / city */
-  --brand-black: #020202;         /* Black */
-  --brand-white: #FCFAFA;         /* White */
-  
-  /* Typography (if you want font updates) */
-  --font-headers: 'Helvetica Neue', 'Helvetica Neue Condensed', 'Helvetica', 'Arial Narrow', 'Arial', sans-serif;
-  --font-body: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
-}
+      /* Exact Figma Brand Colors */
+      --brand-red: #EF1E35;           /* Primary Place to visit */
+      --brand-orange: #DF6E4B;        /* Exact location */
+      --brand-brown: #BE864A;         /* Near here */
+      --brand-pink: #EBB68E;          /* In this town / city */
+      --brand-black: #020202;         /* Black */
+      --brand-white: #FCFAFA;         /* White */
+     
+      /* Typography */
+      --font-headers: 'Helvetica Neue', 'Helvetica Neue Condensed', 'Helvetica', 'Arial Narrow', 'Arial', sans-serif;
+      --font-body: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
+    }
 
-/* Update body background to brand white */
-body {
-  background-color: var(--brand-white) !important;
-  color: var(--brand-black);
-}
+    /* Base styles */
+    body {
+      background-color: var(--brand-white) !important;
+      color: var(--brand-black);
+    }
 
-/* Update error message to brand red */
-#error-message {
-  color: var(--brand-red) !important;
-}
+    #error {
+      display: none;
+      margin: 10% auto;
+      text-align: center;
+      font-family: var(--font-body) !important;
+    }
 
+    #error-message {
+      display: none;
+      color: var(--brand-red) !important;
+      margin: 10% auto;
+      text-align: center;
+      font-family: var(--font-body) !important;
+    }
 
+    .title .year {
+      color: var(--brand-red) !important;
+    }
 
-.title .year {
-  color: var(--brand-red) !important;
-}
-h1, h2, h3, h4, h5, h6,
-.title,
-.legend-title,
-.text-h1, .text-h2, .text-h3, .text-h4, .text-h5, .text-h6 {
-  font-family: var(--font-headers) !important;
-  font-weight: 500;
-}
+    /* Typography - Mobile First */
+    
+    /* Base font sizes (mobile) */
+    body, .v-application, p, div, span, li, .v-btn {
+      font-family: var(--font-body) !important;
+      font-weight: 300;
+      font-size: 14px;
+      line-height: 1.5;
+    }
 
-/* Body - Gill Sans Light */
-body, .v-application,
-p, div, span, li, .v-btn {
-  font-family: var(--font-body) !important;
-  font-weight: 300;
-}
+    /* Main titles - consistent across all devices */
+    h1, h2, h3, h4, h5, h6, .title, .legend-title, .text-h1, .text-h2, .text-h3, .text-h4, .text-h5, .text-h6 {
+      font-family: var(--font-headers) !important;
+      font-weight: 500;
+    }
+
+    /* Title sizes */
+    h1, .text-h1, .title {
+      font-size: 24px;
+      line-height: 1.3;
+    }
+
+    h2, .text-h2 {
+      font-size: 20px;
+      line-height: 1.4;
+    }
+
+    h3, .text-h3 {
+      font-size: 18px;
+      line-height: 1.4;
+    }
+
+    /* Hyperlinks - match body text with brand colors */
+    a, a:link, a:visited {
+      font-family: var(--font-body) !important;
+      font-weight: 300;
+      font-size: inherit;
+      text-decoration: underline;
+      color: var(--brand-orange);
+    }
+
+    a:hover, a:focus {
+      color: var(--brand-red);
+      text-decoration: underline;
+    }
+
+    /* Desktop adjustments - larger body text */
+    @media (min-width: 768px) {
+      body, .v-application, p, div, span, li, .v-btn {
+        font-size: 18px; /* Larger for desktop */
+      }
+    }
   </style>
+
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-TEV3H4VCZW"></script>
   <script>
