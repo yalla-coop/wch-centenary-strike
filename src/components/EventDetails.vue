@@ -79,7 +79,7 @@ export default {
             // Force apply styles directly to each link element
             link.style.setProperty('font-family', "'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif", 'important');
             link.style.setProperty('font-weight', '300', 'important');
-            link.style.setProperty('font-size', window.innerWidth >= 768 ? '18px' : '14px', 'important');
+            link.style.setProperty('font-size', window.innerWidth >= 768 ? '16px' : '14px', 'important');
             link.style.setProperty('text-decoration', 'underline', 'important');
             link.style.setProperty('color', '#EBB68E', 'important');
             link.style.setProperty('outline', 'none', 'important');
@@ -182,7 +182,7 @@ export default {
   #event-details {
     /* All text including links scale up on desktop */
     a, a:link, a:visited {
-      font-size: 18px !important; /* Desktop size */
+      font-size: 16px !important; /* Desktop size */
     }
   }}
 </style>
