@@ -54,7 +54,6 @@
                 >campaigns@gftu.org.uk</a
               >.
             </p>
-
             <p>Use the search box to search by key word or phrase.</p>
 
             <div class="partners-section">
@@ -558,9 +557,13 @@ export default {
         font-family: "Gill Sans", "Gill Sans MT", "Calibri", "Trebuchet MS",
           sans-serif;
         text-decoration: underline;
-        font-size: 13px;
+        font-size: 14px;
         line-height: 1.4;
         transition: all 0.2s ease;
+
+        @media (min-width: 768px) {
+          font-size: 16px;
+        }
 
         &:hover {
           color: #be864a;
