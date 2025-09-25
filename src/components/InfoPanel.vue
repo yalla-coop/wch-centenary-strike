@@ -6,23 +6,191 @@
           <h3 style="font-family: 'ZillaSlab'; font-size: 24px">
             General Strike 100
           </h3>
-          <br>
-          <p>National museums, libraries, archives, community groups, and individuals across the UK are marking the centenary of the 1926 General Strike.</p>
-          <p>This map brings together stories, exhibitions, and events to remember the strike and its impact on working people, as well as to highlight how these struggles connect to the present.</p>
-          
+          <br />
+          <p>
+            National museums, libraries, archives, community groups, and
+            individuals across the UK are marking the centenary of the 1926
+            General Strike.
+          </p>
+          <p>
+            This map brings together stories, exhibitions, and events to
+            remember the strike and its impact on working people, as well as to
+            highlight how these struggles connect to the present.
+          </p>
+
           <!-- Static content replacing the popup -->
           <div class="about-content">
-            
-            <p>In partnership with the trade union and wider labour movement, our project aims to develop an interactive map of sites for public visitation throughout 2026. This may include details of a specific exhibition, an educational event, or a unique collection to explore, all part of our rich history of the General Strike.</p>
-            
-            <p>Accompanying the interactive website, we plan to distribute a printed passport, encouraging public participation in visiting these sites and collecting stamps from each organisation they visit. This will provide discounts on related merchandise and foster a desire to visit as many sites as possible throughout the year.</p>
-            
-            <p>We are seeking donations from organisations and individuals to help us cover costs, <a href="https://bit.ly/GeneralStrike100" target="_blank" class="donate-link">click here </a>to support this project.</p>
-            
-            <p>If you want to get involved in the partnership, please contact <a href="mailto:campaigns@gftu.org.uk" class="contact-link">campaigns@gftu.org.uk</a>.</p>
-          </div>
-                    <p>Use the search box to search by key word or phrase.</p>
+            <p>
+              In partnership with the trade union and wider labour movement, our
+              project aims to develop an interactive map of sites for public
+              visitation throughout 2026. This may include details of a specific
+              exhibition, an educational event, or a unique collection to
+              explore, all part of our rich history of the General Strike.
+            </p>
 
+            <p>
+              Accompanying the interactive website, we plan to distribute a
+              printed passport, encouraging public participation in visiting
+              these sites and collecting stamps from each organisation they
+              visit. This will provide discounts on related merchandise and
+              foster a desire to visit as many sites as possible throughout the
+              year.
+            </p>
+
+            <p>
+              We are seeking donations from organisations and individuals to
+              help us cover costs,
+              <a
+                href="https://bit.ly/GeneralStrike100"
+                target="_blank"
+                class="donate-link"
+                >click here </a
+              >to support this project.
+            </p>
+
+            <p>
+              If you want to get involved in the partnership, please contact
+              <a href="mailto:campaigns@gftu.org.uk" class="contact-link"
+                >campaigns@gftu.org.uk</a
+              >.
+            </p>
+
+            <p>Use the search box to search by key word or phrase.</p>
+
+            <div class="partners-section">
+              <h3>Partners</h3>
+              <ul class="partners-list">
+                <li>
+                  <a
+                    href="https://www.beamish.org.uk/"
+                    target="_blank"
+                    class="partner-link"
+                    >Beamish - The Living Museum of the North</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="https://www.brh.org.uk"
+                    target="_blank"
+                    class="partner-link"
+                    >Bristol Radical History Group</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="https://www.tradeunionfreedom.co.uk/"
+                    target="_blank"
+                    class="partner-link"
+                    >Campaign for Trade Union Freedom</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="https://gftu.org.uk/"
+                    target="_blank"
+                    class="partner-link"
+                    >General Federation of Trade Unions</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="https://www.kentminingmuseum.co.uk/"
+                    target="_blank"
+                    class="partner-link"
+                    >Kent Mining Museum</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="https://phm.org.uk/"
+                    target="_blank"
+                    class="partner-link"
+                    >People's History Museum</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="https://maydayrooms.org/"
+                    target="_blank"
+                    class="partner-link"
+                    >Mayday Rooms</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="https://www.ncm.org.uk/"
+                    target="_blank"
+                    class="partner-link"
+                    >National Coal Mining Museum for England</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="https://blogs.ncl.ac.uk/labourandsociety/"
+                    target="_blank"
+                    class="partner-link"
+                    >Newcastle University's Labour & Society Research Group</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="https://www.radicalteatowel.com"
+                    target="_blank"
+                    class="partner-link"
+                    >Radical Tea Towel Company</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="https://radicalglasgowtours.com/"
+                    target="_blank"
+                    class="partner-link"
+                    >Radical Glasgow Tours</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="https://sslh.org.uk/"
+                    target="_blank"
+                    class="partner-link"
+                    >Society for the Study of Labour History</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="https://strikemap.org/"
+                    target="_blank"
+                    class="partner-link"
+                    >Strike Map</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="https://www.tuc.org.uk/about-tuc/tuc-archive-collection-and-library-collection"
+                    target="_blank"
+                    class="partner-link"
+                    >TUC Library Collections - London Metropolitan University</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="https://workingclasshistory.com/"
+                    target="_blank"
+                    class="partner-link"
+                    >Working Class History</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="https://wcml.org.uk/"
+                    target="_blank"
+                    class="partner-link"
+                    >Working Class Movement Library</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
         <div v-if="panelDisplay() === 'results'">
           <div @click="clearResults" class="close-btn">
@@ -39,17 +207,22 @@
           </div>
         </div>
         <div v-if="panelDisplay() === 'searchResults'">
-          <div class="close-btn" @click="() => {
-            clearResults();
-            clearSearch()
-          }" >
+          <div
+            class="close-btn"
+            @click="
+              () => {
+                clearResults();
+                clearSearch();
+              }
+            "
+          >
             <v-icon dark class="close-btn">mdi-close</v-icon>
           </div>
           <InfoResults
-              :results="searchResults"
-              :select-result="selectResult"
-              title="Search Results"
-              v-if="searchResults.length > 0"
+            :results="searchResults"
+            :select-result="selectResult"
+            title="Search Results"
+            v-if="searchResults.length > 0"
           />
           <div v-if="loading" class="side-loading">
             <v-progress-circular indeterminate color="white" />
@@ -71,24 +244,24 @@
 
 <script>
 import { EventBus } from "../js/DataManagement/EventBus";
-import { getOrientation } from '../js/helpers/orientationHelpers.js';
-import * as baserowApi from '../js/baserow/api.js'
-import InfoResults from './InfoResults.vue';
-import {h, render} from 'vue';
-import SearchControl from './SearchControl.vue';
-import mapboxgl from 'mapbox-gl';
-import EventDetails from './EventDetails.vue';
+import { getOrientation } from "../js/helpers/orientationHelpers.js";
+import * as baserowApi from "../js/baserow/api.js";
+import InfoResults from "./InfoResults.vue";
+import { h, render } from "vue";
+import SearchControl from "./SearchControl.vue";
+import mapboxgl from "mapbox-gl";
+import EventDetails from "./EventDetails.vue";
 
 export default {
   name: "InfoPanel",
-  components: {EventDetails, InfoResults},
+  components: { EventDetails, InfoResults },
   data: function () {
     return {
       selectedDat: [],
       loading: true,
       results: [],
       searchResults: [],
-      resultsType: 'nearby',
+      resultsType: "nearby",
     };
   },
   mounted: function () {
@@ -99,118 +272,157 @@ export default {
     });
     EventBus.$on("reset-info-panel", () => {
       this.clearResults();
-      this.clearSearch()
+      this.clearSearch();
     });
-    EventBus.$on("select-from-url", (datId) => { this.loadEvent(datId) });
-    EventBus.$on('clear-results-and-search', () => { this.clearSearch() })
+    EventBus.$on("select-from-url", (datId) => {
+      this.loadEvent(datId);
+    });
+    EventBus.$on("clear-results-and-search", () => {
+      this.clearSearch();
+    });
 
     // Mount search control to mapbox
-    let el = document.querySelector('.mapboxgl-ctrl-top-right')
-    let vNode = h(SearchControl, {
+    let el = document.querySelector(".mapboxgl-ctrl-top-right");
+    let vNode = h(
+      SearchControl,
+      {
         search: this.search,
         clearSearch: this.clearSearch,
-        clearResults: this.clearResults
-      }, {},
-    )
-    vNode.appContext = this.$.appContext
-    if (el) render(vNode, el)
+        clearResults: this.clearResults,
+      },
+      {}
+    );
+    vNode.appContext = this.$.appContext;
+    if (el) render(vNode, el);
     this.$map.addControl(
-        new mapboxgl.GeolocateControl({
-          positionOptions: {
-            enableHighAccuracy: true,
-          },
-          trackUserLocation: true,
-          showUserHeading: true,
-        })
+      new mapboxgl.GeolocateControl({
+        positionOptions: {
+          enableHighAccuracy: true,
+        },
+        trackUserLocation: true,
+        showUserHeading: true,
+      })
     );
   },
   methods: {
     clearResults() {
-      this.selectedDat = []
-      this.$store.commit('setSearchInputColor', 'white')
-      this.results = []
-      this.resultsType = 'nearby'
-      this.$store.commit("setSelectedEventId", -1)
-      this.$router.replace({path: this.$route.path, query: {}, hash: location.hash})
-      if(this.$map.getFilter('events-circles')) {
-        this.$layerManager.styleCircleSelection(this.$map.getFilter('events-circles')[2][1])
+      this.selectedDat = [];
+      this.$store.commit("setSearchInputColor", "white");
+      this.results = [];
+      this.resultsType = "nearby";
+      this.$store.commit("setSelectedEventId", -1);
+      this.$router.replace({
+        path: this.$route.path,
+        query: {},
+        hash: location.hash,
+      });
+      if (this.$map.getFilter("events-circles")) {
+        this.$layerManager.styleCircleSelection(
+          this.$map.getFilter("events-circles")[2][1]
+        );
       } else {
-        this.$layerManager.clearCircleFeatureStyling()
+        this.$layerManager.clearCircleFeatureStyling();
       }
       if (this.getOrientation() === "portrait") {
-        EventBus.$emit("force-info-close")
+        EventBus.$emit("force-info-close");
       }
     },
     clearSearch() {
-      this.searchResults = []
-      this.$store.commit('setSearchText', '')
-      this.$layerManager.clearCircleFeatureStyling()
+      this.searchResults = [];
+      this.$store.commit("setSearchText", "");
+      this.$layerManager.clearCircleFeatureStyling();
     },
     getOrientation,
     loadEvent(id) {
-      baserowApi.getEvent(id).then((resp) => {
-        this.selectedDat = [resp.data];
-        this.results = [resp.data];
-        this.loading = false;
-      }).catch((err) => {
-        console.error(err);
-        this.selectedDat = [];
-        this.results = [];
-        this.loading = false;
-      });
+      baserowApi
+        .getEvent(id)
+        .then((resp) => {
+          this.selectedDat = [resp.data];
+          this.results = [resp.data];
+          this.loading = false;
+        })
+        .catch((err) => {
+          console.error(err);
+          this.selectedDat = [];
+          this.results = [];
+          this.loading = false;
+        });
     },
     panelDisplay() {
-      if(this.selectedDat.length > 0) {
-        return 'event'
-      } else if(this.results.length > 0) {
-        return 'results'
-      } else if(this.searchResults.length > 0){
-        return 'searchResults'
+      if (this.selectedDat.length > 0) {
+        return "event";
+      } else if (this.results.length > 0) {
+        return "results";
+      } else if (this.searchResults.length > 0) {
+        return "searchResults";
       } else {
-        return 'intro'
+        return "intro";
       }
     },
     search(text) {
       if (!text) return;
-      this.$store.commit('setSearchLoading', true)
-      baserowApi.searchEvents(text).then((resp) => {
-        this.results = []
-        this.resultsType = 'search'
-        this.setData(resp.data.results)
-        if(this.searchResults.length > 0) {
-          this.$store.commit('setSearchInputColor', 'white')
-          this.$layerManager.clearCircleFeatureStyling()
-          this.$layerManager.filterResultsById(this.searchResults.map((r) => {return r.id;}))
-          this.zoomToSearchResults()
-        } else {
-          this.$layerManager.clearCircleFeatureStyling()
-          this.$store.commit('setSearchInputColor', 'red')
-        }
-        this.$store.commit('setSearchLoading', false)
-      }).catch((err) => {
-        console.error(err);
-        this.selectedDat = [];
-        this.results = [];
-        this.$store.commit('setSearchLoading', false)
-      });
+      this.$store.commit("setSearchLoading", true);
+      baserowApi
+        .searchEvents(text)
+        .then((resp) => {
+          this.results = [];
+          this.resultsType = "search";
+          this.setData(resp.data.results);
+          if (this.searchResults.length > 0) {
+            this.$store.commit("setSearchInputColor", "white");
+            this.$layerManager.clearCircleFeatureStyling();
+            this.$layerManager.filterResultsById(
+              this.searchResults.map((r) => {
+                return r.id;
+              })
+            );
+            this.zoomToSearchResults();
+          } else {
+            this.$layerManager.clearCircleFeatureStyling();
+            this.$store.commit("setSearchInputColor", "red");
+          }
+          this.$store.commit("setSearchLoading", false);
+        })
+        .catch((err) => {
+          console.error(err);
+          this.selectedDat = [];
+          this.results = [];
+          this.$store.commit("setSearchLoading", false);
+        });
     },
     selectResult(_id) {
       let self = this;
       this.loading = true;
-      let results = this.results.length > 0 ? this.results : this.searchResults
+      let results = this.results.length > 0 ? this.results : this.searchResults;
       const datId = results.filter((d) => d.id === _id)[0].id;
       this.$store.commit("setSelectedEventId", datId);
-      this.$router.replace({path: this.$route.path, query: {event: datId}, hash: location.hash})
-      this.$nextTick(() => {
-        self.$layerManager.styleCircleSelection([this.$store.getters.getSelectedEventId]);
+      this.$router.replace({
+        path: this.$route.path,
+        query: { event: datId },
+        hash: location.hash,
       });
-      this.loadEvent(datId)
+      this.$nextTick(() => {
+        self.$layerManager.styleCircleSelection([
+          this.$store.getters.getSelectedEventId,
+        ]);
+      });
+      this.loadEvent(datId);
     },
     setData(dat) {
-      if(this.resultsType === 'search') {
-        this.searchResults = (dat.length > 1) ? dat.sort((a, b) => (b.year - a.year || b.month - a.month || b.day - a.day)) : dat
+      if (this.resultsType === "search") {
+        this.searchResults =
+          dat.length > 1
+            ? dat.sort(
+                (a, b) => b.year - a.year || b.month - a.month || b.day - a.day
+              )
+            : dat;
       } else {
-        this.results = (dat.length > 1) ? dat.sort((a, b) => (b.year - a.year || b.month - a.month || b.day - a.day)) : dat
+        this.results =
+          dat.length > 1
+            ? dat.sort(
+                (a, b) => b.year - a.year || b.month - a.month || b.day - a.day
+              )
+            : dat;
         if (dat.length === 1) {
           this.selectResult(dat[0].id);
         }
@@ -228,11 +440,18 @@ export default {
       });
     },
     zoomToSearchResults() {
-      let lngs = this.searchResults.map((result) => { return +(result.longitude.substring(0,15)) })
-      let lats = this.searchResults.map((result) => { return +(result.latitude.substring(0,15)) })
-      let bounds = [[Math.min(...lngs), Math.min(...lats)], [Math.max(...lngs), Math.max(...lats)]]
+      let lngs = this.searchResults.map((result) => {
+        return +result.longitude.substring(0, 15);
+      });
+      let lats = this.searchResults.map((result) => {
+        return +result.latitude.substring(0, 15);
+      });
+      let bounds = [
+        [Math.min(...lngs), Math.min(...lats)],
+        [Math.max(...lngs), Math.max(...lats)],
+      ];
 
-      if(lngs.length === 1 && lats.length === 1) {
+      if (lngs.length === 1 && lats.length === 1) {
         this.$map.flyTo({
           center: [lngs[0], lats[0]],
           zoom: 7,
@@ -241,8 +460,8 @@ export default {
       } else {
         this.$map.fitBounds(bounds, {
           padding: { top: 75, bottom: 75, left: 200, right: 75 },
-          linear: true
-        })
+          linear: true,
+        });
       }
     },
   },
@@ -287,40 +506,66 @@ export default {
   }
   a {
     color: white;
-
     text-decoration: underline;
   }
   .about-content {
     margin-top: 16px;
 
-  
-    
     h4 {
       color: white;
       font-weight: bold;
     }
-    
+
     .donate-link {
-      color: #EBB68E;
-      font-family: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
-  
+      color: #ebb68e;
+      font-family: "Gill Sans", "Gill Sans MT", "Calibri", "Trebuchet MS",
+        sans-serif;
       text-decoration: underline;
       padding: 2px;
-      
+
       &:hover {
-        color: #BE864A;
+        color: #be864a;
       }
     }
-    
+
     .contact-link {
-      color: #EBB68E;
-      font-family: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
-   
+      color: #ebb68e;
+      font-family: "Gill Sans", "Gill Sans MT", "Calibri", "Trebuchet MS",
+        sans-serif;
       text-decoration: underline;
       padding: 2px;
-      
+
       &:hover {
-        color: #BE864A;
+        color: #be864a;
+      }
+    }
+
+    .partners-section {
+      margin-top: 20px;
+
+      .partners-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+          margin-bottom: 10px;
+        }
+      }
+
+      .partner-link {
+        color: #ebb68e;
+        font-family: "Gill Sans", "Gill Sans MT", "Calibri", "Trebuchet MS",
+          sans-serif;
+        text-decoration: underline;
+        font-size: 13px;
+        line-height: 1.4;
+        transition: all 0.2s ease;
+
+        &:hover {
+          color: #be864a;
+          text-decoration: none;
+        }
       }
     }
   }
