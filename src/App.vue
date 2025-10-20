@@ -224,6 +224,14 @@ export default {
 * {
   font-family: 'Roboto', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
+
+/* Fix italic text styling for <em> tags globally */
+em {
+  font-style: italic !important;
+  font-weight: inherit !important;
+  font-size: inherit !important;
+  font-family: inherit !important;
+}
 .portrait {
 
   #main-map {
