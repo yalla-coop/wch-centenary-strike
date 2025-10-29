@@ -1,0 +1,82 @@
+{
+  "intro": {
+    "title": "General Strike 100",
+    "paragraph1": "National museums, libraries, archives, community groups, and individuals across the UK are marking the centenary of the 1926 General Strike.",
+    "paragraph2": "This map brings together stories, exhibitions, and events to remember the strike and its impact on working people, as well as to highlight how these struggles connect to the present.",
+    "partnershipText": "In partnership with the trade union and wider labour movement, our project aims to develop an interactive map of sites for public visitation throughout 2026. This may include details of a specific exhibition, an educational event, or a unique collection to explore, all part of our rich history of the General Strike.",
+    "passportText": "Accompanying the interactive website, we plan to distribute a printed passport, encouraging public participation in visiting these sites and collecting stamps from each organisation they visit. This will provide discounts on related merchandise and foster a desire to visit as many sites as possible throughout the year.",
+    "donationText": "We are seeking donations from organisations and individuals to help us cover costs,",
+    "donationLink": "https://bit.ly/GeneralStrike100",
+    "donationLinkText": "click here",
+    "contactText": "If you want to get involved in the partnership, please contact",
+    "contactEmail": "campaigns@gftu.org.uk",
+    "searchText": "Use the search box to search by key word or phrase."
+  },
+  "partners": [
+    {
+      "name": "Beamish - The Living Museum of the North",
+      "url": "https://www.beamish.org.uk/"
+    },
+    {
+      "name": "Bristol Radical History Group",
+      "url": "https://www.brh.org.uk"
+    },
+    {
+      "name": "Campaign for Trade Union Freedom",
+      "url": "https://www.tradeunionfreedom.co.uk/"
+    },
+    {
+      "name": "General Federation of Trade Unions",
+      "url": "https://gftu.org.uk/"
+    },
+    {
+      "name": "Kent Mining Museum",
+      "url": "https://www.kentminingmuseum.co.uk/"
+    },
+    {
+      "name": "People's History Museum",
+      "url": "https://phm.org.uk/"
+    },
+    {
+      "name": "Mayday Rooms",
+      "url": "https://maydayrooms.org/"
+    },
+    {
+      "name": "National Coal Mining Museum for England",
+      "url": "https://www.ncm.org.uk/"
+    },
+    {
+      "name": "Newcastle University's Labour & Society Research Group",
+      "url": "https://blogs.ncl.ac.uk/labourandsociety/"
+    },
+    {
+      "name": "Radical Tea Towel Company",
+      "url": "https://www.radicalteatowel.com"
+    },
+    {
+      "name": "Radical Glasgow Tours",
+      "url": "https://radicalglasgowtours.com/"
+    },
+    {
+      "name": "Society for the Study of Labour History",
+      "url": "https://sslh.org.uk/"
+    },
+    {
+      "name": "Strike Map",
+      "url": "https://strikemap.org/"
+    },
+    {
+      "name": "TUC Library Collections - London Metropolitan University",
+      "url": "https://www.tuc.org.uk/about-tuc/tuc-archive-collection-and-library-collection"
+    },
+    {
+      "name": "Working Class History",
+      "url": "https://workingclasshistory.com/"
+    },
+    {
+      "name": "Working Class Movement Library",
+      "url": "https://wcml.org.uk/"
+    }
+  ]
+}
+

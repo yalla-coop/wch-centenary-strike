@@ -4,187 +4,53 @@
       <div id="results">
         <div v-if="panelDisplay() === 'intro'">
           <h3 style="font-family: 'ZillaSlab'; font-size: 24px">
-            General Strike 100
+            {{ content.intro.title || "General Strike 100" }}
           </h3>
           <br />
           <p>
-            National museums, libraries, archives, community groups, and
-            individuals across the UK are marking the centenary of the 1926
-            General Strike.
+            {{ content.intro.paragraph1 || "Content loading..." }}
           </p>
           <p>
-            This map brings together stories, exhibitions, and events to
-            remember the strike and its impact on working people, as well as to
-            highlight how these struggles connect to the present.
+            {{ content.intro.paragraph2 || "" }}
           </p>
 
           <!-- Static content replacing the popup -->
           <div class="about-content">
             <p>
-              In partnership with the trade union and wider labour movement, our
-              project aims to develop an interactive map of sites for public
-              visitation throughout 2026. This may include details of a specific
-              exhibition, an educational event, or a unique collection to
-              explore, all part of our rich history of the General Strike.
+              {{ content.intro.partnershipText }}
             </p>
 
             <p>
-              Accompanying the interactive website, we plan to distribute a
-              printed passport, encouraging public participation in visiting
-              these sites and collecting stamps from each organisation they
-              visit. This will provide discounts on related merchandise and
-              foster a desire to visit as many sites as possible throughout the
-              year.
+              {{ content.intro.passportText }}
             </p>
 
             <p>
-              We are seeking donations from organisations and individuals to
-              help us cover costs,
+              {{ content.intro.donationText }}
               <a
-                href="https://bit.ly/GeneralStrike100"
+                :href="content.intro.donationLink"
                 target="_blank"
                 class="donate-link"
-                >click here </a
+                >{{ content.intro.donationLinkText }} </a
               >to support this project.
             </p>
 
             <p>
-              If you want to get involved in the partnership, please contact
-              <a href="mailto:campaigns@gftu.org.uk" class="contact-link"
-                >campaigns@gftu.org.uk</a
+              {{ content.intro.contactText }}
+              <a :href="'mailto:' + content.intro.contactEmail" class="contact-link"
+                >{{ content.intro.contactEmail }}</a
               >.
             </p>
-            <p>Use the search box to search by key word or phrase.</p>
+            <p>{{ content.intro.searchText }}</p>
 
             <div class="partners-section">
               <h3>Partners</h3>
               <ul class="partners-list">
-                <li>
+                <li v-for="partner in content.partners" :key="partner.name">
                   <a
-                    href="https://www.beamish.org.uk/"
+                    :href="partner.url"
                     target="_blank"
                     class="partner-link"
-                    >Beamish - The Living Museum of the North</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://www.brh.org.uk"
-                    target="_blank"
-                    class="partner-link"
-                    >Bristol Radical History Group</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://www.tradeunionfreedom.co.uk/"
-                    target="_blank"
-                    class="partner-link"
-                    >Campaign for Trade Union Freedom</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://gftu.org.uk/"
-                    target="_blank"
-                    class="partner-link"
-                    >General Federation of Trade Unions</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://www.kentminingmuseum.co.uk/"
-                    target="_blank"
-                    class="partner-link"
-                    >Kent Mining Museum</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://phm.org.uk/"
-                    target="_blank"
-                    class="partner-link"
-                    >People's History Museum</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://maydayrooms.org/"
-                    target="_blank"
-                    class="partner-link"
-                    >Mayday Rooms</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://www.ncm.org.uk/"
-                    target="_blank"
-                    class="partner-link"
-                    >National Coal Mining Museum for England</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://blogs.ncl.ac.uk/labourandsociety/"
-                    target="_blank"
-                    class="partner-link"
-                    >Newcastle University's Labour & Society Research Group</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://www.radicalteatowel.com"
-                    target="_blank"
-                    class="partner-link"
-                    >Radical Tea Towel Company</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://radicalglasgowtours.com/"
-                    target="_blank"
-                    class="partner-link"
-                    >Radical Glasgow Tours</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://sslh.org.uk/"
-                    target="_blank"
-                    class="partner-link"
-                    >Society for the Study of Labour History</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://strikemap.org/"
-                    target="_blank"
-                    class="partner-link"
-                    >Strike Map</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://www.tuc.org.uk/about-tuc/tuc-archive-collection-and-library-collection"
-                    target="_blank"
-                    class="partner-link"
-                    >TUC Library Collections - London Metropolitan University</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://workingclasshistory.com/"
-                    target="_blank"
-                    class="partner-link"
-                    >Working Class History</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://wcml.org.uk/"
-                    target="_blank"
-                    class="partner-link"
-                    >Working Class Movement Library</a
+                    >{{ partner.name }}</a
                   >
                 </li>
               </ul>
@@ -261,9 +127,18 @@ export default {
       results: [],
       searchResults: [],
       resultsType: "nearby",
+      content: {
+        intro: {},
+        partners: []
+      },
+      contentLoading: false,
+      contentError: null
     };
   },
   mounted: function () {
+    // Load content from JSON
+    this.loadContent();
+    
     EventBus.$on("clear-event", () => this.clearResults());
     EventBus.$on("new-panel", (dat) => {
       this.clearResults();
@@ -304,6 +179,43 @@ export default {
     );
   },
   methods: {
+    loadContent() {
+      this.contentLoading = true;
+      this.contentError = null;
+      fetch('/content.json')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Failed to load content');
+          }
+          return response.json();
+        })
+        .then(data => {
+          this.content = data;
+          this.contentLoading = false;
+        })
+        .catch(error => {
+          console.error('Error loading content:', error);
+          this.contentError = error.message;
+          this.contentLoading = false;
+          // Set default fallback content
+          this.content = {
+            intro: {
+              title: "General Strike 100",
+              paragraph1: "Content could not be loaded.",
+              paragraph2: "",
+              partnershipText: "",
+              passportText: "",
+              donationText: "",
+              donationLink: "",
+              donationLinkText: "",
+              contactText: "",
+              contactEmail: "",
+              searchText: ""
+            },
+            partners: []
+          };
+        });
+    },
     clearResults() {
       this.selectedDat = [];
       this.$store.commit("setSearchInputColor", "white");
