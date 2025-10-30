@@ -243,7 +243,17 @@ addBaserowToMap() {
                       "properties": {
                           "id": event.id,
                           "title": event.title,
-                          "geotag": event.geotag_info.toLowerCase().replaceAll(' ', '_').replaceAll('/', '_'),
+                          "geotag": (() => {
+                              const normalized = (event.geotag_info || '')
+                                .toLowerCase()
+                                .replaceAll(' ', '_')
+                                .replaceAll('/', '_');
+                              // Treat both singular and plural partner organisation labels as place_to_visit
+                              if (normalized === 'partner_organisation' || normalized === 'partner_organisations') {
+                                  return 'place_to_visit';
+                              }
+                              return normalized;
+                          })(),
                           "year": event.year,
                           "month": event.month,
                           "day": event.day,

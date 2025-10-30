@@ -40,7 +40,7 @@
   "legend-items":[
     {
       "display":"place-to-visit",
-      "text": "Place to visit",
+      "text": "Partner organisation",
       "css":{
         "backgroundColor": "#EF1E35",
         "width": "12px",
