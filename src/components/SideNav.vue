@@ -63,7 +63,7 @@ export default {
   justify-content: flex-start; /* Keep content at the top */
   padding-top: 20px; /* Add some top padding */
   gap: 8px;
-  width: 160px; /* Fixed width for desktop */
+  width: 200px; /* Fixed width for desktop */
   background-color: #020202; /* Desktop background */
 }
 

@@ -229,6 +229,8 @@ export default {
   z-index: 1000;
   border: none;
   border-radius: 0 !important;
+  min-width: 200px;
+  width: 200px;
   .v-card-title {
     background: #DF6E4B;
     color: black;
@@ -251,7 +253,7 @@ export default {
 }
 .legend-list {
   list-style: none;
-  padding: 0 5px;
+  padding: 0 10px;
   padding-left: 0px !important;
 }
 .mapboxgl-ctrl-bottom-left {
