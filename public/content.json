@@ -42,12 +42,24 @@
       "url": "https://cultureedinburgh.com/"
     },
     {
+      "name": "Culture Matters",
+      "url": "https://www.culturematters.org.uk"
+    },
+    {
+      "name": "Finborough Theatre",
+      "url": "https://www.finboroughtheatre.co.uk"
+    },
+    {
       "name": "The Folk of Gloucester",
       "url": "https://www.gloucestercivictrust.org/the-folk-home/"
     },
     {
       "name": "General Federation of Trade Unions",
       "url": "https://gftu.org.uk/"
+    {
+      "name": "Jack Dean & Company",
+      "url": "https://www.jackdean.co.uk"
+    },
     },
     {
       "name": "The Kent Mining Museum",
@@ -78,6 +90,10 @@
       "url": "https://www.nwlh.org.uk/"
     },
     {
+      "name": "Nottinghamshire and Derbyshire Labour History Society",
+      "url": "https://ndlabourhistory.org"
+    },
+    {
       "name": "Plymouth branch, Historical Association",
       "url": "http://www.ha-plymouth.org.uk"
     },
@@ -104,6 +120,10 @@
     {
       "name": "Radical Glasgow Tours",
       "url": "https://radicalglasgowtours.com/"
+    },
+    {
+      "name": "Rowntree Society",
+      "url": "https://www.rowntreesociety.org.uk/"
     },
     {
       "name": "Society for the Study of Labour History",
