@@ -29,9 +29,14 @@
       --brand-black: #020202;         /* Black */
       --brand-white: #FCFAFA;         /* White */
      
-      /* Typography */
-      --font-headers: 'Helvetica Neue', 'Helvetica Neue Condensed', 'Helvetica', 'Arial Narrow', 'Arial', sans-serif;
-      --font-body: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
+      /* Typography 
+         - Gill Sans first (original brief - Mac users)
+         - Liberation Sans second (Ubuntu users)
+         - Cooper Hewitt Medium third (Windows users)
+         - Calibri last (final fallback)
+      */
+      --font-headers: 'Helvetica Neue', 'Helvetica Neue Condensed', 'Cooper Hewitt Semibold', 'Liberation Sans', 'Helvetica', 'Arial Narrow', 'Arial', sans-serif;
+      --font-body: 'Gill Sans', 'Gill Sans MT', 'Cooper Hewitt Medium', 'Liberation Sans', 'Calibri', 'Trebuchet MS', sans-serif;
     }
 
     /* Base styles */
