@@ -13,9 +13,19 @@
     "searchText": "Use the search box to search by key word or phrase."
   },
   "partners": [
+
+
+    {
+      "name": "Banner Theatre Co",
+      "url": "https://bannertheatre.co.uk/"
+    },
     {
       "name": "Beamish - The Living Museum of the North",
       "url": "https://www.beamish.org.uk/"
+    },
+    {
+      "name": "Birmingham People's History Archive",
+      "url": "https://www.bpha.online"
     },
     {
       "name": "Bristol Radical History Group",
@@ -32,6 +42,10 @@
     {
       "name": "Castleford Civic Society",
       "url": "https://castlefordcivicsociety.org.uk/"
+    },
+    {
+      "name": "Chard Museum,
+      "url": "https://www.chardmuseum.co.uk"
     },
     {
       "name": "Crab Museum",
@@ -58,8 +72,16 @@
       "url": "https://gftu.org.uk/"
     },
     {
+      "name": "Gloucestershire Archives",
+      "url": "https://www.gloucestershire.gov.uk/archives"
+    },
+    {
       "name": "Jack Dean & Company",
       "url": "https://www.jackdean.co.uk"
+    },
+    {
+      "name": "John Rylands Research Institute and Library",
+      "url": "https://www.library.manchester.ac.uk/rylands/"
     },
     {
       "name": "The Kent Mining Museum",
@@ -68,6 +90,10 @@
     {
       "name": "Leeds City Council",
       "url": "https://museumsandgalleries.leeds.gov.uk/leeds-industrial-museum-trhc"
+    },
+    {
+      "name": "Left on the Shelf Books",
+      "url": "https://www.leftontheshelfbooks.co.uk"
     },
     {
       "name": "Mary Quaile Club",
@@ -80,6 +106,14 @@
     {
       "name": "Museum of Bath at Work",
       "url": "https://museumofbath.org/"
+    },
+    {
+      "name": "National Coal Mining Museum for England",
+      "url": "https://www.ncm.org.uk/"
+    },
+    {
+      "name": "Newcastle University's Labour & Society Research Group",
+      "url": "https://blogs.ncl.ac.uk/labourandsociety/"
     },
     {
       "name": "North East Museums - Discovery Museum",
@@ -102,16 +136,8 @@
       "url": "https://phm.org.uk/"
     },
     {
-      "name": "Mayday Rooms",
-      "url": "https://maydayrooms.org/"
-    },
-    {
-      "name": "National Coal Mining Museum for England",
-      "url": "https://www.ncm.org.uk/"
-    },
-    {
-      "name": "Newcastle University's Labour & Society Research Group",
-      "url": "https://blogs.ncl.ac.uk/labourandsociety/"
+      "name": "Radical Stroud",
+      "url": "https://radicalstroud.co.uk/"
     },
     {
       "name": "Radical Tea Towel Company",
@@ -138,12 +164,24 @@
       "url": "https://strikemap.org/"
     },
     {
+      "name": "Trailblazers: Women of Greater Manchester",
+      "url": "https://www.instagram.com/TrailblazingWomenGM"
+    },
+    {
       "name": "TUC Library Collections - London Metropolitan University",
       "url": "https://www.tuc.org.uk/about-tuc/tuc-archive-collection-and-library-collection"
     },
     {
+      "name": "Unite the union",
+      "url": "https://www.unitetheunion.org"
+    },
+    {
       "name": "University of Brighton UCU",
       "url": "https://blogs.brighton.ac.uk/ucu/"
+    },
+    {
+      "name": "Wisecrack Productions",
+      "url": "https://www.cramlingtontrainwreckers.co.uk"
     },
     {
       "name": "Working Class History",
