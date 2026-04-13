@@ -14,6 +14,10 @@
   },
   "partners": [
     {
+      "name": "Ashford Museum",
+      "url": "https://ashfordmuseum.org.uk/blog/2026/03/27/100th-anniversary-of-the-general-strike/"
+    },
+    {
       "name": "Banner Theatre Co",
       "url": "https://bannertheatre.co.uk/"
     },
@@ -58,6 +62,10 @@
       "url": "https://www.culturematters.org.uk"
     },
     {
+      "name": "Englesea Brook Chapel and Museum of Primitive Methodism",
+      "url": "https://www.engleseabrook.org.uk"
+    },
+    {
       "name": "Finborough Theatre",
       "url": "https://www.finboroughtheatre.co.uk"
     },
@@ -72,6 +80,10 @@
     {
       "name": "Gloucestershire Archives",
       "url": "https://www.gloucestershire.gov.uk/archives"
+    },
+    {
+      "name": "Hounslow Trades Council",
+      "url": "https://hounslowtradescouncil.org"
     },
     {
       "name": "Jack Dean & Company",
@@ -94,6 +106,18 @@
       "url": "https://www.leftontheshelfbooks.co.uk"
     },
     {
+      "name": "Library of Birmingham, Archives and Collections",
+      "url": "https://www.birmingham.gov.uk/archives"
+    },
+    {
+      "name": "LSE Library",
+      "url": "https://www.lse.ac.uk/library"
+    },
+    {
+      "name": "Marx Memorial Library & Workers' School",
+      "url": "https://www.marx-memorial-library.org.uk/"
+    },
+    {
       "name": "Mary Quaile Club",
       "url": "https://maryquaileclub.wordpress.com/"
     },
@@ -104,6 +128,14 @@
     {
       "name": "Museum of Bath at Work",
       "url": "https://museumofbath.org/"
+    },
+    {
+      "name": "National Co-operative Archives",
+      "url": "https://www.co-operativeheritage.coop/visit-the-archive"
+    },
+    {
+      "name": "National Library of Scotland",
+      "url": "https://www.nls.uk/"
     },
     {
       "name": "Newcastle University's Labour & Society Research Group",
@@ -128,6 +160,10 @@
     {
       "name": "People's History Museum",
       "url": "https://phm.org.uk/"
+    },
+    {
+      "name": "Radical History Faction",
+      "url": "https://radicalhistoryfaction.wordpress.com/"
     },
     {
       "name": "Radical Stroud",
